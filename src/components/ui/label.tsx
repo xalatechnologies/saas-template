@@ -13,7 +13,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         ref={ref}
         className={cn(
           'text-base font-semibold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mb-2 block',
-          className
+          className,
         )}
         {...props}
       >
@@ -21,7 +21,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
         {required && <span className="ml-1 text-destructive">*</span>}
       </label>
     );
-  }
+  },
 );
 
 Label.displayName = 'Label';

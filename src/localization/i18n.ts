@@ -12,20 +12,18 @@ const resources = {
   ar: { translation: ar },
 };
 
-i18n
-  .use(initReactI18next)
-  .init({
-    resources,
-    lng: 'no', // Default language
-    fallbackLng: 'en',
-    
-    interpolation: {
-      escapeValue: false,
-    },
-    
-    react: {
-      useSuspense: false,
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources,
+  lng: 'no', // Default language
+  fallbackLng: 'en',
+
+  interpolation: {
+    escapeValue: false,
+  },
+
+  react: {
+    useSuspense: false,
+  },
+});
 
 export default i18n;

@@ -3,11 +3,14 @@ import type { AuthUser, LoginCredentials } from '@/types';
 
 export class AuthService {
   public async login(credentials: LoginCredentials): Promise<{ user: AuthUser; token: string }> {
-    const response = await apiClient.post<{ user: AuthUser; token: string }>('/auth/login', credentials);
-    
+    const response = await apiClient.post<{ user: AuthUser; token: string }>(
+      '/auth/login',
+      credentials,
+    );
+
     // Store token in localStorage
     localStorage.setItem('auth-token', response.token);
-    
+
     return response;
   }
 

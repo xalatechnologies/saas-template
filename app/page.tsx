@@ -2,17 +2,17 @@
 
 import React, { useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import { 
-  BasePage, 
-  PageSection, 
-  ContentGrid, 
+import {
+  BasePage,
+  PageSection,
+  ContentGrid,
   EmptyState,
   LoadingState,
-  TaskStats, 
-  TaskCard, 
-  TaskForm, 
+  TaskStats,
+  TaskCard,
+  TaskForm,
   Button,
-  AppText
+  AppText,
 } from '@/components';
 import { useAuth, useTasks, useUI } from '@/hooks';
 
@@ -28,7 +28,7 @@ export default function DashboardPage(): React.ReactElement {
   // Redirect to login if not authenticated
   useEffect(() => {
     requireAuth();
-    
+
     if (user) {
       fetchTasks();
     }
@@ -56,7 +56,7 @@ export default function DashboardPage(): React.ReactElement {
       <ContentGrid columns={3} gap="lg">
         {/* Recent Tasks - spans 2 columns */}
         <div className="lg:col-span-2">
-          <PageSection 
+          <PageSection
             variant="card"
             title={t('dashboard.recentTasks')}
             actions={
@@ -68,11 +68,7 @@ export default function DashboardPage(): React.ReactElement {
             {recentTasks.length > 0 ? (
               <ContentGrid columns={2} gap="md">
                 {recentTasks.map((task) => (
-                  <TaskCard
-                    key={task.id}
-                    task={task}
-                    onStatusChange={handleStatusChange}
-                  />
+                  <TaskCard key={task.id} task={task} onStatusChange={handleStatusChange} />
                 ))}
               </ContentGrid>
             ) : (
@@ -87,12 +83,9 @@ export default function DashboardPage(): React.ReactElement {
         </div>
         {/* Quick Actions Sidebar */}
         <div className="space-y-6">
-          <PageSection 
-            variant="card"
-            title={t('dashboard.quickActions')}
-          >
+          <PageSection variant="card" title={t('dashboard.quickActions')}>
             <div className="space-y-3">
-              <TaskForm 
+              <TaskForm
                 trigger={
                   <Button className="w-full justify-start" variant="outline">
                     <Plus className="mr-2 h-4 w-4" />
@@ -112,10 +105,7 @@ export default function DashboardPage(): React.ReactElement {
             </div>
           </PageSection>
 
-          <PageSection 
-            variant="card"
-            title={t('common.thisWeek')}
-          >
+          <PageSection variant="card" title={t('common.thisWeek')}>
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
                 <AppText variant="muted">{t('dashboard.completedTasks')}</AppText>

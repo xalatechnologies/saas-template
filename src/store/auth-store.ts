@@ -26,7 +26,7 @@ export const useAuthStore = create<AuthStore>()(
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        
+
         // Mock successful login
         const mockUser: AuthUser = {
           id: '1',
@@ -77,5 +77,5 @@ export const useAuthStore = create<AuthStore>()(
         state.error = null;
       });
     },
-  }))
+  })),
 );

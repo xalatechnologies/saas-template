@@ -43,7 +43,7 @@ export const I18nProvider = ({ children }: I18nProviderProps): JSX.Element => {
 
   useEffect(() => {
     i18n.changeLanguage(language);
-    
+
     // Update document direction for RTL languages
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
@@ -57,9 +57,7 @@ export const I18nProvider = ({ children }: I18nProviderProps): JSX.Element => {
 
   return (
     <I18nextProvider i18n={i18n}>
-      <I18nContext.Provider value={contextValue}>
-        {children}
-      </I18nContext.Provider>
+      <I18nContext.Provider value={contextValue}>{children}</I18nContext.Provider>
     </I18nextProvider>
   );
 };

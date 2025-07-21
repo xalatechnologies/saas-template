@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Plus, Calendar, User, Tag } from 'lucide-react';
-import { 
+import {
   Dialog,
   DialogContent,
   DialogHeader,
@@ -32,7 +32,7 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
   const { t } = useUI();
   const { createTask } = useTasks();
   const [open, setOpen] = useState(false);
-  
+
   const [formData, setFormData] = useState<CreateTaskInput>({
     title: '',
     description: '',
@@ -57,28 +57,28 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
     },
   });
 
-  const handleInputChange = (field: keyof CreateTaskInput) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: e.target.value,
-    }));
-    
-    if (errors[field]) {
-      clearFieldError(field);
-    }
-  };
+  const handleInputChange =
+    (field: keyof CreateTaskInput) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+
+      if (errors[field]) {
+        clearFieldError(field);
+      }
+    };
 
   const handlePriorityChange = (priority: TaskPriority): void => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       priority,
     }));
   };
 
   const handleDateChange = (date: Date | undefined): void => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       dueDate: date,
     }));
@@ -88,7 +88,7 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
     e.preventDefault();
     const submitData = {
       ...formData,
-      tags: formData.tags ? [...formData.tags] : undefined
+      tags: formData.tags ? [...formData.tags] : undefined,
     };
     await handleSubmit(submitData);
   };
@@ -103,12 +103,12 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
           </Button>
         )}
       </DialogTrigger>
-      
+
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>{t('tasks.create')}</DialogTitle>
         </DialogHeader>
-        
+
         <form onSubmit={onSubmit} className="space-y-8">
           {/* Title */}
           <div className="space-y-3">
@@ -128,9 +128,7 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
 
           {/* Description */}
           <div className="space-y-3">
-            <Label htmlFor="description">
-              {t('tasks.description')}
-            </Label>
+            <Label htmlFor="description">{t('tasks.description')}</Label>
             <Textarea
               id="description"
               value={formData.description}
@@ -196,10 +194,7 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
             >
               {t('forms.cancel')}
             </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-            >
+            <Button type="submit" disabled={isSubmitting}>
               {isSubmitting ? t('common.loading') : t('forms.save')}
             </Button>
           </div>

@@ -41,19 +41,19 @@ export const no = {
     new: 'Nye oppgaver',
     noTasksYet: 'Ingen oppgaver ennå',
     createFirstTask: 'Opprett din første oppgave for å komme i gang!',
-    
+
     // Status values
     todo: 'Å gjøre',
     inProgress: 'Pågående',
     completed: 'Fullført',
     cancelled: 'Avbrutt',
-    
+
     // Priority values
     low: 'Lav',
     medium: 'Middels',
     high: 'Høy',
     urgent: 'Hastegrad',
-    
+
     // Actions
     markComplete: 'Marker som fullført',
     markIncomplete: 'Marker som ikke fullført',
@@ -69,7 +69,7 @@ export const no = {
     reset: 'Tilbakestill',
     required: 'Påkrevd',
     optional: 'Valgfri',
-    
+
     // Validation messages
     validation: {
       required: 'Dette feltet er påkrevd',
@@ -93,7 +93,7 @@ export const no = {
     rememberMe: 'Husk meg',
     noAccount: 'Har du ikke konto?',
     hasAccount: 'Har du allerede konto?',
-    
+
     // Messages
     loginSuccess: 'Innlogging vellykket',
     loginError: 'Innlogging feilet',
@@ -112,12 +112,12 @@ export const no = {
     language: 'Språk',
     theme: 'Tema',
     notifications: 'Varsler',
-    
+
     // Theme options
     lightTheme: 'Lys',
     darkTheme: 'Mørk',
     systemTheme: 'System',
-    
+
     // Language options
     norwegian: 'Norsk',
     english: 'Engelsk',
@@ -148,11 +148,11 @@ export const no = {
     navigation: {
       home: 'Gå til forsiden',
       tasks: 'Vis oppgaver',
-      back: 'Tilbake'
+      back: 'Tilbake',
     },
     generateReport: 'Generer rapport',
     loading: 'Laster innhold...',
-    
+
     // Date/Time
     today: 'I dag',
     yesterday: 'I går',
@@ -168,7 +168,7 @@ export const no = {
     postalCode: 'Postnummer',
     municipality: 'Kommune',
     county: 'Fylke',
-    
+
     // Security classifications
     security: {
       public: 'Offentlig',
@@ -177,23 +177,25 @@ export const no = {
       secret: 'Hemmelig',
     },
   },
-  
+
   // Error pages
   errors: {
     notFound: {
       title: '404 - Side ikke funnet',
       subtitle: 'Vi kunne ikke finne siden du leter etter',
       heading: 'Siden finnes ikke',
-      message: 'Beklager, men vi kunne ikke finne siden du leter etter. Den kan ha blitt flyttet, omdøpt eller midlertidig utilgjengelig.',
+      message:
+        'Beklager, men vi kunne ikke finne siden du leter etter. Den kan ha blitt flyttet, omdøpt eller midlertidig utilgjengelig.',
     },
     unexpected: {
       title: 'Noe gikk galt',
       subtitle: 'Det oppstod en feil under behandling av forespørselen din',
       heading: 'Applikasjonsfeil',
-      message: 'Beklager, men det oppstod en uventet feil. Vår tekniske team har blitt varslet om problemet.',
+      message:
+        'Beklager, men det oppstod en uventet feil. Vår tekniske team har blitt varslet om problemet.',
       details: 'Feildetaljer',
       errorId: 'Feil-ID',
-      tryAgain: 'Prøv igjen'
+      tryAgain: 'Prøv igjen',
     },
   },
 };

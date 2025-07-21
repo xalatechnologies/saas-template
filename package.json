@@ -24,7 +24,11 @@
     "validate:file-size": "node scripts/check-file-size.js",
     "validate:component-purity": "node scripts/validate-component-purity.js",
     "validate:architecture": "node scripts/validate-architecture.js",
-    "validate:all": "pnpm run validate:design-tokens && pnpm run validate:file-size && pnpm run validate:component-purity && pnpm run validate:architecture",
+    "validate:component-structure": "node scripts/validate-component-structure.js",
+    "validate:build-syntax": "node scripts/validate-build-syntax.js",
+    "validate:localization": "node scripts/validate-localization-completeness.js",
+    "validate:all": "pnpm run validate:design-tokens && pnpm run validate:file-size && pnpm run validate:component-purity && pnpm run validate:architecture && pnpm run validate:component-structure && pnpm run validate:build-syntax && pnpm run validate:localization",
+    "prebuild": "pnpm run validate:build-syntax",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -101,10 +105,12 @@
     "@types/react-dom": "^19.1.6",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
+    "chalk": "^5.4.1",
     "glob": "^10.4.5",
     "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "prettier": "^3.6.2",
     "style-dictionary": "^4.4.0"
   }
 }

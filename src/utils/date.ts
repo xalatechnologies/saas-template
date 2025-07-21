@@ -1,4 +1,13 @@
-import { format, formatDistanceToNow, isValid, parseISO, startOfDay, endOfDay, isAfter, isBefore } from 'date-fns';
+import {
+  format,
+  formatDistanceToNow,
+  isValid,
+  parseISO,
+  startOfDay,
+  endOfDay,
+  isAfter,
+  isBefore,
+} from 'date-fns';
 import { nb, enUS, fr, ar } from 'date-fns/locale';
 
 const locales = {
@@ -8,9 +17,13 @@ const locales = {
   ar: ar,
 };
 
-export const formatDate = (date: Date | string, formatString = 'dd/MM/yyyy', language = 'no'): string => {
+export const formatDate = (
+  date: Date | string,
+  formatString = 'dd/MM/yyyy',
+  language = 'no',
+): string => {
   const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  
+
   if (!isValid(dateObj)) {
     return '';
   }
@@ -22,7 +35,7 @@ export const formatDate = (date: Date | string, formatString = 'dd/MM/yyyy', lan
 
 export const formatRelativeTime = (date: Date | string, language = 'no'): string => {
   const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  
+
   if (!isValid(dateObj)) {
     return '';
   }
@@ -35,7 +48,7 @@ export const formatRelativeTime = (date: Date | string, language = 'no'): string
 
 export const isOverdue = (dueDate: Date | string): boolean => {
   const dateObj = typeof dueDate === 'string' ? parseISO(dueDate) : dueDate;
-  
+
   if (!isValid(dateObj)) {
     return false;
   }
@@ -45,40 +58,37 @@ export const isOverdue = (dueDate: Date | string): boolean => {
 
 export const isDueToday = (dueDate: Date | string): boolean => {
   const dateObj = typeof dueDate === 'string' ? parseISO(dueDate) : dueDate;
-  
+
   if (!isValid(dateObj)) {
     return false;
   }
 
   const today = new Date();
-  return (
-    isAfter(dateObj, startOfDay(today)) &&
-    isBefore(dateObj, endOfDay(today))
-  );
+  return isAfter(dateObj, startOfDay(today)) && isBefore(dateObj, endOfDay(today));
 };
 
 export const isDueSoon = (dueDate: Date | string, days = 3): boolean => {
   const dateObj = typeof dueDate === 'string' ? parseISO(dueDate) : dueDate;
-  
+
   if (!isValid(dateObj)) {
     return false;
   }
 
   const soonDate = new Date();
   soonDate.setDate(soonDate.getDate() + days);
-  
+
   return isBefore(dateObj, endOfDay(soonDate)) && isAfter(dateObj, new Date());
 };
 
 export const getWeekNumber = (date: Date | string): number => {
   const dateObj = typeof date === 'string' ? parseISO(date) : date;
-  
+
   if (!isValid(dateObj)) {
     return 0;
   }
 
   const startOfYear = new Date(dateObj.getFullYear(), 0, 1);
   const pastDaysOfYear = (dateObj.getTime() - startOfYear.getTime()) / 86400000;
-  
+
   return Math.ceil((pastDaysOfYear + startOfYear.getDay() + 1) / 7);
 };

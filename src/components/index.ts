@@ -31,7 +31,12 @@ export { AccessibilitySettings } from './accessibility/AccessibilitySettings';
 export { GDPRBanner, GDPRDataRequest, useGDPRStore } from './gdpr/GDPRBanner';
 
 // Accessibility components
-export { AccessibilityProvider, useAccessibility, SkipLinks, FocusTrap } from './accessibility/AccessibilityProvider';
+export {
+  AccessibilityProvider,
+  useAccessibility,
+  SkipLinks,
+  FocusTrap,
+} from './accessibility/AccessibilityProvider';
 
 // Re-export types for convenience
 export type { BasePageProps } from './layout/BasePage';

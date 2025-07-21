@@ -36,19 +36,19 @@ export const en = {
     updatedAt: 'Updated',
     description: 'Description',
     tags: 'Tags',
-    
+
     // Status values
     todo: 'To do',
     inProgress: 'In progress',
     completed: 'Completed',
     cancelled: 'Cancelled',
-    
+
     // Priority values
     low: 'Low',
     medium: 'Medium',
     high: 'High',
     urgent: 'Urgent',
-    
+
     // Actions
     markComplete: 'Mark as complete',
     markIncomplete: 'Mark as incomplete',
@@ -64,7 +64,7 @@ export const en = {
     reset: 'Reset',
     required: 'Required',
     optional: 'Optional',
-    
+
     // Validation messages
     validation: {
       required: 'This field is required',
@@ -86,9 +86,9 @@ export const en = {
     name: 'Name',
     forgotPassword: 'Forgot password?',
     rememberMe: 'Remember me',
-    noAccount: "Don&apos;t have an account?",
+    noAccount: 'Don&apos;t have an account?',
     hasAccount: 'Already have an account?',
-    
+
     // Messages
     loginSuccess: 'Login successful',
     loginError: 'Login failed',
@@ -107,12 +107,12 @@ export const en = {
     language: 'Language',
     theme: 'Theme',
     notifications: 'Notifications',
-    
+
     // Theme options
     lightTheme: 'Light',
     darkTheme: 'Dark',
     systemTheme: 'System',
-    
+
     // Language options
     norwegian: 'Norwegian',
     english: 'English',
@@ -144,9 +144,9 @@ export const en = {
     navigation: {
       home: 'Go to homepage',
       tasks: 'View tasks',
-      back: 'Back'
+      back: 'Back',
     },
-    
+
     // Date/Time
     today: 'Today',
     yesterday: 'Yesterday',
@@ -162,7 +162,7 @@ export const en = {
     postalCode: 'Postal code',
     municipality: 'Municipality',
     county: 'County',
-    
+
     // Security classifications
     security: {
       public: 'Public',
@@ -171,23 +171,25 @@ export const en = {
       secret: 'Secret',
     },
   },
-  
+
   // Error pages
   errors: {
     notFound: {
       title: '404 - Page Not Found',
-      subtitle: 'We couldn\'t find the page you were looking for',
+      subtitle: "We couldn't find the page you were looking for",
       heading: 'Page Not Found',
-      message: 'Sorry, but we couldn\'t find the page you were looking for. It might have been moved, renamed, or is temporarily unavailable.',
+      message:
+        "Sorry, but we couldn't find the page you were looking for. It might have been moved, renamed, or is temporarily unavailable.",
     },
     unexpected: {
       title: 'Something Went Wrong',
       subtitle: 'An error occurred while processing your request',
       heading: 'Application Error',
-      message: 'Sorry, but an unexpected error occurred. Our technical team has been notified of the issue.',
+      message:
+        'Sorry, but an unexpected error occurred. Our technical team has been notified of the issue.',
       details: 'Error Details',
       errorId: 'Error ID',
-      tryAgain: 'Try Again'
+      tryAgain: 'Try Again',
     },
   },
 };

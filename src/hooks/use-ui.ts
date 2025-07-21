@@ -21,7 +21,7 @@ export const useUI = () => {
     type: 'info' | 'success' | 'warning' | 'error',
     title: string,
     message: string,
-    duration?: number
+    duration?: number,
   ): void => {
     addNotification({
       type,
@@ -36,18 +36,18 @@ export const useUI = () => {
     sidebarOpen,
     setSidebarOpen,
     toggleSidebar,
-    
+
     // Theme
     theme: currentTheme,
     isDarkMode,
     setTheme,
     toggleTheme: toggleDarkMode,
-    
+
     // Language
     language,
     setLanguage,
     t,
-    
+
     // Notifications
     notifications,
     addNotification,

@@ -21,12 +21,12 @@ export interface PageSectionProps {
  * @param props - Page section component properties
  * @returns JSX.Element
  */
-export const PageSection = ({ 
-  children, 
-  title, 
-  actions, 
+export const PageSection = ({
+  children,
+  title,
+  actions,
   variant = 'default',
-  className = '' 
+  className = '',
 }: PageSectionProps): JSX.Element => {
   if (variant === 'card') {
     return (
@@ -34,16 +34,10 @@ export const PageSection = ({
         {(title || actions) && (
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
             {title && <CardTitle className="text-foreground">{title}</CardTitle>}
-            {actions && (
-              <div className="flex items-center space-x-2">
-                {actions}
-              </div>
-            )}
+            {actions && <div className="flex items-center space-x-2">{actions}</div>}
           </CardHeader>
         )}
-        <CardContent className={title || actions ? 'pt-0' : ''}>
-          {children}
-        </CardContent>
+        <CardContent className={title || actions ? 'pt-0' : ''}>{children}</CardContent>
       </Card>
     );
   }
@@ -53,19 +47,11 @@ export const PageSection = ({
       <div className={cn('space-y-4', className)}>
         {(title || actions) && (
           <div className="flex items-center justify-between">
-            {title && (
-              <div className="text-lg font-semibold text-foreground">{title}</div>
-            )}
-            {actions && (
-              <div className="flex items-center space-x-2">
-                {actions}
-              </div>
-            )}
+            {title && <div className="text-lg font-semibold text-foreground">{title}</div>}
+            {actions && <div className="flex items-center space-x-2">{actions}</div>}
           </div>
         )}
-        <div className="space-y-4">
-          {children}
-        </div>
+        <div className="space-y-4">{children}</div>
       </div>
     );
   }
@@ -75,19 +61,11 @@ export const PageSection = ({
     <div className={cn('space-y-6', className)}>
       {(title || actions) && (
         <div className="flex items-center justify-between border-b border-border pb-4">
-          {title && (
-            <div className="text-xl font-semibold text-foreground">{title}</div>
-          )}
-          {actions && (
-            <div className="flex items-center space-x-2">
-              {actions}
-            </div>
-          )}
+          {title && <div className="text-xl font-semibold text-foreground">{title}</div>}
+          {actions && <div className="flex items-center space-x-2">{actions}</div>}
         </div>
       )}
-      <div className="space-y-4">
-        {children}
-      </div>
+      <div className="space-y-4">{children}</div>
     </div>
   );
 };

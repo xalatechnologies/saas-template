@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const validateNorwegianPersonalNumber = (personalNumber: string): boolean => {
   // Remove spaces and hyphens
   const cleaned = personalNumber.replace(/[\s-]/g, '');
-  
+
   // Check if it's 11 digits
   if (!/^\d{11}$/.test(cleaned)) {
     return false;
@@ -27,21 +27,21 @@ export const validateNorwegianPersonalNumber = (personalNumber: string): boolean
   const weights2 = [5, 4, 3, 2, 7, 6, 5, 4, 3, 2];
 
   const digits = cleaned.substring(0, 9).split('').map(Number);
-  
+
   let sum1 = 0;
   for (let i = 0; i < 9; i++) {
     sum1 += digits[i] * weights1[i];
   }
-  
+
   const control1 = (11 - (sum1 % 11)) % 11;
   if (control1 === 10) return false;
-  
+
   const allDigits = [...digits, control1];
   let sum2 = 0;
   for (let i = 0; i < 10; i++) {
     sum2 += allDigits[i] * weights2[i];
   }
-  
+
   const control2 = (11 - (sum2 % 11)) % 11;
   if (control2 === 10) return false;
 
@@ -68,18 +68,22 @@ export const loginSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
 
-export const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name too long'),
-  email: z.string().email('Invalid email format'),
-  password: z.string().min(8, 'Password must be at least 8 characters')
-    .regex(/[A-Z]/, 'Password must contain uppercase letter')
-    .regex(/[a-z]/, 'Password must contain lowercase letter')
-    .regex(/\d/, 'Password must contain number'),
-  confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don&apos;t match",
-  path: ["confirmPassword"],
-});
+export const registerSchema = z
+  .object({
+    name: z.string().min(2, 'Name must be at least 2 characters').max(50, 'Name too long'),
+    email: z.string().email('Invalid email format'),
+    password: z
+      .string()
+      .min(8, 'Password must be at least 8 characters')
+      .regex(/[A-Z]/, 'Password must contain uppercase letter')
+      .regex(/[a-z]/, 'Password must contain lowercase letter')
+      .regex(/\d/, 'Password must contain number'),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Passwords don&apos;t match',
+    path: ['confirmPassword'],
+  });
 
 // Email validation
 export const isValidEmail = (email: string): boolean => {

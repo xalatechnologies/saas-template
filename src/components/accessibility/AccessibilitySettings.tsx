@@ -1,26 +1,8 @@
 'use client';
 
 import React from 'react';
-import { 
-  Eye, 
-  MousePointer, 
-  Keyboard, 
-  Brain, 
-  Volume2, 
-  Monitor,
-  Zap,
-  RefreshCw
-} from 'lucide-react';
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardContent, 
-  Switch, 
-  Button, 
-  Separator,
-  Badge 
-} from '../ui';
+import { Eye, MousePointer, Keyboard, Brain, Volume2, Monitor, Zap, RefreshCw } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge } from '../ui';
 import { useAccessibility } from './AccessibilityProvider';
 
 export const AccessibilitySettings = (): JSX.Element => {
@@ -137,9 +119,12 @@ export const AccessibilitySettings = (): JSX.Element => {
 
   const getWCAGBadgeColor = (level: string): string => {
     switch (level) {
-      case 'AAA': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'AA': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      case 'AAA':
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
+      case 'AA':
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      default:
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
     }
   };
 
@@ -153,13 +138,13 @@ export const AccessibilitySettings = (): JSX.Element => {
             Tilgjengelighetsinnstillinger
           </CardTitle>
           <p className="text-sm text-muted-foreground">
-            Tilpass applikasjonen for dine tilgjengelighetsbehov. Alle innstillinger følger 
-            WCAG 2.2-retningslinjene for universell utforming.
+            Tilpass applikasjonen for dine tilgjengelighetsbehov. Alle innstillinger følger WCAG
+            2.2-retningslinjene for universell utforming.
           </p>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-3">
-            <Button 
+            <Button
               onClick={applySystemPreferences}
               variant="outline"
               className="flex items-center gap-2"
@@ -167,16 +152,12 @@ export const AccessibilitySettings = (): JSX.Element => {
               <Zap className="h-4 w-4" />
               Bruk systeminnstillinger
             </Button>
-            <Button 
-              onClick={resetToDefaults}
-              variant="outline"
-              className="flex items-center gap-2"
-            >
+            <Button onClick={resetToDefaults} variant="outline" className="flex items-center gap-2">
               <RefreshCw className="h-4 w-4" />
               Tilbakestill til standard
             </Button>
           </div>
-          
+
           <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
             <div className="flex items-start gap-2">
               <Monitor className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
@@ -185,8 +166,8 @@ export const AccessibilitySettings = (): JSX.Element => {
                   WCAG 2.2 AAA-kompatibel
                 </p>
                 <p className="text-blue-700 dark:text-blue-300">
-                  Denne applikasjonen følger de høyeste standardene for universell utforming 
-                  og tilgjengelighet, inkludert WCAG 2.2 AAA-retningslinjer.
+                  Denne applikasjonen følger de høyeste standardene for universell utforming og
+                  tilgjengelighet, inkludert WCAG 2.2 AAA-retningslinjer.
                 </p>
               </div>
             </div>
@@ -197,7 +178,7 @@ export const AccessibilitySettings = (): JSX.Element => {
       {/* Settings Groups */}
       {settingGroups.map((group) => {
         const Icon = group.icon;
-        
+
         return (
           <Card key={group.title}>
             <CardHeader>
@@ -205,9 +186,7 @@ export const AccessibilitySettings = (): JSX.Element => {
                 <Icon className="h-5 w-5" />
                 {group.title}
               </CardTitle>
-              <p className="text-sm text-muted-foreground">
-                {group.description}
-              </p>
+              <p className="text-sm text-muted-foreground">{group.description}</p>
             </CardHeader>
             <CardContent className="space-y-4">
               {group.settings.map((setting, index) => (
@@ -215,22 +194,20 @@ export const AccessibilitySettings = (): JSX.Element => {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 space-y-1">
                       <div className="flex items-center gap-2">
-                        <label 
+                        <label
                           htmlFor={setting.key}
                           className="font-medium text-foreground cursor-pointer"
                         >
                           {setting.label}
                         </label>
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           className={`text-xs ${getWCAGBadgeColor(setting.wcagLevel)}`}
                         >
                           WCAG {setting.wcagLevel}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {setting.description}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{setting.description}</p>
                     </div>
                     <Switch
                       id={setting.key}
@@ -255,22 +232,30 @@ export const AccessibilitySettings = (): JSX.Element => {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(settings).map(([key, value]) => (
-              <div 
+              <div
                 key={key}
                 className={`p-3 rounded-lg border ${
-                  value 
-                    ? 'bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800' 
+                  value
+                    ? 'bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800'
                     : 'bg-gray-50 border-gray-200 dark:bg-gray-950/20 dark:border-gray-800'
                 }`}
               >
-                <div className={`text-xs font-medium ${
-                  value ? 'text-green-800 dark:text-green-200' : 'text-gray-600 dark:text-gray-400'
-                }`}>
-                  {key.replace(/([A-Z])/g, ' \$1').replace(/^./, str => str.toUpperCase())}
+                <div
+                  className={`text-xs font-medium ${
+                    value
+                      ? 'text-green-800 dark:text-green-200'
+                      : 'text-gray-600 dark:text-gray-400'
+                  }`}
+                >
+                  {key.replace(/([A-Z])/g, ' \$1').replace(/^./, (str) => str.toUpperCase())}
                 </div>
-                <div className={`text-xs ${
-                  value ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-500'
-                }`}>
+                <div
+                  className={`text-xs ${
+                    value
+                      ? 'text-green-600 dark:text-green-400'
+                      : 'text-gray-500 dark:text-gray-500'
+                  }`}
+                >
                   {value ? 'Aktivert' : 'Deaktivert'}
                 </div>
               </div>

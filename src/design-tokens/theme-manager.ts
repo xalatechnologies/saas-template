@@ -8,7 +8,7 @@ interface ThemeState {
   currentTheme: ThemeConfig;
   availableThemes: Record<string, ThemeConfig>;
   isDarkMode: boolean;
-  
+
   // Actions
   setTheme: (themeId: string) => void;
   toggleDarkMode: () => void;
@@ -19,12 +19,12 @@ interface ThemeState {
 // Flatten all themes into a single object
 const getAllThemes = (): Record<string, ThemeConfig> => {
   const themes: Record<string, ThemeConfig> = {};
-  
+
   Object.values(sectorThemes).forEach((sectorTheme) => {
     themes[sectorTheme.light.id] = sectorTheme.light;
     themes[sectorTheme.dark.id] = sectorTheme.dark;
   });
-  
+
   return themes;
 };
 
@@ -43,11 +43,17 @@ const hexToHsl = (hex: string): string => {
   if (max !== min) {
     const d = max - min;
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    
+
     switch (max) {
-      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-      case g: h = (b - r) / d + 2; break;
-      case b: h = (r - g) / d + 4; break;
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
     }
     h /= 6;
   }
@@ -60,7 +66,7 @@ const applyThemeToCSS = (theme: ThemeConfig): void => {
   const root = document.documentElement;
   const { colors } = theme.tokens;
   const isDark = theme.id.includes('-dark');
-  
+
   // Apply Tailwind CSS variables with proper HSL values
   if (isDark) {
     // Dark theme colors
@@ -95,28 +101,28 @@ const applyThemeToCSS = (theme: ThemeConfig): void => {
     root.style.setProperty('--secondary', hexToHsl(colors.brand.secondary[100]));
     root.style.setProperty('--secondary-foreground', hexToHsl(colors.brand.secondary[900]));
   }
-  
+
   // Primary colors (always vibrant)
   root.style.setProperty('--primary', hexToHsl(colors.brand.primary[500]));
   root.style.setProperty('--primary-foreground', hexToHsl(colors.base.white));
-  
+
   // Semantic colors
   root.style.setProperty('--destructive', hexToHsl(colors.semantic.error[500]));
   root.style.setProperty('--destructive-foreground', hexToHsl(colors.base.white));
-  
+
   // Ring color for focus states
   root.style.setProperty('--ring', hexToHsl(colors.brand.primary[500]));
-  
+
   // Chart colors
   root.style.setProperty('--chart-1', hexToHsl(colors.brand.primary[500]));
   root.style.setProperty('--chart-2', hexToHsl(colors.brand.secondary[500]));
   root.style.setProperty('--chart-3', hexToHsl(colors.brand.accent[500]));
   root.style.setProperty('--chart-4', hexToHsl(colors.semantic.warning[500]));
   root.style.setProperty('--chart-5', hexToHsl(colors.semantic.success[500]));
-  
+
   // Update document class for dark mode
   root.classList.toggle('dark', isDark);
-  
+
   console.log('Applied theme:', theme.name, 'Primary color:', colors.brand.primary[500]);
 };
 
@@ -125,12 +131,12 @@ export const useThemeStore = create<ThemeState>()(
     immer((set, get) => {
       const allThemes = getAllThemes();
       const defaultTheme = allThemes['public-light'];
-      
+
       return {
         currentTheme: defaultTheme,
         availableThemes: allThemes,
         isDarkMode: false,
-        
+
         setTheme: (themeId: string): void => {
           const theme = get().availableThemes[themeId];
           if (theme) {
@@ -141,19 +147,17 @@ export const useThemeStore = create<ThemeState>()(
             applyThemeToCSS(theme);
           }
         },
-        
+
         toggleDarkMode: (): void => {
           const currentTheme = get().currentTheme;
           const isDark = get().isDarkMode;
           const sector = currentTheme.sector;
-          
-          const newThemeId = isDark 
-            ? `${sector}-light`
-            : `${sector}-dark`;
-            
+
+          const newThemeId = isDark ? `${sector}-light` : `${sector}-dark`;
+
           get().setTheme(newThemeId);
         },
-        
+
         applyTheme: (theme: ThemeConfig): void => {
           set((state) => {
             state.currentTheme = theme;
@@ -161,10 +165,10 @@ export const useThemeStore = create<ThemeState>()(
           });
           applyThemeToCSS(theme);
         },
-        
+
         getThemesBySector: (sector: string): ThemeConfig[] => {
           const themes = get().availableThemes;
-          return Object.values(themes).filter(theme => theme.sector === sector);
+          return Object.values(themes).filter((theme) => theme.sector === sector);
         },
       };
     }),
@@ -182,6 +186,6 @@ export const useThemeStore = create<ThemeState>()(
           }, 100);
         }
       },
-    }
-  )
+    },
+  ),
 );

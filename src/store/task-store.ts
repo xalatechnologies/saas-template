@@ -6,7 +6,7 @@ interface TaskStore {
   tasks: Task[];
   isLoading: boolean;
   error: string | null;
-  
+
   // Actions
   fetchTasks: () => Promise<void>;
   createTask: (task: CreateTaskInput) => Promise<void>;
@@ -15,7 +15,7 @@ interface TaskStore {
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
   clearError: () => void;
-  
+
   // Selectors
   getTasksByStatus: (status: TaskStatus) => Task[];
   getTasksByPriority: (priority: TaskPriority) => Task[];
@@ -81,7 +81,7 @@ export const useTaskStore = create<TaskStore>()(
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        
+
         set((state) => {
           state.tasks = mockTasks as any;
           state.isLoading = false;
@@ -103,7 +103,7 @@ export const useTaskStore = create<TaskStore>()(
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        
+
         const newTask: Task = {
           id: Date.now().toString(),
           ...taskInput,
@@ -134,7 +134,7 @@ export const useTaskStore = create<TaskStore>()(
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        
+
         set((state) => {
           const taskIndex = state.tasks.findIndex((task) => task.id === id);
           if (taskIndex !== -1) {
@@ -163,7 +163,7 @@ export const useTaskStore = create<TaskStore>()(
       try {
         // Simulate API call
         await new Promise((resolve) => setTimeout(resolve, 500));
-        
+
         set((state) => {
           state.tasks = state.tasks.filter((task) => task.id !== id);
           state.isLoading = false;
@@ -205,22 +205,22 @@ export const useTaskStore = create<TaskStore>()(
     getOverdueTasks: (): Task[] => {
       const now = new Date();
       return get().tasks.filter(
-        (task) => task.dueDate && task.dueDate < now && task.status !== 'completed'
+        (task) => task.dueDate && task.dueDate < now && task.status !== 'completed',
       );
     },
 
     getTasksStats: () => {
       const tasks = get().tasks;
       const now = new Date();
-      
+
       return {
         total: tasks.length,
         completed: tasks.filter((task) => task.status === 'completed').length,
         inProgress: tasks.filter((task) => task.status === 'in-progress').length,
         overdue: tasks.filter(
-          (task) => task.dueDate && task.dueDate < now && task.status !== 'completed'
+          (task) => task.dueDate && task.dueDate < now && task.status !== 'completed',
         ).length,
       };
     },
-  }))
+  })),
 );

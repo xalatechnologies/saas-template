@@ -21,12 +21,12 @@ export interface EmptyStateProps {
  * @param props - Empty state component properties
  * @returns JSX.Element
  */
-export const EmptyState = ({ 
-  icon, 
-  title, 
-  description, 
+export const EmptyState = ({
+  icon,
+  title,
+  description,
   action,
-  className = '' 
+  className = '',
 }: EmptyStateProps): JSX.Element => {
   return (
     <Card className={className}>
@@ -47,11 +47,7 @@ export const EmptyState = ({
               </AppText>
             )}
           </div>
-          {action && (
-            <div className="pt-2">
-              {action}
-            </div>
-          )}
+          {action && <div className="pt-2">{action}</div>}
         </div>
       </CardContent>
     </Card>

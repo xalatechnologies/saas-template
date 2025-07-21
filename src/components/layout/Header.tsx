@@ -39,9 +39,7 @@ export const Header = (): JSX.Element => {
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-xl ring-2 ring-primary/20">
             <span className="text-xl font-black text-primary-foreground">TM</span>
           </div>
-          <h1 className="text-2xl font-black text-foreground">
-            {t('dashboard.title')}
-          </h1>
+          <h1 className="text-2xl font-black text-foreground">{t('dashboard.title')}</h1>
         </div>
 
         {/* Spacer */}
@@ -57,25 +55,36 @@ export const Header = (): JSX.Element => {
             onClick={toggleTheme}
             aria-label={!isDarkMode ? t('settings.darkTheme') : t('settings.lightTheme')}
           >
-            {!isDarkMode ? (
-              <Moon className="h-6 w-6" />
-            ) : (
-              <Sun className="h-6 w-6" />
-            )}
+            {!isDarkMode ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
           </Button>
 
           {/* Language selector */}
-          <Button variant="ghost" size="default" className="h-12 w-12" aria-label={t('settings.language')}>
+          <Button
+            variant="ghost"
+            size="default"
+            className="h-12 w-12"
+            aria-label={t('settings.language')}
+          >
             <Globe className="h-6 w-6" />
           </Button>
 
           {/* Notifications */}
-          <Button variant="ghost" size="default" className="h-12 w-12" aria-label={t('common.notifications')}>
+          <Button
+            variant="ghost"
+            size="default"
+            className="h-12 w-12"
+            aria-label={t('common.notifications')}
+          >
             <Bell className="h-6 w-6" />
           </Button>
 
           {/* Settings */}
-          <Button variant="ghost" size="default" className="h-12 w-12" aria-label={t('navigation.settings')}>
+          <Button
+            variant="ghost"
+            size="default"
+            className="h-12 w-12"
+            aria-label={t('navigation.settings')}
+          >
             <Settings className="h-6 w-6" />
           </Button>
 

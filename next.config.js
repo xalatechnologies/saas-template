@@ -14,7 +14,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['images.pexels.com']
+    domains: ['images.pexels.com'],
   },
   // Ensure CSS is properly processed
   webpack: (config) => {

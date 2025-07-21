@@ -19,11 +19,11 @@ export interface ContentGridProps {
  * @param props - Content grid component properties
  * @returns JSX.Element
  */
-export const ContentGrid = ({ 
-  children, 
-  columns = 1, 
+export const ContentGrid = ({
+  children,
+  columns = 1,
   gap = 'md',
-  className = '' 
+  className = '',
 }: ContentGridProps): JSX.Element => {
   const gridClasses = {
     1: 'grid-cols-1',
@@ -40,13 +40,6 @@ export const ContentGrid = ({
   };
 
   return (
-    <div className={cn(
-      'grid',
-      gridClasses[columns],
-      gapClasses[gap],
-      className
-    )}>
-      {children}
-    </div>
+    <div className={cn('grid', gridClasses[columns], gapClasses[gap], className)}>{children}</div>
   );
 };

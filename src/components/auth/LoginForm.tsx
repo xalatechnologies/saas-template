@@ -16,7 +16,7 @@ export const LoginForm = (): JSX.Element => {
   const { t } = useUI();
   const router = useRouter();
   const { login, isLoading, error, redirectIfAuthenticated } = useAuth();
-  
+
   const [formData, setFormData] = useState<LoginCredentials>({
     email: '',
     password: '',
@@ -40,19 +40,19 @@ export const LoginForm = (): JSX.Element => {
    * @param field - Field name to update
    * @returns Change handler function
    */
-  const handleInputChange = (field: keyof LoginCredentials) => (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: e.target.value,
-    }));
-    
-    // Clear validation error when user starts typing
-    if (errors[field]) {
-      clearFieldError(field);
-    }
-  };
+  const handleInputChange =
+    (field: keyof LoginCredentials) =>
+    (e: React.ChangeEvent<HTMLInputElement>): void => {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: e.target.value,
+      }));
+
+      // Clear validation error when user starts typing
+      if (errors[field]) {
+        clearFieldError(field);
+      }
+    };
 
   /**
    * Handles form submission
@@ -67,7 +67,7 @@ export const LoginForm = (): JSX.Element => {
    * Toggles password visibility
    */
   const togglePasswordVisibility = (): void => {
-    setShowPassword(prev => !prev);
+    setShowPassword((prev) => !prev);
   };
 
   return (
@@ -77,14 +77,10 @@ export const LoginForm = (): JSX.Element => {
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-xl ring-2 ring-primary/20">
             <span className="text-2xl font-black text-primary-foreground">TM</span>
           </div>
-          <CardTitle className="text-3xl font-black text-foreground">
-            {t('auth.login')}
-          </CardTitle>
-          <p className="text-lg text-muted-foreground mt-3">
-            {t('dashboard.welcome')}
-          </p>
+          <CardTitle className="text-3xl font-black text-foreground">{t('auth.login')}</CardTitle>
+          <p className="text-lg text-muted-foreground mt-3">{t('dashboard.welcome')}</p>
         </CardHeader>
-        
+
         <CardContent className="space-y-8">
           <form onSubmit={onSubmit} className="space-y-6">
             {/* Email Field */}
@@ -169,7 +165,8 @@ export const LoginForm = (): JSX.Element => {
           <div className="mt-8 p-6 bg-muted rounded-xl border-2 border-border">
             <p className="text-base text-muted-foreground mb-3 font-medium">Demo credentials:</p>
             <p className="text-sm text-muted-foreground">
-              Email: demo@example.com<br />
+              Email: demo@example.com
+              <br />
               Password: password123
             </p>
           </div>

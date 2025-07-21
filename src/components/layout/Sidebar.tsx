@@ -72,7 +72,7 @@ export const Sidebar = (): JSX.Element => {
       <aside
         className={cn(
           'fixed left-0 top-0 z-50 h-full w-80 transform border-r-2 border-border bg-card shadow-2xl transition-transform duration-300 ease-in-out lg:translate-x-0',
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
         <div className="flex h-full flex-col bg-gradient-to-b from-card to-card/95">
@@ -84,7 +84,7 @@ export const Sidebar = (): JSX.Element => {
               </div>
               <span className="text-xl font-bold text-foreground">Task Management</span>
             </div>
-            
+
             {/* Close button for mobile */}
             <Button
               variant="ghost"
@@ -111,7 +111,7 @@ export const Sidebar = (): JSX.Element => {
                     'flex items-center space-x-4 rounded-xl px-6 py-4 text-base font-semibold transition-all duration-200 hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-0.5',
                     isActive
                       ? 'bg-gradient-to-r from-primary to-primary/90 text-primary-foreground shadow-lg'
-                      : 'text-muted-foreground hover:text-foreground'
+                      : 'text-muted-foreground hover:text-foreground',
                   )}
                   onClick={closeSidebar}
                 >
@@ -124,9 +124,7 @@ export const Sidebar = (): JSX.Element => {
 
           {/* Footer */}
           <div className="border-t-2 border-border p-8">
-            <div className="text-sm text-muted-foreground font-medium">
-              Task Management v1.0
-            </div>
+            <div className="text-sm text-muted-foreground font-medium">Task Management v1.0</div>
           </div>
         </div>
       </aside>

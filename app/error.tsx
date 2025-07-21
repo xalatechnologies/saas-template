@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { 
-  BasePage, 
-  Button, 
+import {
+  BasePage,
+  Button,
   PageSection,
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import {
   CardTitle,
   EmptyState,
   AppText,
-  Heading
+  Heading,
 } from '@/components';
 import { AlertOctagon, RefreshCw } from 'lucide-react';
 import { useUI } from '@/hooks';
@@ -26,22 +26,16 @@ interface ErrorBoundaryProps {
  * @param props - Error information and reset function
  * @returns React element with error message and reset option
  */
-export default function ErrorBoundary({ 
-  error, 
-  reset 
-}: ErrorBoundaryProps): React.ReactElement {
+export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps): React.ReactElement {
   const { t } = useUI();
-  
+
   useEffect(() => {
     // Log the error to an error reporting service
     console.error('Application error:', error);
   }, [error]);
 
   return (
-    <BasePage
-      title={t('errors.unexpected.title')}
-      subtitle={t('errors.unexpected.subtitle')}
-    >
+    <BasePage title={t('errors.unexpected.title')} subtitle={t('errors.unexpected.subtitle')}>
       <PageSection variant="transparent">
         <EmptyState
           icon={<AlertOctagon className="text-destructive" />}
@@ -55,9 +49,7 @@ export default function ErrorBoundary({
                     <CardTitle>{t('errors.unexpected.details')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    <AppText className="font-medium">
-                      {error.message}
-                    </AppText>
+                    <AppText className="font-medium">{error.message}</AppText>
                     {error.digest && (
                       <AppText variant="small" className="text-muted-foreground">
                         {t('errors.unexpected.errorId')}: {error.digest}
@@ -66,12 +58,8 @@ export default function ErrorBoundary({
                   </CardContent>
                 </Card>
               )}
-              
-              <Button 
-                onClick={reset}
-                variant="default" 
-                className="flex items-center gap-2"
-              >
+
+              <Button onClick={reset} variant="default" className="flex items-center gap-2">
                 <RefreshCw className="h-4 w-4" />
                 {t('errors.unexpected.tryAgain')}
               </Button>

@@ -17,18 +17,18 @@ export const useTheme = () => {
     currentTheme,
     availableThemes,
     isDarkMode,
-    
+
     // Actions
     setTheme,
     toggleDarkMode,
     applyTheme,
     getThemesBySector,
-    
+
     // Computed values
     currentSector: currentTheme.sector,
     themeName: currentTheme.name,
     themeDescription: currentTheme.description,
-    
+
     // Helper functions
     isThemeActive: (themeId: string): boolean => currentTheme.id === themeId,
     getSectorThemes: (sector: string): ThemeConfig[] => getThemesBySector(sector),

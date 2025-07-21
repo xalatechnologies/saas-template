@@ -63,9 +63,12 @@ export const TaskStats = ({ stats }: TaskStatsProps): JSX.Element => {
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {statItems.map((item) => {
         const Icon = item.icon;
-        
+
         return (
-          <Card key={item.label} className="transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+          <Card
+            key={item.label}
+            className="transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
               <CardTitle className="text-base font-semibold text-muted-foreground">
                 {item.label}
@@ -77,10 +80,9 @@ export const TaskStats = ({ stats }: TaskStatsProps): JSX.Element => {
             <CardContent className="pt-0">
               <div className="text-4xl font-black text-foreground mb-2">{item.value}</div>
               <p className="text-sm text-muted-foreground font-medium">
-                {item.value === stats.total 
+                {item.value === stats.total
                   ? t('dashboard.totalTasks')
-                  : `${stats.total > 0 ? Math.round((item.value / stats.total) * 100) : 0}% av totalt`
-                }
+                  : `${stats.total > 0 ? Math.round((item.value / stats.total) * 100) : 0}% av totalt`}
               </p>
             </CardContent>
           </Card>

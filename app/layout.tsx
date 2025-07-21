@@ -3,15 +3,16 @@ import { Inter } from 'next/font/google';
 import { AppProviders } from '../src/providers/AppProviders';
 import './globals.css';
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter'
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
   title: 'Task Management - Oppgavestyring',
-  description: 'Professional task management application built with Next.js 14 and Norwegian compliance standards',
+  description:
+    'Professional task management application built with Next.js 14 and Norwegian compliance standards',
   keywords: ['task management', 'oppgaver', 'productivity', 'Norwegian', 'compliance'],
   authors: [{ name: 'Task Management Team' }],
   viewport: 'width=device-width, initial-scale=1',
@@ -29,9 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${inter.className} ${inter.variable}`} suppressHydrationWarning>
-        <AppProviders>
-          {children}
-        </AppProviders>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

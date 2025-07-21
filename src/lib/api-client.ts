@@ -28,7 +28,7 @@ export class ApiClient {
         }
         return config;
       },
-      (error) => Promise.reject(error)
+      (error) => Promise.reject(error),
     );
 
     // Response interceptor
@@ -45,7 +45,7 @@ export class ApiClient {
         const apiError = error.response?.data;
         if (apiError) {
           return Promise.reject(
-            new AppError(apiError.message, apiError.code, error.response?.status)
+            new AppError(apiError.message, apiError.code, error.response?.status),
           );
         }
 
@@ -53,10 +53,10 @@ export class ApiClient {
           new AppError(
             error.message || 'Network error',
             'NETWORK_ERROR',
-            error.response?.status || 500
-          )
+            error.response?.status || 500,
+          ),
         );
-      }
+      },
     );
   }
 
@@ -87,4 +87,6 @@ export class ApiClient {
 }
 
 // Create singleton instance
-export const apiClient = new ApiClient(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api');
+export const apiClient = new ApiClient(
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
+);

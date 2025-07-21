@@ -20,10 +20,10 @@ export interface LoadingStateProps {
  * @param props - Loading state component properties
  * @returns JSX.Element
  */
-export const LoadingState = ({ 
-  message = 'Loading...', 
+export const LoadingState = ({
+  message = 'Loading...',
   size = 'md',
-  className = '' 
+  className = '',
 }: LoadingStateProps): JSX.Element => {
   const sizeClasses = {
     sm: 'h-4 w-4',

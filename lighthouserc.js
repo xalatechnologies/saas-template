@@ -1,7 +1,11 @@
 module.exports = {
   ci: {
     collect: {
-      url: ['http://localhost:3000', 'http://localhost:3000/tasks', 'http://localhost:3000/settings'],
+      url: [
+        'http://localhost:3000',
+        'http://localhost:3000/tasks',
+        'http://localhost:3000/settings',
+      ],
       startServerCommand: 'npm start',
       numberOfRuns: 3,
     },

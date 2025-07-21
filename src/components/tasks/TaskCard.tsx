@@ -22,11 +22,11 @@ interface TaskCardProps {
  * @param props - Task card component properties
  * @returns React.ReactElement
  */
-export const TaskCard = ({ 
-  task, 
-  onEdit, 
-  onDelete, 
-  onStatusChange 
+export const TaskCard = ({
+  task,
+  onEdit,
+  onDelete,
+  onStatusChange,
 }: TaskCardProps): React.ReactElement => {
   const { t } = useUI();
 
@@ -35,7 +35,9 @@ export const TaskCard = ({
    * @param priority - Task priority level
    * @returns Badge variant string
    */
-  const getPriorityColor = (priority: Task['priority']): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
+  const getPriorityColor = (
+    priority: Task['priority'],
+  ): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
     switch (priority) {
       case 'urgent':
         return 'destructive';
@@ -55,7 +57,9 @@ export const TaskCard = ({
    * @param status - Task status
    * @returns Badge variant string
    */
-  const getStatusColor = (status: Task['status']): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
+  const getStatusColor = (
+    status: Task['status'],
+  ): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
     switch (status) {
       case 'completed':
         return 'default';
@@ -76,15 +80,15 @@ export const TaskCard = ({
    */
   const getDueDateStatus = (dueDate?: Date): { color: string; text: string } => {
     if (!dueDate) return { color: 'secondary', text: '' };
-    
+
     if (isOverdue(dueDate)) {
       return { color: 'destructive', text: 'Overdue' };
     }
-    
+
     if (isDueToday(dueDate)) {
       return { color: 'default', text: t('common.today') };
     }
-    
+
     return { color: 'secondary', text: formatDate(dueDate) };
   };
 
@@ -120,7 +124,7 @@ export const TaskCard = ({
                 </p>
               )}
             </div>
-            
+
             <Button
               variant="ghost"
               size="default"
@@ -184,17 +188,14 @@ export const TaskCard = ({
                   size="md"
                 />
               )}
-              
+
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={handleStatusToggle}
                 className="text-sm font-medium"
               >
-                {task.status === 'completed' 
-                  ? t('tasks.markIncomplete')
-                  : t('tasks.markComplete')
-                }
+                {task.status === 'completed' ? t('tasks.markIncomplete') : t('tasks.markComplete')}
               </Button>
             </div>
           </div>

@@ -2,15 +2,7 @@
 
 import React from 'react';
 import { Sun, Moon, Palette, Monitor } from 'lucide-react';
-import { 
-  Card, 
-  CardHeader, 
-  CardTitle, 
-  CardContent, 
-  Button, 
-  Badge,
-  Separator
-} from '../ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Separator } from '../ui';
 import { useThemeStore } from '@/design-tokens';
 import { sectorThemes } from '@/design-tokens';
 import { useUI } from '@/hooks';
@@ -21,13 +13,7 @@ import { useUI } from '@/hooks';
  */
 export const ThemeSettings = (): JSX.Element => {
   const { t } = useUI();
-  const { 
-    currentTheme, 
-    isDarkMode, 
-    setTheme, 
-    toggleDarkMode, 
-    getThemesBySector 
-  } = useThemeStore();
+  const { currentTheme, isDarkMode, setTheme, toggleDarkMode, getThemesBySector } = useThemeStore();
 
   /**
    * Handles sector theme change
@@ -104,18 +90,18 @@ export const ThemeSettings = (): JSX.Element => {
               {currentTheme.sector}
             </Badge>
           </div>
-          
+
           {/* Color Preview */}
           <div className="flex items-center gap-2">
-            <div 
+            <div
               className="w-8 h-8 rounded-full border-2 border-white shadow-lg"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.primary[500] }}
             />
-            <div 
+            <div
               className="w-8 h-8 rounded-full border-2 border-white shadow-lg"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.secondary[500] }}
             />
-            <div 
+            <div
               className="w-8 h-8 rounded-full border-2 border-white shadow-lg"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.accent[500] }}
             />
@@ -156,7 +142,8 @@ export const ThemeSettings = (): JSX.Element => {
         <CardHeader>
           <CardTitle>Sector Themes</CardTitle>
           <p className="text-sm text-muted-foreground">
-            Choose a theme designed for your industry or use case. Click any theme to apply it instantly.
+            Choose a theme designed for your industry or use case. Click any theme to apply it
+            instantly.
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -164,20 +151,20 @@ export const ThemeSettings = (): JSX.Element => {
             {sectors.map((sector) => {
               const isActive = currentTheme.sector === sector;
               const primaryColor = getSectorPrimaryColor(sector);
-              
+
               return (
                 <div
                   key={sector}
                   className={`p-4 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md ${
-                    isActive 
-                      ? 'border-primary bg-primary/5 shadow-md' 
+                    isActive
+                      ? 'border-primary bg-primary/5 shadow-md'
                       : 'border-border hover:border-primary/50'
                   }`}
                   onClick={() => handleSectorChange(sector)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div 
+                      <div
                         className="w-10 h-10 rounded-full border-2 border-white shadow-lg"
                         style={{ backgroundColor: primaryColor }}
                       />
@@ -188,9 +175,7 @@ export const ThemeSettings = (): JSX.Element => {
                         </p>
                       </div>
                     </div>
-                    {isActive && (
-                      <Badge variant="default">Active</Badge>
-                    )}
+                    {isActive && <Badge variant="default">Active</Badge>}
                   </div>
                 </div>
               );

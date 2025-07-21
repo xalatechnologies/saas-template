@@ -19,7 +19,7 @@ interface GDPRStore {
   consent: CookieConsent | null;
   bannerDismissed: boolean;
   showPreferences: boolean;
-  
+
   // Actions
   setConsent: (consent: Partial<CookieConsent>) => void;
   dismissBanner: () => void;
@@ -38,7 +38,7 @@ export const useGDPRStore = create<GDPRStore>()(
       consent: null,
       bannerDismissed: false,
       showPreferences: false,
-      
+
       setConsent: (newConsent) => {
         const current = get().consent || {
           necessary: true,
@@ -48,7 +48,7 @@ export const useGDPRStore = create<GDPRStore>()(
           timestamp: Date.now(),
           version: CONSENT_VERSION,
         };
-        
+
         set({
           consent: {
             ...current,
@@ -60,11 +60,11 @@ export const useGDPRStore = create<GDPRStore>()(
           showPreferences: false,
         });
       },
-      
+
       dismissBanner: () => set({ bannerDismissed: true }),
       showPreferencesModal: () => set({ showPreferences: true }),
       hidePreferencesModal: () => set({ showPreferences: false }),
-      
+
       acceptAll: () => {
         get().setConsent({
           necessary: true,
@@ -73,7 +73,7 @@ export const useGDPRStore = create<GDPRStore>()(
           marketing: true,
         });
       },
-      
+
       rejectAll: () => {
         get().setConsent({
           necessary: true,
@@ -82,7 +82,7 @@ export const useGDPRStore = create<GDPRStore>()(
           marketing: false,
         });
       },
-      
+
       resetConsent: () => {
         set({
           consent: null,
@@ -94,12 +94,13 @@ export const useGDPRStore = create<GDPRStore>()(
     {
       name: 'gdpr-consent',
       version: 1,
-    }
-  )
+    },
+  ),
 );
 
 export const GDPRBanner = (): JSX.Element => {
-  const { consent, bannerDismissed, showPreferences, acceptAll, rejectAll, showPreferencesModal } = useGDPRStore();
+  const { consent, bannerDismissed, showPreferences, acceptAll, rejectAll, showPreferencesModal } =
+    useGDPRStore();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -119,20 +120,20 @@ export const GDPRBanner = (): JSX.Element => {
               <div className="flex-shrink-0">
                 <Cookie className="h-6 w-6 text-primary" />
               </div>
-              
+
               <div className="flex-1 space-y-4">
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
                     Vi respekterer ditt personvern
                   </h3>
                   <p className="text-sm text-muted-foreground">
-                    Vi bruker informasjonskapsler og lignende teknologier for å forbedre din opplevelse, 
-                    analysere nettstedstrafikk og for markedsføringsformål. Du kan velge hvilke kategorier 
-                    du vil tillate. Nødvendige informasjonskapsler kan ikke deaktiveres da de er essensielle 
-                    for nettstedets funksjonalitet.
+                    Vi bruker informasjonskapsler og lignende teknologier for å forbedre din
+                    opplevelse, analysere nettstedstrafikk og for markedsføringsformål. Du kan velge
+                    hvilke kategorier du vil tillate. Nødvendige informasjonskapsler kan ikke
+                    deaktiveres da de er essensielle for nettstedets funksjonalitet.
                   </p>
                 </div>
-                
+
                 <div className="flex flex-wrap gap-3">
                   <Button onClick={acceptAll} className="bg-primary text-primary-foreground">
                     <Check className="h-4 w-4 mr-2" />
@@ -174,28 +175,32 @@ const GDPRPreferences = (): JSX.Element => {
     {
       key: 'necessary' as const,
       title: 'Nødvendige informasjonskapsler',
-      description: 'Disse informasjonskapslene er essensielle for at nettstedet skal fungere og kan ikke deaktiveres.',
+      description:
+        'Disse informasjonskapslene er essensielle for at nettstedet skal fungere og kan ikke deaktiveres.',
       required: true,
       examples: 'Autentisering, sikkerhet, språkinnstillinger',
     },
     {
       key: 'functional' as const,
       title: 'Funksjonelle informasjonskapsler',
-      description: 'Disse informasjonskapslene gjør det mulig for nettstedet å gi forbedret funksjonalitet og personalisering.',
+      description:
+        'Disse informasjonskapslene gjør det mulig for nettstedet å gi forbedret funksjonalitet og personalisering.',
       required: false,
       examples: 'Brukerinnstillinger, tema, tilgjengelighetsinnstillinger',
     },
     {
       key: 'analytics' as const,
       title: 'Analytiske informasjonskapsler',
-      description: 'Disse informasjonskapslene hjelper oss å forstå hvordan besøkende samhandler med nettstedet.',
+      description:
+        'Disse informasjonskapslene hjelper oss å forstå hvordan besøkende samhandler med nettstedet.',
       required: false,
       examples: 'Google Analytics, bruksstatistikk, ytelsesmålinger',
     },
     {
       key: 'marketing' as const,
       title: 'Markedsførings informasjonskapsler',
-      description: 'Disse informasjonskapslene brukes til å levere annonser som er mer relevante for deg.',
+      description:
+        'Disse informasjonskapslene brukes til å levere annonser som er mer relevante for deg.',
       required: false,
       examples: 'Målrettede annonser, sosiale medier, konverteringssporing',
     },
@@ -208,16 +213,9 @@ const GDPRPreferences = (): JSX.Element => {
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
               <Shield className="h-6 w-6 text-primary" />
-              <h2 className="text-xl font-semibold text-foreground">
-                Personverninnstillinger
-              </h2>
+              <h2 className="text-xl font-semibold text-foreground">Personverninnstillinger</h2>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={hidePreferencesModal}
-              aria-label="Lukk"
-            >
+            <Button variant="ghost" size="icon" onClick={hidePreferencesModal} aria-label="Lukk">
               <X className="h-4 w-4" />
             </Button>
           </div>
@@ -225,15 +223,15 @@ const GDPRPreferences = (): JSX.Element => {
           <div className="space-y-6">
             <div className="text-sm text-muted-foreground">
               <p className="mb-4">
-                Vi respekterer ditt personvern og gir deg full kontroll over hvilke 
-                informasjonskapsler som brukes på vårt nettsted. Du kan når som helst 
-                endre disse innstillingene.
+                Vi respekterer ditt personvern og gir deg full kontroll over hvilke
+                informasjonskapsler som brukes på vårt nettsted. Du kan når som helst endre disse
+                innstillingene.
               </p>
               <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
                 <AlertTriangle className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
                 <p className="text-blue-800 dark:text-blue-200 text-xs">
-                  <strong>GDPR-kompatibel:</strong> Denne løsningen følger EU&apos;s personvernforordning 
-                  og gir deg full kontroll over dine data.
+                  <strong>GDPR-kompatibel:</strong> Denne løsningen følger EU&apos;s
+                  personvernforordning og gir deg full kontroll over dine data.
                 </p>
               </div>
             </div>
@@ -244,26 +242,22 @@ const GDPRPreferences = (): JSX.Element => {
                   <div className="flex items-start justify-between gap-4 p-4 border border-border rounded-lg">
                     <div className="flex-1 space-y-2">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-medium text-foreground">
-                          {category.title}
-                        </h3>
+                        <h3 className="font-medium text-foreground">{category.title}</h3>
                         {category.required && (
                           <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
                             Påkrevd
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {category.description}
-                      </p>
+                      <p className="text-sm text-muted-foreground">{category.description}</p>
                       <p className="text-xs text-muted-foreground">
                         <strong>Eksempler:</strong> {category.examples}
                       </p>
                     </div>
                     <Switch
                       checked={preferences[category.key]}
-                      onCheckedChange={(checked) => 
-                        setPreferences(prev => ({ ...prev, [category.key]: checked }))
+                      onCheckedChange={(checked) =>
+                        setPreferences((prev) => ({ ...prev, [category.key]: checked }))
                       }
                       disabled={category.required}
                       aria-label={`Toggle ${category.title}`}
@@ -310,8 +304,7 @@ export const GDPRDataRequest = (): JSX.Element => {
           <Check className="h-12 w-12 text-green-600 mx-auto mb-4" />
           <h3 className="text-lg font-semibold mb-2">Forespørsel sendt</h3>
           <p className="text-sm text-muted-foreground">
-            Vi har mottatt din forespørsel og vil behandle den innen 30 dager 
-            som påkrevd av GDPR.
+            Vi har mottatt din forespørsel og vil behandle den innen 30 dager som påkrevd av GDPR.
           </p>
         </CardContent>
       </Card>
@@ -328,16 +321,29 @@ export const GDPRDataRequest = (): JSX.Element => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="text-sm font-medium mb-2 block">
-              Type forespørsel
-            </label>
+            <label className="text-sm font-medium mb-2 block">Type forespørsel</label>
             <div className="space-y-2">
               {[
-                { value: 'access', label: 'Tilgang til mine data', desc: 'Se hvilke personopplysninger vi har om deg' },
-                { value: 'delete', label: 'Slett mine data', desc: 'Be om sletting av dine personopplysninger' },
-                { value: 'portability', label: 'Dataportabilitet', desc: 'Få dine data i et maskinlesbart format' },
+                {
+                  value: 'access',
+                  label: 'Tilgang til mine data',
+                  desc: 'Se hvilke personopplysninger vi har om deg',
+                },
+                {
+                  value: 'delete',
+                  label: 'Slett mine data',
+                  desc: 'Be om sletting av dine personopplysninger',
+                },
+                {
+                  value: 'portability',
+                  label: 'Dataportabilitet',
+                  desc: 'Få dine data i et maskinlesbart format',
+                },
               ].map((option) => (
-                <label key={option.value} className="flex items-start gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent">
+                <label
+                  key={option.value}
+                  className="flex items-start gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent"
+                >
                   <input
                     type="radio"
                     name="requestType"

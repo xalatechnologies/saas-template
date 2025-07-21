@@ -7,18 +7,18 @@ interface UIStore {
   language: Language;
   sidebarOpen: boolean;
   notifications: Notification[];
-  
+
   // Theme actions
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
-  
+
   // Language actions
   setLanguage: (language: Language) => void;
-  
+
   // Sidebar actions
   setSidebarOpen: (open: boolean) => void;
   toggleSidebar: () => void;
-  
+
   // Notification actions
   addNotification: (notification: Omit<Notification, 'id'>) => void;
   removeNotification: (id: string) => void;
@@ -44,7 +44,7 @@ export const useUIStore = create<UIStore>()(
       set((state) => {
         state.theme = theme;
       });
-      
+
       // Update document class and localStorage
       document.documentElement.classList.toggle('dark', theme === 'dark');
       localStorage.setItem('theme', theme);
@@ -60,7 +60,7 @@ export const useUIStore = create<UIStore>()(
       set((state) => {
         state.language = language;
       });
-      
+
       // Update document direction for RTL languages
       document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
       document.documentElement.lang = language;
@@ -84,7 +84,7 @@ export const useUIStore = create<UIStore>()(
         ...notification,
         id: Date.now().toString(),
       };
-      
+
       set((state) => {
         state.notifications.push(newNotification);
       });
@@ -108,5 +108,5 @@ export const useUIStore = create<UIStore>()(
         state.notifications = [];
       });
     },
-  }))
+  })),
 );

@@ -30,10 +30,7 @@ const FORBIDDEN_HOOKS = [
 ];
 
 // Allowed hooks for pure components
-const ALLOWED_HOOKS = [
-  'React.forwardRef',
-  'React.memo',
-];
+const ALLOWED_HOOKS = ['React.forwardRef', 'React.memo'];
 
 /**
  * Check if a line contains forbidden hooks
@@ -44,21 +41,26 @@ const ALLOWED_HOOKS = [
  */
 function checkLineForHooks(line, filePath, lineNumber) {
   const violations = [];
-  
+
   // Skip comments and imports
   const trimmed = line.trim();
-  if (trimmed.startsWith('//') || trimmed.startsWith('/*') || trimmed.startsWith('*') || trimmed.startsWith('import')) {
+  if (
+    trimmed.startsWith('//') ||
+    trimmed.startsWith('/*') ||
+    trimmed.startsWith('*') ||
+    trimmed.startsWith('import')
+  ) {
     return violations;
   }
-  
+
   for (const hook of FORBIDDEN_HOOKS) {
     // Look for hook usage patterns
     const patterns = [
       new RegExp(`\\b${hook}\\s*\\(`, 'g'), // useState(
-      new RegExp(`\\b${hook}\\s*<`, 'g'),   // useState<
+      new RegExp(`\\b${hook}\\s*<`, 'g'), // useState<
       new RegExp(`const\\s+.*=\\s*${hook}\\s*\\(`, 'g'), // const [state] = useState(
     ];
-    
+
     for (const pattern of patterns) {
       if (pattern.test(line)) {
         violations.push({
@@ -69,12 +71,12 @@ function checkLineForHooks(line, filePath, lineNumber) {
           rule: 'component-purity',
           severity: 'error',
           hook: hook,
-          suggestion: getHookSuggestion(hook)
+          suggestion: getHookSuggestion(hook),
         });
       }
     }
   }
-  
+
   return violations;
 }
 
@@ -121,8 +123,8 @@ function isReactComponent(content) {
     /<\w+/,
     /JSX\.Element/,
   ];
-  
-  return componentPatterns.some(pattern => pattern.test(content));
+
+  return componentPatterns.some((pattern) => pattern.test(content));
 }
 
 /**
@@ -132,20 +134,20 @@ function isReactComponent(content) {
  */
 function validateFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  
+
   // Only check React components
   if (!isReactComponent(content)) {
     return [];
   }
-  
+
   const lines = content.split('\n');
   const violations = [];
-  
+
   lines.forEach((line, index) => {
     const lineViolations = checkLineForHooks(line, filePath, index + 1);
     violations.push(...lineViolations);
   });
-  
+
   return violations;
 }
 
@@ -154,36 +156,35 @@ function validateFile(filePath) {
  */
 function validateComponentPurity() {
   console.log('🧩 Validating component purity in UI directory...');
-  
+
   // Only check UI components directory
-  const patterns = [
-    'src/components/ui/**/*.{ts,tsx}',
-    'components/ui/**/*.{ts,tsx}',
-  ];
-  
+  const patterns = ['src/components/ui/**/*.{ts,tsx}', 'components/ui/**/*.{ts,tsx}'];
+
   let allViolations = [];
   let totalFiles = 0;
-  
-  patterns.forEach(pattern => {
+
+  patterns.forEach((pattern) => {
     const files = glob.sync(pattern);
-    
-    files.forEach(file => {
+
+    files.forEach((file) => {
       totalFiles++;
       const violations = validateFile(file);
       allViolations.push(...violations);
     });
   });
-  
+
   // Report results
   console.log(`📊 Checked ${totalFiles} UI component files`);
-  
+
   if (allViolations.length === 0) {
-    console.log('✅ Component purity validation passed! All UI components are pure and presentational.');
+    console.log(
+      '✅ Component purity validation passed! All UI components are pure and presentational.',
+    );
     return true;
   }
-  
+
   console.log(`❌ Component purity validation failed! Found ${allViolations.length} violations:\n`);
-  
+
   // Group violations by file
   const violationsByFile = allViolations.reduce((acc, violation) => {
     if (!acc[violation.file]) {
@@ -192,16 +193,16 @@ function validateComponentPurity() {
     acc[violation.file].push(violation);
     return acc;
   }, {});
-  
+
   // Display violations
   Object.entries(violationsByFile).forEach(([file, violations]) => {
     console.log(`📁 ${file}:`);
-    violations.forEach(violation => {
+    violations.forEach((violation) => {
       console.log(`  ❌ Line ${violation.line}:${violation.column} - ${violation.message}`);
       console.log(`     💡 Suggestion: ${violation.suggestion}\n`);
     });
   });
-  
+
   console.log('📖 Component Purity Guidelines:');
   console.log('   • UI components must be pure and presentational');
   console.log('   • No state management hooks (useState, useReducer)');
@@ -209,7 +210,7 @@ function validateComponentPurity() {
   console.log('   • No custom hooks that contain state or effects');
   console.log('   • Pass all data as props from parent components');
   console.log('   • Use React.forwardRef and React.memo when needed\n');
-  
+
   return false;
 }
 

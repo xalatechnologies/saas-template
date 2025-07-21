@@ -36,19 +36,19 @@ export const ar = {
     updatedAt: 'تم التحديث',
     description: 'الوصف',
     tags: 'العلامات',
-    
+
     // Status values
     todo: 'للقيام',
     inProgress: 'قيد التنفيذ',
     completed: 'مكتمل',
     cancelled: 'ملغي',
-    
+
     // Priority values
     low: 'منخفضة',
     medium: 'متوسطة',
     high: 'عالية',
     urgent: 'عاجلة',
-    
+
     // Actions
     markComplete: 'وضع علامة مكتمل',
     markIncomplete: 'وضع علامة غير مكتمل',
@@ -64,7 +64,7 @@ export const ar = {
     reset: 'إعادة تعيين',
     required: 'مطلوب',
     optional: 'اختياري',
-    
+
     // Validation messages
     validation: {
       required: 'هذا الحقل مطلوب',
@@ -88,7 +88,7 @@ export const ar = {
     rememberMe: 'تذكرني',
     noAccount: 'ليس لديك حساب؟',
     hasAccount: 'لديك حساب بالفعل؟',
-    
+
     // Messages
     loginSuccess: 'تم تسجيل الدخول بنجاح',
     loginError: 'فشل تسجيل الدخول',
@@ -105,12 +105,12 @@ export const ar = {
     language: 'اللغة',
     theme: 'السمة',
     notifications: 'الإشعارات',
-    
+
     // Theme options
     lightTheme: 'فاتح',
     darkTheme: 'داكن',
     systemTheme: 'النظام',
-    
+
     // Language options
     norwegian: 'النرويجية',
     english: 'الإنجليزية',
@@ -137,7 +137,7 @@ export const ar = {
     import: 'استيراد',
     print: 'طباعة',
     close: 'إغلاق',
-    
+
     // Date/Time
     today: 'اليوم',
     yesterday: 'أمس',
@@ -153,7 +153,7 @@ export const ar = {
     postalCode: 'الرمز البريدي',
     municipality: 'البلدية',
     county: 'المقاطعة',
-    
+
     // Security classifications
     security: {
       public: 'عام',

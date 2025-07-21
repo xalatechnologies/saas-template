@@ -21,12 +21,12 @@ export interface BasePageProps {
  * @param props - Base page component properties
  * @returns JSX.Element
  */
-export const BasePage = ({ 
-  children, 
-  title, 
-  subtitle, 
+export const BasePage = ({
+  children,
+  title,
+  subtitle,
   actions,
-  className = '' 
+  className = '',
 }: BasePageProps): JSX.Element => {
   return (
     <Layout>
@@ -46,18 +46,12 @@ export const BasePage = ({
                 </AppText>
               )}
             </div>
-            {actions && (
-              <div className="flex items-center space-x-4">
-                {actions}
-              </div>
-            )}
+            {actions && <div className="flex items-center space-x-4">{actions}</div>}
           </div>
         )}
 
         {/* Page Content */}
-        <div className="space-y-8">
-          {children}
-        </div>
+        <div className="space-y-8">{children}</div>
       </div>
     </Layout>
   );

@@ -13,7 +13,7 @@ export default function SettingsPage(): JSX.Element {
       <PageSection variant="card" title="Tema-innstillinger">
         <ThemeSettings />
       </PageSection>
-      
+
       <PageSection variant="card" title="Tilgjengelighet">
         <AccessibilitySettings />
       </PageSection>

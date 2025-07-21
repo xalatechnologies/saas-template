@@ -31,24 +31,24 @@ export const fr = {
     status: 'Statut',
     priority: 'Priorité',
     assignee: 'Assigné à',
-    dueDate: 'Date d\'échéance',
+    dueDate: "Date d'échéance",
     createdAt: 'Créé le',
     updatedAt: 'Modifié le',
     description: 'Description',
     tags: 'Étiquettes',
-    
+
     // Status values
     todo: 'À faire',
     inProgress: 'En cours',
     completed: 'Terminé',
     cancelled: 'Annulé',
-    
+
     // Priority values
     low: 'Basse',
     medium: 'Moyenne',
     high: 'Élevée',
     urgent: 'Urgente',
-    
+
     // Actions
     markComplete: 'Marquer comme terminé',
     markIncomplete: 'Marquer comme incomplet',
@@ -64,7 +64,7 @@ export const fr = {
     reset: 'Réinitialiser',
     required: 'Requis',
     optional: 'Optionnel',
-    
+
     // Validation messages
     validation: {
       required: 'Ce champ est requis',
@@ -79,7 +79,7 @@ export const fr = {
   auth: {
     login: 'Connexion',
     logout: 'Déconnexion',
-    register: 'S\'inscrire',
+    register: "S'inscrire",
     email: 'E-mail',
     password: 'Mot de passe',
     confirmPassword: 'Confirmer le mot de passe',
@@ -88,13 +88,13 @@ export const fr = {
     rememberMe: 'Se souvenir de moi',
     noAccount: 'Pas de compte ?',
     hasAccount: 'Déjà un compte ?',
-    
+
     // Messages
     loginSuccess: 'Connexion réussie',
     loginError: 'Échec de la connexion',
     logoutSuccess: 'Vous avez été déconnecté',
     registerSuccess: 'Inscription réussie',
-    registerError: 'Échec de l\'inscription',
+    registerError: "Échec de l'inscription",
   },
 
   // Settings
@@ -105,12 +105,12 @@ export const fr = {
     language: 'Langue',
     theme: 'Thème',
     notifications: 'Notifications',
-    
+
     // Theme options
     lightTheme: 'Clair',
     darkTheme: 'Sombre',
     systemTheme: 'Système',
-    
+
     // Language options
     norwegian: 'Norvégien',
     english: 'Anglais',
@@ -137,9 +137,9 @@ export const fr = {
     import: 'Importer',
     print: 'Imprimer',
     close: 'Fermer',
-    
+
     // Date/Time
-    today: 'Aujourd\'hui',
+    today: "Aujourd'hui",
     yesterday: 'Hier',
     tomorrow: 'Demain',
     thisWeek: 'Cette semaine',
@@ -153,7 +153,7 @@ export const fr = {
     postalCode: 'Code postal',
     municipality: 'Municipalité',
     county: 'Comté',
-    
+
     // Security classifications
     security: {
       public: 'Public',

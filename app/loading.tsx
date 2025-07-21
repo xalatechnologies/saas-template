@@ -11,7 +11,7 @@ import { useUI } from '@/hooks';
  */
 export default function Loading(): React.ReactElement {
   const { t } = useUI();
-  
+
   return (
     <PageSection variant="transparent" className="flex min-h-screen items-center justify-center">
       <LoadingState message={t('common.loading')} />

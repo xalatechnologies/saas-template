@@ -39,9 +39,5 @@ export const ThemeProvider = ({ children }: ThemeProviderProps): JSX.Element => 
     toggleDarkMode,
   };
 
-  return (
-    <ThemeContext.Provider value={contextValue}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={contextValue}>{children}</ThemeContext.Provider>;
 };

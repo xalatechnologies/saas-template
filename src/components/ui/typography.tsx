@@ -26,13 +26,8 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
 
     const commonProps = {
       ref,
-      className: cn(
-        'tracking-tight',
-        sizes[level],
-        variants[variant],
-        className
-      ),
-      ...props
+      className: cn('tracking-tight', sizes[level], variants[variant], className),
+      ...props,
     };
 
     switch (level) {
@@ -51,7 +46,7 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       default:
         return <h1 {...commonProps}>{children}</h1>;
     }
-  }
+  },
 );
 
 Heading.displayName = 'Heading';
@@ -79,15 +74,11 @@ export const AppText = React.forwardRef<HTMLParagraphElement, AppTextProps>(
     }
 
     return (
-      <p
-        ref={ref}
-        className={cn(variants[variant], className)}
-        {...props}
-      >
+      <p ref={ref} className={cn(variants[variant], className)} {...props}>
         {children}
       </p>
     );
-  }
+  },
 );
 
 AppText.displayName = 'AppText';
