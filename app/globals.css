@@ -1,0 +1,300 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default light theme colors - will be overridden by theme manager */
+    --background: 0 0% 100%;
+    --foreground: 220 27% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 27% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 27% 8%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 9% 46%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: 220 14% 96%;
+    --accent-foreground: 220 9% 46%;
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    
+    /* Default font family */
+    --font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  .dark {
+    /* Dark theme colors - will be overridden by theme manager */
+    --background: 220 27% 6%;
+    --foreground: 220 9% 89%;
+    --card: 220 27% 12%;
+    --card-foreground: 220 9% 89%;
+    --popover: 220 27% 12%;
+    --popover-foreground: 220 9% 89%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 27% 18%;
+    --secondary-foreground: 220 9% 89%;
+    --muted: 220 27% 18%;
+    --muted-foreground: 220 9% 65%;
+    --accent: 220 27% 18%;
+    --accent-foreground: 220 9% 89%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 85% 97%;
+    --border: 220 27% 18%;
+    --input: 220 27% 18%;
+    --ring: 221 83% 53%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family-sans);
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+  
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Enhanced theme transitions */
+:root {
+  transition: 
+    --background 0.3s ease,
+    --foreground 0.3s ease,
+    --primary 0.3s ease,
+    --secondary 0.3s ease,
+    --accent 0.3s ease,
+    --card 0.3s ease,
+    --border 0.3s ease;
+}
+
+* {
+  transition: 
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+/* Custom animations */
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s ease-out;
+}
+
+/* Accessibility Enhancements */
+
+/* High Contrast Mode */
+.high-contrast {
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+  --card: 0 0% 10%;
+  --card-foreground: 0 0% 100%;
+  --border: 0 0% 100%;
+  --input: 0 0% 100%;
+}
+
+/* Large Text Mode */
+.large-text {
+  font-size: calc(1rem * var(--font-size-multiplier, 1.25));
+}
+
+.large-text h1 { font-size: calc(2.25rem * var(--font-size-multiplier, 1.25)); }
+.large-text h2 { font-size: calc(1.875rem * var(--font-size-multiplier, 1.25)); }
+.large-text h3 { font-size: calc(1.5rem * var(--font-size-multiplier, 1.25)); }
+.large-text h4 { font-size: calc(1.25rem * var(--font-size-multiplier, 1.25)); }
+.large-text h5 { font-size: calc(1.125rem * var(--font-size-multiplier, 1.25)); }
+.large-text h6 { font-size: calc(1rem * var(--font-size-multiplier, 1.25)); }
+
+/* Enhanced Focus Indicators */
+.enhanced-focus *:focus {
+  outline: var(--focus-ring-width, 3px) solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Reduced Motion */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: var(--animation-duration, 0ms) !important;
+  transition-duration: var(--animation-duration, 0ms) !important;
+}
+
+/* Simplified UI */
+.simplified-ui {
+  --border-radius: 0px;
+}
+
+.simplified-ui * {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Reading Guide */
+.reading-guide {
+  position: relative;
+}
+
+.reading-guide::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  z-index: 9999;
+  pointer-events: none;
+  transform: translateY(var(--reading-guide-position, 50vh));
+}
+
+/* Skip Links */
+.skip-links {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  z-index: 9999;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  font-weight: 600;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Screen Reader Only Content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus Trap */
+.focus-trap-active {
+  position: relative;
+}
+
+.focus-trap-active::before,
+.focus-trap-active::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* ARIA Live Regions */
+[aria-live] {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* High Contrast Media Query Support */
+@media (prefers-contrast: high) {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --border: 0 0% 100%;
+  }
+}
+
+/* Forced Colors Mode Support */
+@media (forced-colors: active) {
+  * {
+    forced-color-adjust: auto;
+  }
+}

@@ -1,0 +1,491 @@
+# Cursor Rules for Task Management Web Application
+
+## Project Overview
+This is a comprehensive, production-ready task management application built with Next.js 14, featuring Norwegian compliance standards, multi-language support, and a sophisticated internal package architecture.
+
+## Core Architecture Principles
+
+### 1. Strict TypeScript Usage
+- ALWAYS use strict TypeScript with explicit return types
+- NO `any` types allowed - use proper typing
+- All interfaces must be readonly where appropriate
+- Use `type` for unions, `interface` for object shapes
+
+### 2. Component Structure Rules
+
+#### Component Organization
+```
+src/components/
+├── ui/                    # Base UI components (pure, no business logic)
+├── layout/               # Layout-specific components
+├── forms/                # Form components
+├── tasks/                # Task-specific components
+├── dashboard/            # Dashboard components
+├── auth/                 # Authentication components
+├── settings/             # Settings components
+├── accessibility/        # Accessibility components
+└── gdpr/                # GDPR compliance components
+```
+
+#### Component Requirements
+- ALL components must have explicit return type `: JSX.Element`
+- Use `readonly` for all props interfaces
+- NO raw HTML elements in pages - use UI components
+- Components must be pure and presentational in `/ui` directory
+- Business logic components go in feature directories
+
+#### Example Component Structure:
+```typescript
+interface ComponentProps {
+  readonly children: React.ReactNode;
+  readonly title?: string;
+  readonly variant?: 'default' | 'primary';
+}
+
+export const Component = ({ children, title, variant = 'default' }: ComponentProps): JSX.Element => {
+  return (
+    <div className={cn('base-classes', variantClasses[variant])}>
+      {children}
+    </div>
+  );
+};
+```
+
+### 3. Internal Package System
+
+#### Package Structure
+```
+src/packages/
+├── types/                # Shared TypeScript types
+├── store/               # Zustand state management
+├── localization/        # i18n with Norwegian support
+├── utils/               # Shared utilities
+├── libs/                # API clients and services
+├── ui-system/           # Reusable UI components
+├── providers/           # React context providers
+└── design-tokens/       # Design system tokens
+```
+
+#### Package Rules
+- Each package must have its own `index.ts` for exports
+- NO cross-dependencies between packages at same level
+- Use barrel exports for clean imports
+- All packages must be self-contained
+
+### 4. State Management (Zustand)
+
+#### Store Structure
+```typescript
+interface StoreState {
+  // State properties (readonly where appropriate)
+  readonly items: Item[];
+  isLoading: boolean;
+  error: string | null;
+  
+  // Actions
+  fetchItems: () => Promise<void>;
+  updateItem: (id: string, updates: Partial<Item>) => Promise<void>;
+  setLoading: (loading: boolean) => void;
+  setError: (error: string | null) => void;
+}
+
+export const useStore = create<StoreState>()(
+  immer((set, get) => ({
+    // Implementation with Immer for immutable updates
+  }))
+);
+```
+
+#### Store Rules
+- ALWAYS use Immer middleware for immutable updates
+- Separate actions from state properties
+- Use async actions for API calls
+- Include loading and error states
+
+### 5. Styling and Design System
+
+#### CSS Classes
+- Use Tailwind CSS exclusively
+- NO custom CSS except in globals.css for design tokens
+- Use `cn()` utility for conditional classes
+- Follow 8px spacing grid system
+
+#### Design Tokens
+- All colors, spacing, typography defined in design-tokens package
+- Theme system supports multiple sectors (public, health, education, etc.)
+- WCAG AAA compliance for all color combinations
+- Support for light/dark themes
+
+#### Component Variants
+```typescript
+const buttonVariants = cva(
+  'base-classes',
+  {
+    variants: {
+      variant: {
+        default: 'default-classes',
+        primary: 'primary-classes',
+      },
+      size: {
+        sm: 'small-classes',
+        md: 'medium-classes',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'md',
+    },
+  }
+);
+```
+
+### 6. Internationalization (i18n)
+
+#### Language Support
+- Primary: Norwegian Bokmål (no)
+- Secondary: English (en), French (fr), Arabic (ar)
+- RTL support for Arabic
+- Context-aware translations
+
+#### Translation Keys
+```typescript
+// Use nested structure
+const translations = {
+  navigation: {
+    dashboard: 'Oversikt',
+    tasks: 'Oppgaver',
+  },
+  tasks: {
+    create: 'Opprett oppgave',
+    status: {
+      todo: 'Å gjøre',
+      completed: 'Fullført',
+    },
+  },
+};
+```
+
+### 7. Accessibility Requirements
+
+#### WCAG Compliance
+- MUST meet WCAG 2.2 AAA standards
+- All interactive elements must be keyboard accessible
+- Proper ARIA labels and roles
+- Screen reader optimization
+- High contrast mode support
+
+#### Accessibility Features
+- Skip links for navigation
+- Focus management and trapping
+- Reduced motion support
+- Large text options
+- Screen reader announcements
+
+### 8. File Organization Rules
+
+#### File Naming
+- Use kebab-case for files: `task-card.tsx`
+- Use PascalCase for components: `TaskCard`
+- Use camelCase for utilities: `formatDate`
+- Use UPPER_CASE for constants: `API_ENDPOINTS`
+
+#### File Size Limits
+- Maximum 300 lines per file
+- Split large files into logical modules
+- Use proper imports/exports between modules
+- NO global variables for state sharing
+
+#### Import Organization
+```typescript
+// 1. React and Next.js imports
+import React from 'react';
+import { useRouter } from 'next/navigation';
+
+// 2. Third-party libraries
+import { create } from 'zustand';
+
+// 3. Internal packages (alphabetical)
+import { Button, Card } from '@/components';
+import { useAuth } from '@/hooks';
+import { Task } from '@/types';
+
+// 4. Relative imports
+import { TaskCard } from './TaskCard';
+```
+
+### 9. Error Handling
+
+#### Error Classes
+```typescript
+export class AppError extends Error {
+  public readonly code: string;
+  public readonly statusCode: number;
+  public readonly isOperational: boolean;
+}
+```
+
+#### Error Boundaries
+- Use React Error Boundaries for component errors
+- Provide user-friendly error messages
+- Log errors appropriately
+- Graceful degradation
+
+### 10. Norwegian Compliance
+
+#### Features Required
+- Personal number validation (Fødselsnummer)
+- Postal code validation
+- Security classification levels
+- GDPR compliance components
+- Norwegian government design patterns
+
+#### Validation
+```typescript
+export const validateNorwegianPersonalNumber = (personalNumber: string): boolean => {
+  // Implementation following Norwegian standards
+};
+```
+
+### 11. Testing and Quality
+
+#### Code Quality
+- ESLint with Next.js configuration
+- Prettier for code formatting
+- Strict TypeScript configuration
+- Import organization rules
+
+#### Type Safety
+- NO `any` types
+- Explicit return types for functions
+- Proper error handling with typed errors
+- Runtime validation with Zod schemas
+
+### 12. Performance Rules
+
+#### Optimization
+- Use React.memo for expensive components
+- Implement proper loading states
+- Optimize images and assets
+- Code splitting where appropriate
+
+#### Bundle Size
+- Monitor bundle size
+- Use dynamic imports for large components
+- Tree-shake unused code
+- Optimize dependencies
+
+## Development Workflow
+
+### Adding New Features
+1. Create types in `@/types`
+2. Add store if needed in `@/store`
+3. Create UI components in `@/components/ui`
+4. Build feature components in appropriate directory
+5. Add translations to all supported languages
+6. Ensure accessibility compliance
+7. Test with all themes
+
+### Code Review Checklist
+- [ ] TypeScript strict compliance
+- [ ] Accessibility requirements met
+- [ ] Norwegian compliance features
+- [ ] Proper error handling
+- [ ] Internationalization support
+- [ ] Theme system compatibility
+- [ ] File organization rules followed
+- [ ] Performance considerations
+- [ ] Design token compliance (NO hardcoded styling)
+
+## Common Patterns
+
+### Custom Hooks
+```typescript
+export const useFeature = () => {
+  const store = useFeatureStore();
+  const { t } = useUI();
+  
+  const handleAction = useCallback(async (): Promise<void> => {
+    // Implementation
+  }, []);
+  
+  return {
+    // Return object with clear interface
+  };
+};
+```
+
+### Form Handling
+```typescript
+const { errors, handleSubmit } = useFormValidation({
+  schema: validationSchema,
+  onSubmit: async (data) => {
+    // Handle form submission
+  },
+});
+```
+
+### API Integration
+```typescript
+// Use API client from @/lib
+const response = await apiClient.post<ResponseType>('/endpoint', data);
+```
+
+## CRITICAL: Design Token System Compliance
+
+### MANDATORY Design Token Usage
+ALL components MUST use design tokens exclusively. NO hardcoded styling is permitted.
+
+#### ❌ FORBIDDEN Patterns
+```typescript
+// NEVER use hardcoded values
+className="p-4 mb-6 text-blue-600 bg-gray-100 shadow-md rounded-lg h-12 w-64"
+className="space-x-2 gap-4 border-green-200 text-red-500"
+style={{ padding: '16px', margin: '24px' }}
+```
+
+#### ✅ REQUIRED Patterns
+```typescript
+// ALWAYS use design system classes
+className="p-8 mb-12 text-primary bg-muted shadow-xl rounded-xl h-16 w-80"
+className="space-x-4 gap-6 border-border text-destructive"
+// Use CSS variables for custom styling
+style={{ padding: 'var(--spacing-lg)', margin: 'var(--spacing-xl)' }}
+```
+
+### Design Token Categories
+
+#### Spacing & Sizing
+- **Spacing**: Use `space-x-4`, `gap-6`, `p-8`, `m-12` (multiples of 4)
+- **Heights**: `h-12`, `h-16`, `h-20`, `h-24` for interactive elements
+- **Widths**: `w-80`, `w-96` for containers, `max-w-md`, `max-w-lg` for content
+- **Padding**: `p-8`, `px-10`, `py-6` for generous spacing
+
+#### Colors
+- **Semantic Colors**: `bg-background`, `text-foreground`, `border-border`
+- **Brand Colors**: `bg-primary`, `text-primary-foreground`, `border-primary`
+- **State Colors**: `bg-destructive`, `text-success`, `border-warning`
+- **NEVER**: `bg-blue-500`, `text-red-600`, `border-green-200`
+
+#### Typography
+- **Font Sizes**: `text-base`, `text-lg`, `text-xl`, `text-2xl` (18px base)
+- **Font Weights**: `font-medium`, `font-semibold`, `font-bold`, `font-black`
+- **Line Heights**: `leading-normal`, `leading-relaxed`, `leading-loose`
+- **NEVER**: `text-sm` for body text, `font-normal` for headings
+
+#### Shadows & Effects
+- **Shadows**: `shadow-lg`, `shadow-xl`, `shadow-2xl` for depth
+- **Hover Effects**: `hover:shadow-2xl`, `hover:-translate-y-1`
+- **Focus States**: `focus-visible:ring-2`, `focus-visible:ring-primary`
+- **NEVER**: `shadow-sm`, custom shadow values
+
+#### Border Radius
+- **Standard**: `rounded-xl`, `rounded-2xl` for modern appearance
+- **Interactive**: `rounded-lg` minimum for buttons/inputs
+- **Cards**: `rounded-xl` or `rounded-2xl`
+- **NEVER**: `rounded`, `rounded-sm`, `rounded-md`
+
+### Component-Specific Requirements
+
+#### Buttons
+```typescript
+// REQUIRED button styling
+className="h-12 px-6 py-3 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl"
+```
+
+#### Inputs
+```typescript
+// REQUIRED input styling
+className="h-16 w-full px-4 py-3 text-base border-2 rounded-xl shadow-sm focus:shadow-md"
+```
+
+#### Cards
+```typescript
+// REQUIRED card styling
+className="p-8 rounded-xl shadow-xl hover:shadow-2xl hover:-translate-y-1"
+```
+
+#### Layout Containers
+```typescript
+// REQUIRED container styling
+className="space-y-8 p-8" // Generous spacing
+className="grid gap-6" // Consistent grid gaps
+```
+
+### Enforcement Rules
+
+1. **Pre-commit Validation**: All components must pass design token validation
+2. **Code Review Blocking**: PRs with hardcoded styling will be rejected
+3. **Automated Linting**: ESLint rules to catch hardcoded values
+4. **Design System Audit**: Regular audits to ensure compliance
+
+### Migration Guidelines
+
+When updating existing components:
+1. **Identify hardcoded values**: Look for specific pixel values, colors, spacing
+2. **Map to design tokens**: Replace with appropriate design system classes
+3. **Enhance professionally**: Upgrade to larger, more professional sizing
+4. **Test across themes**: Ensure compatibility with all sector themes
+5. **Verify accessibility**: Maintain WCAG compliance after changes
+
+### Professional Sizing Standards
+
+- **Minimum button height**: 48px (`h-12`)
+- **Preferred button height**: 64px (`h-16`)
+- **Minimum input height**: 64px (`h-16`)
+- **Card padding**: 32px (`p-8`) minimum
+- **Section spacing**: 48px (`space-y-12`) minimum
+- **Container width**: 320px (`w-80`) for sidebars
+- **Header height**: 96px (`h-24`) minimum
+
+### Design Token Validation
+
+Before submitting any component:
+1. ✅ No hardcoded colors (hex, rgb, named colors)
+2. ✅ No hardcoded spacing (px, rem values)
+3. ✅ No hardcoded dimensions (specific px/rem values)
+4. ✅ Uses semantic color classes
+5. ✅ Uses consistent spacing scale
+6. ✅ Uses professional shadow system
+7. ✅ Uses modern border radius values
+8. ✅ Maintains theme compatibility
+
+## Forbidden Patterns
+
+### ❌ Don't Do
+- Raw HTML elements in pages (use UI components)
+- `any` types
+- Global variables for state
+- Direct DOM manipulation
+- Inline styles
+- Hardcoded strings (use i18n)
+- Non-accessible components
+- Files over 300 lines
+- Hardcoded styling values (colors, spacing, dimensions)
+- Small button/input sizes (below h-12)
+- Inconsistent spacing patterns
+- Raw Tailwind classes without design token consideration
+
+### ✅ Do Instead
+- Use UI component system
+- Proper TypeScript types
+- Zustand stores for state
+- React patterns and hooks
+- Tailwind CSS classes
+- Translation keys
+- WCAG compliant components
+- Modular file organization
+- Design token-based styling exclusively
+- Professional sizing standards (h-16+ for inputs/buttons)
+- Consistent spacing scale (multiples of 4)
+- Semantic color usage from design system
+
+## Emergency Fixes
+
+### Common Issues
+1. **Theme not applying**: Check theme-manager.ts and CSS variable mapping
+2. **Context errors**: Ensure providers are properly wrapped
+3. **Type errors**: Add explicit types, avoid `any`
+4. **Accessibility issues**: Check ARIA labels and keyboard navigation
+5. **i18n missing**: Add translations to all language files
+
+Remember: This is a production-ready application with high standards for code quality, accessibility, and Norwegian compliance. Every change should maintain these standards.

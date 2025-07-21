@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit quality checks..."
+
+# Run TypeScript type checking
+echo "📝 Checking TypeScript types..."
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "❌ TypeScript type checking failed!"
+  exit 1
+fi
+
+# Run ESLint
+echo "🔧 Running ESLint..."
+npx eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 0
+if [ $? -ne 0 ]; then
+  echo "❌ ESLint failed!"
+  exit 1
+fi
+
+# Run Prettier check
+echo "💅 Checking code formatting..."
+npx prettier --check .
+if [ $? -ne 0 ]; then
+  echo "❌ Code formatting check failed! Run 'npm run format' to fix."
+  exit 1
+fi
+
+# Run custom validation scripts
+echo "🎨 Validating design tokens..."
+node scripts/validate-design-tokens.js
+if [ $? -ne 0 ]; then
+  echo "❌ Design token validation failed!"
+  exit 1
+fi
+
+echo "📏 Checking file sizes..."
+node scripts/check-file-size.js
+if [ $? -ne 0 ]; then
+  echo "❌ File size validation failed!"
+  exit 1
+fi
+
+echo "🧩 Validating component purity..."
+node scripts/validate-component-purity.js
+if [ $? -ne 0 ]; then
+  echo "❌ Component purity validation failed!"
+  exit 1
+fi
+
+echo "🏗️ Validating architecture..."
+node scripts/validate-architecture.js
+if [ $? -ne 0 ]; then
+  echo "❌ Architecture validation failed!"
+  exit 1
+fi
+
+echo "✅ All pre-commit checks passed!"
