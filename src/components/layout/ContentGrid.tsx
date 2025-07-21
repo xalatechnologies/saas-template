@@ -17,14 +17,14 @@ export interface ContentGridProps {
  * Content grid component for responsive layouts without raw HTML elements
  * Provides consistent grid patterns across the application
  * @param props - Content grid component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const ContentGrid = ({
   children,
   columns = 1,
   gap = 'md',
   className = '',
-}: ContentGridProps): JSX.Element => {
+}: ContentGridProps): React.ReactElement => {
   const gridClasses = {
     1: 'grid-cols-1',
     2: 'grid-cols-1 md:grid-cols-2',

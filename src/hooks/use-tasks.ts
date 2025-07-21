@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useTaskStore } from '@/store';
-import type { CreateTaskInput, UpdateTaskInput, TaskStatus, TaskPriority } from '@/types';
+import type { CreateTaskInput, UpdateTaskInput, TaskStatus } from '@/types';
 
 export const useTasks = () => {
   const {

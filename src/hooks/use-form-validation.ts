@@ -6,7 +6,7 @@ interface UseFormValidationOptions<T> {
   readonly onSubmit: (data: T) => Promise<void> | void;
 }
 
-export const useFormValidation = <T extends Record<string, any>>({
+export const useFormValidation = <T extends Record<string, unknown>>({
   schema,
   onSubmit,
 }: UseFormValidationOptions<T>) => {

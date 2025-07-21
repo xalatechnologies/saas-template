@@ -3,7 +3,6 @@
 import React from 'react';
 import { Layout } from './Layout';
 import { Heading, AppText } from '../ui';
-import { cn } from '@/utils';
 /**
  * Base page component interface for consistent page structure
  */
@@ -19,7 +18,7 @@ export interface BasePageProps {
  * Base page component that provides consistent layout and structure for all pages
  * Ensures no raw HTML elements are used in pages and maintains design system compliance
  * @param props - Base page component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const BasePage = ({
   children,
@@ -27,7 +26,7 @@ export const BasePage = ({
   subtitle,
   actions,
   className = '',
-}: BasePageProps): JSX.Element => {
+}: BasePageProps): React.ReactElement => {
   return (
     <Layout>
       <div className={`space-y-12 ${className}`}>

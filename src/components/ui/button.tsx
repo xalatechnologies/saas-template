@@ -46,10 +46,10 @@ export interface ButtonProps
 /**
  * Reusable Button component with consistent styling and variants
  * @param props - Button component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, ...props }, ref) => {
     return (
       <button className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />
     );

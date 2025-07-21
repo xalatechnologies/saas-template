@@ -25,7 +25,7 @@ interface ThemeProviderProps {
   readonly children: React.ReactNode;
 }
 
-export const ThemeProvider = ({ children }: ThemeProviderProps): JSX.Element => {
+export const ThemeProvider = ({ children }: ThemeProviderProps): React.ReactElement => {
   const { currentTheme, isDarkMode, setTheme, toggleDarkMode } = useThemeStore();
 
   useEffect(() => {

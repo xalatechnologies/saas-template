@@ -123,7 +123,6 @@ const applyThemeToCSS = (theme: ThemeConfig): void => {
   // Update document class for dark mode
   root.classList.toggle('dark', isDark);
 
-  console.log('Applied theme:', theme.name, 'Primary color:', colors.brand.primary[500]);
 };
 
 export const useThemeStore = create<ThemeState>()(

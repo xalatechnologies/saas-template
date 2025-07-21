@@ -20,9 +20,9 @@ interface TaskStatsProps {
 /**
  * Task statistics dashboard component
  * @param props - Task statistics component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export const TaskStats = ({ stats }: TaskStatsProps): JSX.Element => {
+export const TaskStats = ({ stats }: TaskStatsProps): React.ReactElement => {
   const { t } = useUI();
 
   /**

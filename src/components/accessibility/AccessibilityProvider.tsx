@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -140,7 +140,7 @@ interface AccessibilityProviderProps {
   readonly children: React.ReactNode;
 }
 
-export const AccessibilityProvider = ({ children }: AccessibilityProviderProps): JSX.Element => {
+export const AccessibilityProvider = ({ children }: AccessibilityProviderProps): React.ReactElement => {
   const store = useAccessibilityStore();
 
   useEffect(() => {
@@ -177,7 +177,7 @@ export const AccessibilityProvider = ({ children }: AccessibilityProviderProps):
 };
 
 // Skip Links Component
-export const SkipLinks = (): JSX.Element => {
+export const SkipLinks = (): React.ReactElement => {
   const { settings } = useAccessibility();
 
   if (!settings.skipLinks) return <></>;
@@ -203,7 +203,7 @@ interface FocusTrapProps {
   readonly active: boolean;
 }
 
-export const FocusTrap = ({ children, active }: FocusTrapProps): JSX.Element => {
+export const FocusTrap = ({ children, active }: FocusTrapProps): React.ReactElement => {
   const trapRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {

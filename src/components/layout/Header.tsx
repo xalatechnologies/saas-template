@@ -7,11 +7,11 @@ import { useAuth, useUI } from '@/hooks';
 
 /**
  * Application header component with navigation and user controls
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export const Header = (): JSX.Element => {
+export const Header = (): React.ReactElement => {
   const { user, logout } = useAuth();
-  const { toggleSidebar, toggleTheme, theme, isDarkMode, t } = useUI();
+  const { toggleSidebar, toggleTheme, isDarkMode, t } = useUI();
 
   /**
    * Handles user logout action

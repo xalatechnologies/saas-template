@@ -19,9 +19,9 @@ import type { LoginCredentials } from '@/types';
 
 /**
  * Login form component for user authentication
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export const LoginForm = (): JSX.Element => {
+export const LoginForm = (): React.ReactElement => {
   const { t } = useUI();
   const router = useRouter();
   const { login, isLoading, error, redirectIfAuthenticated } = useAuth();

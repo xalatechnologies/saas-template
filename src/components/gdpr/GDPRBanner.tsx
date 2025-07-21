@@ -98,7 +98,7 @@ export const useGDPRStore = create<GDPRStore>()(
   ),
 );
 
-export const GDPRBanner = (): JSX.Element => {
+export const GDPRBanner = (): React.ReactElement => {
   const { consent, bannerDismissed, showPreferences, acceptAll, rejectAll, showPreferencesModal } =
     useGDPRStore();
   const [mounted, setMounted] = useState(false);
@@ -158,7 +158,7 @@ export const GDPRBanner = (): JSX.Element => {
   );
 };
 
-const GDPRPreferences = (): JSX.Element => {
+const GDPRPreferences = (): React.ReactElement => {
   const { consent, setConsent, hidePreferencesModal } = useGDPRStore();
   const [preferences, setPreferences] = useState({
     necessary: true,
@@ -285,7 +285,7 @@ const GDPRPreferences = (): JSX.Element => {
 };
 
 // GDPR Data Request Component
-export const GDPRDataRequest = (): JSX.Element => {
+export const GDPRDataRequest = (): React.ReactElement => {
   const [requestType, setRequestType] = useState<'access' | 'delete' | 'portability' | null>(null);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -293,7 +293,8 @@ export const GDPRDataRequest = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     // Here you would typically send the request to your backend
-    console.log('GDPR request:', { type: requestType, email });
+    // Here you would typically send the request to your backend
+    // Example: await submitGDPRRequest({ type: requestType, email });
     setSubmitted(true);
   };
 
@@ -349,7 +350,7 @@ export const GDPRDataRequest = (): JSX.Element => {
                     name="requestType"
                     value={option.value}
                     checked={requestType === option.value}
-                    onChange={(e) => setRequestType(e.target.value as any)}
+                    onChange={(e) => setRequestType(e.target.value as 'access' | 'delete' | 'portability')}
                     className="mt-1"
                     required
                   />

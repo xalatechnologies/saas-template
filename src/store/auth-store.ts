@@ -12,7 +12,7 @@ interface AuthStore extends AuthState {
 }
 
 export const useAuthStore = create<AuthStore>()(
-  immer((set, get) => ({
+  immer((set) => ({
     user: null,
     isLoading: false,
     error: null,

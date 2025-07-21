@@ -19,9 +19,9 @@ interface NavItem {
 
 /**
  * Application sidebar component with navigation menu
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export const Sidebar = (): JSX.Element => {
+export const Sidebar = (): React.ReactElement => {
   const { t, sidebarOpen, setSidebarOpen } = useUI();
   const pathname = usePathname();
 

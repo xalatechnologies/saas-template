@@ -67,8 +67,6 @@ export const AppText = React.forwardRef<HTMLParagraphElement, AppTextProps>(
       large: 'text-xl text-foreground leading-relaxed',
     };
 
-    const Component = asChild ? React.Fragment : 'p';
-
     if (asChild) {
       return <>{children}</>;
     }

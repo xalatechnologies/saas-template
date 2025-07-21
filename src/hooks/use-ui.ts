@@ -1,7 +1,6 @@
 import { useUIStore } from '@/store';
 import { useTheme } from '@/providers';
 import { useI18n } from '@/providers';
-import type { Theme, Language } from '@/types';
 
 export const useUI = () => {
   const {

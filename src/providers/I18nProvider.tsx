@@ -9,7 +9,7 @@ import type { Language } from '@/types';
 interface I18nContextType {
   readonly language: Language;
   readonly setLanguage: (language: Language) => void;
-  readonly t: (key: string, options?: any) => string;
+  readonly t: (key: string, options?: Record<string, unknown>) => string;
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -26,7 +26,7 @@ interface I18nProviderProps {
   readonly children: React.ReactNode;
 }
 
-export const I18nProvider = ({ children }: I18nProviderProps): JSX.Element => {
+export const I18nProvider = ({ children }: I18nProviderProps): React.ReactElement => {
   const { language, setLanguage } = useUIStore();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const I18nProvider = ({ children }: I18nProviderProps): JSX.Element => {
   const contextValue: I18nContextType = {
     language,
     setLanguage,
-    t: (key: string, options?: any) => i18n.t(key, options) as string,
+    t: (key: string, options?: Record<string, unknown>) => i18n.t(key, options) as string,
   };
 
   return (

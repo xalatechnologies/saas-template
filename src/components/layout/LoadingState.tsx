@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Loader2 } from 'lucide-react';
-import { cn } from '@/utils';
 import { AppText } from '../ui';
 
 /**
@@ -18,13 +17,13 @@ export interface LoadingStateProps {
  * Loading state component for consistent loading presentation
  * Eliminates need for raw HTML elements in loading scenarios
  * @param props - Loading state component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const LoadingState = ({
   message = 'Loading...',
   size = 'md',
   className = '',
-}: LoadingStateProps): JSX.Element => {
+}: LoadingStateProps): React.ReactElement => {
   const sizeClasses = {
     sm: 'h-4 w-4',
     md: 'h-6 w-6',

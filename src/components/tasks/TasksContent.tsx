@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, type ChangeEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Plus, Filter, Search } from 'lucide-react';
 import {
   BasePage,

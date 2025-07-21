@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Eye, MousePointer, Keyboard, Brain, Volume2, Monitor, Zap, RefreshCw } from 'lucide-react';
+import { Eye, MousePointer, Brain, Volume2, Monitor, Zap, RefreshCw } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge, PageSection, ContentGrid } from '@/components';
 import { useAccessibility } from './AccessibilityProvider';
 
@@ -117,16 +117,6 @@ export const AccessibilitySettings = (): React.ReactElement => {
     },
   ];
 
-  const getWCAGBadgeColor = (level: string): string => {
-    switch (level) {
-      case 'AAA':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      case 'AA':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-    }
-  };
 
   return (
     <PageSection variant="transparent">

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Sun, Moon, Palette, Monitor } from 'lucide-react';
+import { Sun, Moon, Palette } from 'lucide-react';
 import {
   Card,
   CardHeader,
@@ -9,21 +9,18 @@ import {
   CardContent,
   Button,
   Badge,
-  Separator,
   PageSection,
   ContentGrid,
 } from '@/components';
 import { useThemeStore } from '@/design-tokens';
 import { sectorThemes } from '@/design-tokens';
-import { useUI } from '@/hooks';
 
 /**
  * Theme settings component for customizing application appearance
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
-export const ThemeSettings = (): JSX.Element => {
-  const { t } = useUI();
-  const { currentTheme, isDarkMode, setTheme, toggleDarkMode, getThemesBySector } = useThemeStore();
+export const ThemeSettings = (): React.ReactElement => {
+  const { currentTheme, isDarkMode, setTheme, toggleDarkMode } = useThemeStore();
 
   /**
    * Handles sector theme change

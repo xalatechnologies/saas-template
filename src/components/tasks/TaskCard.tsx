@@ -24,8 +24,8 @@ interface TaskCardProps {
  */
 export const TaskCard = ({
   task,
-  onEdit,
-  onDelete,
+  // onEdit,
+  // onDelete,
   onStatusChange,
 }: TaskCardProps): React.ReactElement => {
   const { t } = useUI();

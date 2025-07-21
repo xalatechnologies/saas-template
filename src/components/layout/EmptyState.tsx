@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Card, CardContent, AppText, Heading, PageSection } from '@/components';
-import { cn } from '@/utils';
 
 /**
  * Empty state component interface for consistent empty states
@@ -19,7 +18,7 @@ export interface EmptyStateProps {
  * Empty state component for consistent empty state presentation
  * Eliminates need for raw HTML elements in empty state scenarios
  * @param props - Empty state component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const EmptyState = ({
   icon,

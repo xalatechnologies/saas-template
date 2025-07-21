@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, Calendar, User, Tag } from 'lucide-react';
+import { Plus, Calendar, Tag } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ interface TaskFormProps {
   readonly onSuccess?: () => void;
 }
 
-export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => {
+export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): React.ReactElement => {
   const { t } = useUI();
   const { createTask } = useTasks();
   const [open, setOpen] = useState(false);

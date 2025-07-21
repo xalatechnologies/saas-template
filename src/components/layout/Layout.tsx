@@ -4,13 +4,12 @@ import React from 'react';
 import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { SkipLinks } from '@/components';
-import { cn } from '@/utils';
 
 interface LayoutProps {
   readonly children: React.ReactNode;
 }
 
-export const Layout = ({ children }: LayoutProps): JSX.Element => {
+export const Layout = ({ children }: LayoutProps): React.ReactElement => {
   return (
     <div
       className="min-h-screen bg-background"
