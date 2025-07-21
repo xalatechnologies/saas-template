@@ -72,7 +72,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-family-sans);
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.55;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -130,7 +130,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(0.625rem);
   }
   to {
     opacity: 1;
@@ -141,7 +141,7 @@
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateX(1.25rem);
   }
   to {
     opacity: 1;
@@ -195,9 +195,9 @@
 
 /* Enhanced Focus Indicators */
 .enhanced-focus *:focus {
-  outline: var(--focus-ring-width, 3px) solid hsl(var(--primary));
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: var(--focus-ring-width, 0.1875rem) solid hsl(var(--primary));
+  outline-offset: 0.125rem;
+  border-radius: 0.25rem;
 }
 
 /* Reduced Motion */
@@ -229,7 +229,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 2px;
+  height: 0.125rem;
   background: hsl(var(--primary));
   z-index: 9999;
   pointer-events: none;
@@ -239,7 +239,7 @@
 /* Skip Links */
 .skip-links {
   position: fixed;
-  top: -100px;
+  top: -6.25rem;
   left: 0;
   z-index: 9999;
 }
@@ -250,9 +250,9 @@
   left: 0;
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
-  padding: 8px 16px;
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  border-radius: 0 0 4px 0;
+  border-radius: 0 0 0.25rem 0;
   font-weight: 600;
   transition: top 0.3s ease;
 }
@@ -295,7 +295,7 @@
 /* ARIA Live Regions */
 [aria-live] {
   position: absolute;
-  left: -10000px;
+  left: -625rem;
   width: 1px;
   height: 1px;
   overflow: hidden;

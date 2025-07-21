@@ -10,7 +10,7 @@ export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
-  ({ className, src, alt, fallback, size = 'md', ...props }, ref) => {
+  ({ className, src, alt, fallback, size = 'md', ...props }, ref): JSX.Element => {
     const sizeClasses = {
       sm: 'h-8 w-8',
       md: 'h-10 w-10',

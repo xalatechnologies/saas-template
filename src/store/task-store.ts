@@ -139,11 +139,11 @@ export const useTaskStore = create<TaskStore>()(
         set((state) => {
           const taskIndex = state.tasks.findIndex((task) => task.id === id);
           if (taskIndex !== -1) {
-            state.tasks[taskIndex] = {
+            state.tasks[taskIndex] = castDraft({
               ...state.tasks[taskIndex],
               ...updates,
               updatedAt: new Date(),
-            };
+            });
           }
           state.isLoading = false;
         });

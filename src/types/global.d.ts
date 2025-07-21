@@ -1,10 +1,10 @@
-import { ReactElement, ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 declare global {
   namespace JSX {
-    interface Element extends ReactElement<any, any> {}
+    type Element = ReactElement
     interface IntrinsicElements {
-      [elemName: string]: any;
+      [elemName: string]: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
     }
   }
 }

@@ -8,7 +8,7 @@ import { cn } from '@/utils';
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): JSX.Element => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn('relative flex w-full touch-none select-none items-center', className)}

@@ -227,9 +227,9 @@ const GDPRPreferences = (): React.ReactElement => {
                 informasjonskapsler som brukes på vårt nettsted. Du kan når som helst endre disse
                 innstillingene.
               </p>
-              <div className="flex items-start gap-2 p-3 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
-                <AlertTriangle className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-                <p className="text-blue-800 dark:text-blue-200 text-xs">
+              <div className="flex items-start gap-2 p-3 bg-primary/10 rounded-lg border border-primary">
+                <AlertTriangle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                <p className="text-primary-foreground text-xs">
                   <strong>GDPR-kompatibel:</strong> Denne løsningen følger EU&apos;s
                   personvernforordning og gir deg full kontroll over dine data.
                 </p>
@@ -302,7 +302,7 @@ export const GDPRDataRequest = (): React.ReactElement => {
     return (
       <Card className="max-w-md mx-auto">
         <CardContent className="p-6 text-center">
-          <Check className="h-12 w-12 text-green-600 mx-auto mb-4" />
+          <Check className="h-12 w-12 text-success mx-auto mb-4" />
           <h3 className="text-lg font-semibold mb-2">Forespørsel sendt</h3>
           <p className="text-sm text-muted-foreground">
             Vi har mottatt din forespørsel og vil behandle den innen 30 dager som påkrevd av GDPR.

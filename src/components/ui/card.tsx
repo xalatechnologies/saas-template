@@ -6,7 +6,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <div
         ref={ref}
@@ -29,7 +29,7 @@ export interface CardHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const CardHeader = React.forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <div ref={ref} className={cn('flex flex-col space-y-2 p-8', className)} {...props}>
         {children}
@@ -45,7 +45,7 @@ export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement>
 }
 
 export const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <h3
         ref={ref}
@@ -65,7 +65,7 @@ export interface CardDescriptionProps extends React.HTMLAttributes<HTMLParagraph
 }
 
 export const CardDescription = React.forwardRef<HTMLParagraphElement, CardDescriptionProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <p
         ref={ref}
@@ -85,7 +85,7 @@ export interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const CardContent = React.forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <div ref={ref} className={cn('p-8 pt-0', className)} {...props}>
         {children}
@@ -101,7 +101,7 @@ export interface CardFooterProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref): JSX.Element => {
     return (
       <div ref={ref} className={cn('flex items-center p-8 pt-0', className)} {...props}>
         {children}

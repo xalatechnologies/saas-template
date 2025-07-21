@@ -7,7 +7,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, prefixIcon, ...props }, ref) => {
+  ({ className, type, error, prefixIcon, ...props }, ref): JSX.Element => {
     return (
       <div className="w-full relative">
         {prefixIcon && (

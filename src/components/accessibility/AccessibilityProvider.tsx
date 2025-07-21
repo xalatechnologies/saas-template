@@ -116,7 +116,7 @@ const applyAccessibilitySettings = (settings: AccessibilitySettings): void => {
   // Update CSS custom properties
   root.style.setProperty('--animation-duration', settings.reducedMotion ? '0ms' : '300ms');
   root.style.setProperty('--font-size-multiplier', settings.largeText ? '1.25' : '1');
-  root.style.setProperty('--focus-ring-width', settings.focusIndicators ? '3px' : '2px');
+  root.style.setProperty('--focus-ring-width', settings.focusIndicators ? '0.1875rem' : '0.125rem');
 };
 
 interface AccessibilityContextType {

@@ -1,5 +1,5 @@
 import type { ThemeVariant, ColorScale } from '../types';
-import { baseColors, successScale, warningScale, errorScale, infoScale } from '../base/colors';
+import { baseColors, successScale, warningScale, errorScale } from '../base/colors';
 import { typography } from '../base/typography';
 import { spacing, borderRadius, shadows } from '../base/spacing';
 

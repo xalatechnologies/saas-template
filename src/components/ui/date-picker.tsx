@@ -23,7 +23,7 @@ export function DatePicker({
   placeholder = 'Pick a date',
   disabled = false,
   className,
-}: DatePickerProps) {
+}: DatePickerProps): JSX.Element {
   return (
     <Popover>
       <PopoverTrigger asChild>

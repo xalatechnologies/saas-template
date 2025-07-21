@@ -9,7 +9,7 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 }
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
-  ({ className, children, level = 1, variant = 'default', ...props }, ref) => {
+  ({ className, children, level = 1, variant = 'default', ...props }, ref): JSX.Element => {
     const variants = {
       default: 'text-foreground',
       muted: 'text-muted-foreground',
@@ -59,7 +59,7 @@ export interface AppTextProps extends React.HTMLAttributes<HTMLParagraphElement>
 }
 
 export const AppText = React.forwardRef<HTMLParagraphElement, AppTextProps>(
-  ({ className, children, variant = 'default', asChild = false, ...props }, ref) => {
+  ({ className, children, variant = 'default', asChild = false, ...props }, ref): JSX.Element => {
     const variants = {
       default: 'text-lg text-foreground leading-relaxed',
       muted: 'text-base text-muted-foreground leading-relaxed',

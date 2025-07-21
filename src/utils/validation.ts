@@ -13,8 +13,6 @@ export const validateNorwegianPersonalNumber = (personalNumber: string): boolean
   // Extract components
   const day = parseInt(cleaned.substring(0, 2), 10);
   const month = parseInt(cleaned.substring(2, 4), 10);
-  const year = parseInt(cleaned.substring(4, 6), 10);
-  const individual = parseInt(cleaned.substring(6, 9), 10);
   const control = cleaned.substring(9, 11);
 
   // Basic date validation

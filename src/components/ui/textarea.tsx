@@ -5,7 +5,7 @@ import { cn } from '@/utils';
 export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, ...props }, ref): JSX.Element => {
     return (
       <textarea
         className={cn(

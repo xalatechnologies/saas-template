@@ -72,7 +72,7 @@ export const ThemeSettings = (): React.ReactElement => {
    */
   const getSectorPrimaryColor = (sector: string): string => {
     const sectorTheme = sectorThemes[sector];
-    return sectorTheme?.light.tokens.colors.brand.primary[500] || '#3b82f6';
+    return sectorTheme?.light.tokens.colors.brand.primary[500] || sectorTheme?.light.tokens.colors.brand.primary[500] || sectorThemes.public.light.tokens.colors.brand.primary[500];
   };
 
   const sectors = Object.keys(sectorThemes);

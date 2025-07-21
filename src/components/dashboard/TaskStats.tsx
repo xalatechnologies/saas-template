@@ -40,15 +40,15 @@ export const TaskStats = ({ stats }: TaskStatsProps): React.ReactElement => {
       label: t('dashboard.completedTasks'),
       value: stats.completed,
       icon: CheckCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-500/10',
+      color: 'text-chart-5',
+      bgColor: 'bg-chart-5/10',
     },
     {
       label: t('dashboard.inProgressTasks'),
       value: stats.inProgress,
       icon: Clock,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-500/10',
+      color: 'text-chart-4',
+      bgColor: 'bg-chart-4/10',
     },
     {
       label: t('dashboard.overdueTasks'),
@@ -67,13 +67,13 @@ export const TaskStats = ({ stats }: TaskStatsProps): React.ReactElement => {
         return (
           <Card
             key={item.label}
-            className="transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
+            className="transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
               <CardTitle className="text-base font-semibold text-muted-foreground">
                 {item.label}
               </CardTitle>
-              <div className={`rounded-2xl p-3 shadow-lg ${item.bgColor}`}>
+              <div className={`rounded-xl p-3 shadow-md ${item.bgColor}`}>
                 <Icon className={`h-6 w-6 ${item.color}`} />
               </div>
             </CardHeader>

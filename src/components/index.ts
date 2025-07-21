@@ -19,6 +19,7 @@ export { TasksContent } from './tasks/TasksContent';
 
 // Dashboard components
 export { TaskStats } from './dashboard/TaskStats';
+export { DashboardContent } from './dashboard/DashboardContent';
 
 // Auth components
 export { LoginForm } from './auth/LoginForm';
