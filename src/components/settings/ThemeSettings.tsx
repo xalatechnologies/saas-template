@@ -2,7 +2,17 @@
 
 import React from 'react';
 import { Sun, Moon, Palette, Monitor } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Badge, Separator, PageSection, ContentGrid } from '@/components';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Button,
+  Badge,
+  Separator,
+  PageSection,
+  ContentGrid,
+} from '@/components';
 import { useThemeStore } from '@/design-tokens';
 import { sectorThemes } from '@/design-tokens';
 import { useUI } from '@/hooks';
@@ -88,26 +98,24 @@ export const ThemeSettings = (): JSX.Element => {
               <h3>{currentTheme.name}</h3>
               <p>{currentTheme.description}</p>
             </PageSection>
-            <Badge variant="outline">
-              {currentTheme.sector}
-            </Badge>
+            <Badge variant="outline">{currentTheme.sector}</Badge>
           </PageSection>
 
           {/* Color Preview */}
           <PageSection variant="transparent" className="flex items-center gap-2">
-            <span 
+            <span
               className="inline-block w-8 h-8 rounded-full border-2"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.primary[500] }}
               role="img"
               aria-label="Primary brand color"
             />
-            <span 
+            <span
               className="inline-block w-8 h-8 rounded-full border-2"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.secondary[500] }}
               role="img"
               aria-label="Secondary brand color"
             />
-            <span 
+            <span
               className="inline-block w-8 h-8 rounded-full border-2"
               style={{ backgroundColor: currentTheme.tokens.colors.brand.accent[500] }}
               role="img"

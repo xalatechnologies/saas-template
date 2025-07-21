@@ -2,12 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { 
-  BasePage, 
-  PageSection, 
-  Button, 
-  EmptyState 
-} from '@/components';
+import { BasePage, PageSection, Button, EmptyState } from '@/components';
 import { AlertTriangle } from 'lucide-react';
 import { useUI } from '@/hooks';
 
@@ -18,12 +13,9 @@ import { useUI } from '@/hooks';
  */
 export function NotFoundContent(): React.ReactElement {
   const { t } = useUI();
-  
+
   return (
-    <BasePage
-      title={t('errors.notFound.title')}
-      subtitle={t('errors.notFound.subtitle')}
-    >
+    <BasePage title={t('errors.notFound.title')} subtitle={t('errors.notFound.subtitle')}>
       <PageSection variant="transparent">
         <EmptyState
           icon={<AlertTriangle aria-hidden="true" />}
@@ -32,14 +24,10 @@ export function NotFoundContent(): React.ReactElement {
           action={
             <>
               <Button asChild variant="default">
-                <Link href="/">
-                  {t('common.navigation.home')}
-                </Link>
+                <Link href="/">{t('common.navigation.home')}</Link>
               </Button>
               <Button asChild variant="outline">
-                <Link href="/tasks">
-                  {t('common.navigation.tasks')}
-                </Link>
+                <Link href="/tasks">{t('common.navigation.tasks')}</Link>
               </Button>
             </>
           }

@@ -19,7 +19,7 @@ export interface PageSectionProps {
  * Page section component for organizing content within pages
  * Provides consistent spacing and structure without raw HTML elements
  * @param props - Page section component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const PageSection = ({
   children,
@@ -27,7 +27,7 @@ export const PageSection = ({
   actions,
   variant = 'default',
   className = '',
-}: PageSectionProps): JSX.Element => {
+}: PageSectionProps): React.ReactElement => {
   if (variant === 'card') {
     return (
       <Card className={className}>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Card, CardContent, AppText, Heading } from '../ui';
+import { Card, CardContent, AppText, Heading, PageSection } from '@/components';
 import { cn } from '@/utils';
 
 /**
@@ -27,28 +27,28 @@ export const EmptyState = ({
   description,
   action,
   className = '',
-}: EmptyStateProps): JSX.Element => {
+}: EmptyStateProps): React.ReactElement => {
   return (
     <Card className={className}>
       <CardContent className="text-center py-12">
-        <div className="space-y-4">
+        <PageSection variant="transparent">
           {icon && (
-            <div className="mx-auto h-16 w-16 rounded-full bg-muted flex items-center justify-center">
+            <PageSection variant="transparent" className="mx-auto h-16 w-16 rounded-full bg-muted flex items-center justify-center">
               {icon}
-            </div>
+            </PageSection>
           )}
-          <div className="space-y-2">
-            <Heading level={3} className="text-foreground">
+          <PageSection variant="transparent">
+            <Heading level={3}>
               {title}
             </Heading>
             {description && (
-              <AppText variant="muted" className="text-muted-foreground">
+              <AppText variant="muted">
                 {description}
               </AppText>
             )}
-          </div>
-          {action && <div className="pt-2">{action}</div>}
-        </div>
+          </PageSection>
+          {action && <PageSection variant="transparent">{action}</PageSection>}
+        </PageSection>
       </CardContent>
     </Card>
   );

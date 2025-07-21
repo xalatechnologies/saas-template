@@ -3,7 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Input, Label, PageSection } from '@/components';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  Button,
+  Input,
+  Label,
+  PageSection,
+} from '@/components';
 import { useAuth, useFormValidation, useUI } from '@/hooks';
 import { loginSchema } from '@/utils';
 import type { LoginCredentials } from '@/types';
@@ -75,7 +84,11 @@ export const LoginForm = (): JSX.Element => {
       <Card className="w-full max-w-lg shadow-2xl">
         <CardHeader className="space-y-4 text-center">
           <PageSection variant="transparent" className="flex justify-center">
-            <div role="img" aria-label="Logo" className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
+            <div
+              role="img"
+              aria-label="Logo"
+              className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary"
+            >
               <span className="text-2xl font-bold">TM</span>
             </div>
           </PageSection>
@@ -130,34 +143,27 @@ export const LoginForm = (): JSX.Element => {
                   disabled={isLoading}
                   aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
                 >
-                  {showPassword ? (
-                    <EyeOff aria-hidden="true" />
-                  ) : (
-                    <Eye aria-hidden="true" />
-                  )}
+                  {showPassword ? <EyeOff aria-hidden="true" /> : <Eye aria-hidden="true" />}
                 </Button>
               </PageSection>
             </PageSection>
 
             {/* Error Display */}
             {error && (
-              <PageSection variant="transparent" className="rounded-xl bg-destructive/10 border-2 border-destructive/20 p-4">
+              <PageSection
+                variant="transparent"
+                className="rounded-xl bg-destructive/10 border-2 border-destructive/20 p-4"
+              >
                 <p>{error}</p>
               </PageSection>
             )}
 
             {/* Submit Button */}
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={isLoading}
-            >
+            <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
                   <Loader2 className="animate-spin" aria-hidden="true" />
-                  <span>
-                  {t('common.loading')}
-                  </span>
+                  <span>{t('common.loading')}</span>
                 </>
               ) : (
                 t('auth.login')

@@ -30,7 +30,7 @@ export const TasksContent = (): React.ReactElement => {
   // Define status and priority filter types to include 'all'
   type StatusFilterType = TaskStatus | 'all';
   type PriorityFilterType = TaskPriority | 'all';
-  
+
   const [statusFilter, setStatusFilter] = useState<StatusFilterType>('all');
   const [priorityFilter, setPriorityFilter] = useState<PriorityFilterType>('all');
   const [showAddForm, setShowAddForm] = useState(false);

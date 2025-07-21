@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Eye, MousePointer, Keyboard, Brain, Volume2, Monitor, Zap, RefreshCw } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge } from '../ui';
+import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge, PageSection, ContentGrid } from '@/components';
 import { useAccessibility } from './AccessibilityProvider';
 
-export const AccessibilitySettings = (): JSX.Element => {
+export const AccessibilitySettings = (): React.ReactElement => {
   const { settings, updateSetting, resetToDefaults, applySystemPreferences } = useAccessibility();
 
   const settingGroups = [
@@ -129,94 +129,98 @@ export const AccessibilitySettings = (): JSX.Element => {
   };
 
   return (
-    <div className="space-y-8">
+    <PageSection variant="transparent">
       {/* Header */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Monitor className="h-5 w-5" />
-            Tilgjengelighetsinnstillinger
+          <CardTitle>
+            <span className="flex items-center gap-2">
+              <Monitor aria-hidden="true" />
+              Tilgjengelighetsinnstillinger
+            </span>
           </CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <p>
             Tilpass applikasjonen for dine tilgjengelighetsbehov. Alle innstillinger følger WCAG
             2.2-retningslinjene for universell utforming.
           </p>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex flex-wrap gap-3">
+        <CardContent>
+          <PageSection variant="transparent" className="flex flex-wrap gap-3">
             <Button
               onClick={applySystemPreferences}
               variant="outline"
-              className="flex items-center gap-2"
             >
-              <Zap className="h-4 w-4" />
+              <Zap aria-hidden="true" />
               Bruk systeminnstillinger
             </Button>
-            <Button onClick={resetToDefaults} variant="outline" className="flex items-center gap-2">
-              <RefreshCw className="h-4 w-4" />
-              Tilbakestill til standard
+            <Button onClick={resetToDefaults} variant="outline">
+              <RefreshCw aria-hidden="true" />
+              Tilbakestill til standardinnstillinger
             </Button>
-          </div>
+          </PageSection>
 
-          <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
-            <div className="flex items-start gap-2">
-              <Monitor className="h-4 w-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" />
-              <div className="text-sm">
-                <p className="font-medium text-blue-800 dark:text-blue-200 mb-1">
-                  WCAG 2.2 AAA-kompatibel
+          <PageSection variant="card">
+            <PageSection variant="transparent" className="flex items-start gap-2">
+              <Monitor aria-hidden="true" />
+              <PageSection variant="transparent">
+                <p>
+                  Systeminnstillinger oppdaget
                 </p>
-                <p className="text-blue-700 dark:text-blue-300">
-                  Denne applikasjonen følger de høyeste standardene for universell utforming og
-                  tilgjengelighet, inkludert WCAG 2.2 AAA-retningslinjer.
+                <p>
+                  Vi har oppdaget tilgjengelighetsinnstillinger i nettleseren eller operativsystemet
+                  ditt. Du kan velge å bruke disse automatisk ved å klikke på "Bruk
+                  systeminnstillinger".
                 </p>
-              </div>
-            </div>
-          </div>
+              </PageSection>
+            </PageSection>
+          </PageSection>
         </CardContent>
       </Card>
 
-      {/* Settings Groups */}
-      {settingGroups.map((group) => {
+      {/* Settings Categories */}
+      {settingGroups.map((group, groupIndex) => {
         const Icon = group.icon;
-
         return (
-          <Card key={group.title}>
+          <Card key={groupIndex}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Icon className="h-5 w-5" />
-                {group.title}
+              <CardTitle>
+                <span className="flex items-center gap-2">
+                  <Icon aria-hidden="true" />
+                  {group.title}
+                </span>
               </CardTitle>
-              <p className="text-sm text-muted-foreground">{group.description}</p>
+              <p>{group.description}</p>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent>
               {group.settings.map((setting, index) => (
                 <div key={setting.key}>
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1 space-y-1">
-                      <div className="flex items-center gap-2">
+                  <PageSection variant="transparent" className="flex items-start justify-between gap-4">
+                    <PageSection variant="transparent" className="flex-1">
+                      <PageSection variant="transparent" className="flex items-center gap-2">
                         <label
-                          htmlFor={setting.key}
-                          className="font-medium text-foreground cursor-pointer"
+                          htmlFor={`setting-${setting.key}`}
                         >
                           {setting.label}
                         </label>
-                        <Badge
-                          variant="outline"
-                          className={`text-xs ${getWCAGBadgeColor(setting.wcagLevel)}`}
-                        >
-                          WCAG {setting.wcagLevel}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-muted-foreground">{setting.description}</p>
-                    </div>
+                        
+                        {setting.wcagLevel && (
+                          <Badge
+                            variant="outline"
+                          >
+                            WCAG {setting.wcagLevel}
+                          </Badge>
+                        )}
+                      </PageSection>
+                      <p>{setting.description}</p>
+                    </PageSection>
                     <Switch
                       id={setting.key}
                       checked={settings[setting.key]}
                       onCheckedChange={(checked) => updateSetting(setting.key, checked)}
                       aria-describedby={`${setting.key}-description`}
                     />
-                  </div>
-                  {index < group.settings.length - 1 && <Separator className="mt-4" />}
+                  </PageSection>
+                  {index < group.settings.length - 1 && <Separator />}
                 </div>
               ))}
             </CardContent>
@@ -224,45 +228,36 @@ export const AccessibilitySettings = (): JSX.Element => {
         );
       })}
 
-      {/* Current Status */}
+      {/* Active Settings Summary */}
       <Card>
         <CardHeader>
-          <CardTitle>Gjeldende tilgjengelighetsstatus</CardTitle>
+          <CardTitle>Aktive innstillinger</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <ContentGrid columns={4} gap="md">
             {Object.entries(settings).map(([key, value]) => (
-              <div
+              <PageSection
                 key={key}
+                variant="transparent"
                 className={`p-3 rounded-lg border ${
-                  value
-                    ? 'bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-800'
-                    : 'bg-gray-50 border-gray-200 dark:bg-gray-950/20 dark:border-gray-800'
+                  value ? 'border-green-300 bg-green-50' : 'border-gray-200 bg-gray-50'
                 }`}
               >
-                <div
-                  className={`text-xs font-medium ${
-                    value
-                      ? 'text-green-800 dark:text-green-200'
-                      : 'text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  {key.replace(/([A-Z])/g, ' \$1').replace(/^./, (str) => str.toUpperCase())}
-                </div>
-                <div
-                  className={`text-xs ${
-                    value
-                      ? 'text-green-600 dark:text-green-400'
-                      : 'text-gray-500 dark:text-gray-500'
-                  }`}
-                >
-                  {value ? 'Aktivert' : 'Deaktivert'}
-                </div>
-              </div>
+                <PageSection variant="transparent" className="flex justify-between items-start">
+                  <span>
+                    {key}
+                  </span>
+                  <Badge
+                    variant={value ? 'default' : 'outline'}
+                  >
+                    {value ? 'På' : 'Av'}
+                  </Badge>
+                </PageSection>
+              </PageSection>
             ))}
-          </div>
+          </ContentGrid>
         </CardContent>
       </Card>
-    </div>
+    </PageSection>
   );
 };

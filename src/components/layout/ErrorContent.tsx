@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import {
-  BasePage,
-  Button,
-  PageSection,
-  EmptyState,
-} from '@/components';
+import { BasePage, Button, PageSection, EmptyState } from '@/components';
 import { AlertOctagon, RefreshCw } from 'lucide-react';
 import { useUI } from '@/hooks';
 

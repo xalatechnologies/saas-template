@@ -12,10 +12,7 @@ export function SettingsContent(): React.ReactElement {
   const { t } = useUI();
 
   return (
-    <BasePage
-      title={t('settings.title')}
-      subtitle={t('settings.subtitle')}
-    >
+    <BasePage title={t('settings.title')} subtitle={t('settings.subtitle')}>
       <PageSection variant="card" title={t('settings.theme.title')}>
         <ThemeSettings />
       </PageSection>
