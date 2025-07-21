@@ -12,6 +12,7 @@ export const no = {
   dashboard: {
     title: 'Oppgaveoversikt',
     welcome: 'Velkommen tilbake',
+    overview: 'Her er en oversikt over dine oppgaver og fremdrift.',
     totalTasks: 'Totalt oppgaver',
     completedTasks: 'Fullførte oppgaver',
     inProgressTasks: 'Pågående oppgaver',
@@ -36,6 +37,10 @@ export const no = {
     updatedAt: 'Oppdatert',
     description: 'Beskrivelse',
     tags: 'Tagger',
+    filter: 'Filtrer oppgaver',
+    new: 'Nye oppgaver',
+    noTasksYet: 'Ingen oppgaver ennå',
+    createFirstTask: 'Opprett din første oppgave for å komme i gang!',
     
     // Status values
     todo: 'Å gjøre',
@@ -122,7 +127,6 @@ export const no = {
 
   // Common
   common: {
-    loading: 'Laster...',
     error: 'Feil',
     success: 'Suksess',
     warning: 'Advarsel',
@@ -141,6 +145,13 @@ export const no = {
     close: 'Lukk',
     notifications: 'Varsler',
     moreOptions: 'Flere alternativer',
+    navigation: {
+      home: 'Gå til forsiden',
+      tasks: 'Vis oppgaver',
+      back: 'Tilbake'
+    },
+    generateReport: 'Generer rapport',
+    loading: 'Laster innhold...',
     
     // Date/Time
     today: 'I dag',
@@ -164,6 +175,25 @@ export const no = {
       internal: 'Intern',
       confidential: 'Konfidensiell',
       secret: 'Hemmelig',
+    },
+  },
+  
+  // Error pages
+  errors: {
+    notFound: {
+      title: '404 - Side ikke funnet',
+      subtitle: 'Vi kunne ikke finne siden du leter etter',
+      heading: 'Siden finnes ikke',
+      message: 'Beklager, men vi kunne ikke finne siden du leter etter. Den kan ha blitt flyttet, omdøpt eller midlertidig utilgjengelig.',
+    },
+    unexpected: {
+      title: 'Noe gikk galt',
+      subtitle: 'Det oppstod en feil under behandling av forespørselen din',
+      heading: 'Applikasjonsfeil',
+      message: 'Beklager, men det oppstod en uventet feil. Vår tekniske team har blitt varslet om problemet.',
+      details: 'Feildetaljer',
+      errorId: 'Feil-ID',
+      tryAgain: 'Prøv igjen'
     },
   },
 };

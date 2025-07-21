@@ -18,9 +18,9 @@ import { useAuth, useTasks, useUI } from '@/hooks';
 
 /**
  * Dashboard page component - main application entry point
- * @returns JSX.Element
+ * @returns React element with dashboard content
  */
-export default function DashboardPage(): JSX.Element {
+export default function DashboardPage(): React.ReactElement {
   const { user, requireAuth } = useAuth();
   const { tasks, fetchTasks, getTasksStats, handleStatusChange } = useTasks();
   const { t } = useUI();
@@ -45,7 +45,7 @@ export default function DashboardPage(): JSX.Element {
   return (
     <BasePage
       title={`${t('dashboard.welcome')}, ${user.name}! 👋`}
-      subtitle="Her er en oversikt over dine oppgaver og fremdrift."
+      subtitle={t('dashboard.overview')}
     >
       {/* Stats Overview */}
       <PageSection variant="transparent">
@@ -78,8 +78,8 @@ export default function DashboardPage(): JSX.Element {
             ) : (
               <EmptyState
                 icon={<Plus className="h-6 w-6 text-muted-foreground" />}
-                title="Ingen oppgaver ennå"
-                description="Opprett din første oppgave for å komme i gang!"
+                title={t('tasks.noTasksYet')}
+                description={t('tasks.createFirstTask')}
                 action={<TaskForm />}
               />
             )}
@@ -101,32 +101,32 @@ export default function DashboardPage(): JSX.Element {
                 }
               />
               <Button className="w-full justify-start" variant="outline">
-                Filtrer oppgaver
+                {t('tasks.filter')}
               </Button>
               <Button className="w-full justify-start" variant="outline">
-                Generer rapport
+                {t('common.generateReport')}
               </Button>
               <Button className="w-full justify-start" variant="outline">
-                Importer oppgaver
+                {t('common.import')}
               </Button>
             </div>
           </PageSection>
 
           <PageSection 
             variant="card"
-            title="Denne uken"
+            title={t('common.thisWeek')}
           >
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <AppText variant="muted">Fullførte oppgaver</AppText>
+                <AppText variant="muted">{t('dashboard.completedTasks')}</AppText>
                 <AppText className="font-medium text-foreground">{stats.completed}</AppText>
               </div>
               <div className="flex justify-between text-sm">
-                <AppText variant="muted">Nye oppgaver</AppText>
+                <AppText variant="muted">{t('tasks.new')}</AppText>
                 <AppText className="font-medium text-foreground">3</AppText>
               </div>
               <div className="flex justify-between text-sm">
-                <AppText variant="muted">Forfalt</AppText>
+                <AppText variant="muted">{t('dashboard.overdueTasks')}</AppText>
                 <AppText className="font-medium text-destructive">{stats.overdue}</AppText>
               </div>
             </div>

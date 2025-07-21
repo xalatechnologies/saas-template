@@ -266,7 +266,7 @@ export const AccessibilitySettings = (): JSX.Element => {
                 <div className={`text-xs font-medium ${
                   value ? 'text-green-800 dark:text-green-200' : 'text-gray-600 dark:text-gray-400'
                 }`}>
-                  {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+                  {key.replace(/([A-Z])/g, ' \$1').replace(/^./, str => str.toUpperCase())}
                 </div>
                 <div className={`text-xs ${
                   value ? 'text-green-600 dark:text-green-400' : 'text-gray-500 dark:text-gray-500'

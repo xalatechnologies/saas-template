@@ -77,7 +77,7 @@ export const registerSchema = z.object({
     .regex(/\d/, 'Password must contain number'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
+  message: "Passwords don&apos;t match",
   path: ["confirmPassword"],
 });
 

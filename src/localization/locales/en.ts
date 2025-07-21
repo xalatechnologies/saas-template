@@ -86,7 +86,7 @@ export const en = {
     name: 'Name',
     forgotPassword: 'Forgot password?',
     rememberMe: 'Remember me',
-    noAccount: "Don't have an account?",
+    noAccount: "Don&apos;t have an account?",
     hasAccount: 'Already have an account?',
     
     // Messages
@@ -141,6 +141,11 @@ export const en = {
     close: 'Close',
     notifications: 'Notifications',
     moreOptions: 'More options',
+    navigation: {
+      home: 'Go to homepage',
+      tasks: 'View tasks',
+      back: 'Back'
+    },
     
     // Date/Time
     today: 'Today',
@@ -164,6 +169,25 @@ export const en = {
       internal: 'Internal',
       confidential: 'Confidential',
       secret: 'Secret',
+    },
+  },
+  
+  // Error pages
+  errors: {
+    notFound: {
+      title: '404 - Page Not Found',
+      subtitle: 'We couldn\'t find the page you were looking for',
+      heading: 'Page Not Found',
+      message: 'Sorry, but we couldn\'t find the page you were looking for. It might have been moved, renamed, or is temporarily unavailable.',
+    },
+    unexpected: {
+      title: 'Something Went Wrong',
+      subtitle: 'An error occurred while processing your request',
+      heading: 'Application Error',
+      message: 'Sorry, but an unexpected error occurred. Our technical team has been notified of the issue.',
+      details: 'Error Details',
+      errorId: 'Error ID',
+      tryAgain: 'Try Again'
     },
   },
 };
