@@ -48,7 +48,7 @@ export const AccessibilitySettings = (): JSX.Element => {
         {
           key: 'stickyKeys' as const,
           label: 'Sticky Keys',
-          description: 'Lar deg bruke tastaturkombinasjoneruten å holde flere taster samtidig',
+          description: 'Lar deg bruke tastaturkombinasjoner uten å holde flere taster samtidig',
           wcagLevel: 'AA',
         },
         {

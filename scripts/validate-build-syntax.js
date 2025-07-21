@@ -12,8 +12,15 @@
 const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
-const chalk = require('chalk');
 const { execSync } = require('child_process');
+
+// Simple color functions since chalk v5+ is ESM-only
+const colors = {
+  red: (text) => `\x1b[31m${text}\x1b[0m`,
+  green: (text) => `\x1b[32m${text}\x1b[0m`,
+  yellow: (text) => `\x1b[33m${text}\x1b[0m`,
+  blue: (text) => `\x1b[34m${text}\x1b[0m`
+};
 
 // Configuration
 const config = {
@@ -164,7 +171,7 @@ function validateFiles() {
   });
 
   const uniqueFiles = [...new Set(files)];
-  console.log(chalk.blue(`\n🔍 Validating ${uniqueFiles.length} files for build issues...\n`));
+  console.log(colors.blue(`\n🔍 Validating ${uniqueFiles.length} files for build issues...\n`));
 
   uniqueFiles.forEach((filePath) => {
     const absolutePath = path.resolve(filePath);
@@ -191,13 +198,13 @@ function validateFiles() {
       if (issues.length > 0) {
         totalIssues += issues.length;
 
-        console.log(chalk.yellow(`\n📁 ${filePath}`));
+        console.log(colors.yellow(`\n📁 ${filePath}`));
         issues.forEach((issue) => {
-          console.log(chalk.red(`  ❌ ${issue}`));
+          console.log(colors.red(`  ❌ ${issue}`));
         });
       }
     } catch (error) {
-      console.error(chalk.red(`Error processing ${filePath}: ${error.message}`));
+      console.error(colors.red(`Error processing ${filePath}: ${error.message}`));
     }
   });
 
@@ -208,10 +215,10 @@ function validateFiles() {
 const valid = validateFiles();
 
 if (valid) {
-  console.log(chalk.green('\n✅ All files passed build syntax validation!\n'));
+  console.log(colors.green('\n✅ All files passed build syntax validation!\n'));
   process.exit(0);
 } else {
-  console.log(chalk.red(`\n❌ Found syntax issues that might cause build failures\n`));
-  console.log(chalk.yellow('Fix these issues before running the production build'));
+  console.log(colors.red(`\n❌ Found syntax issues that might cause build failures\n`));
+  console.log(colors.yellow('Fix these issues before running the production build'));
   process.exit(1);
 }

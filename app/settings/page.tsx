@@ -1,22 +1,20 @@
-'use client';
-
 import React from 'react';
-import type { Metadata } from 'next';
-import { BasePage, PageSection, ThemeSettings, AccessibilitySettings } from '@/components';
+import { Metadata } from 'next';
+import { SettingsContent } from '@/components';
 
-export default function SettingsPage(): JSX.Element {
-  return (
-    <BasePage
-      title="Innstillinger"
-      subtitle="Tilpass applikasjonen etter dine behov og preferanser"
-    >
-      <PageSection variant="card" title="Tema-innstillinger">
-        <ThemeSettings />
-      </PageSection>
+/**
+ * Metadata for the settings page
+ */
+export const metadata: Metadata = {
+  title: 'Innstillinger',
+  description: 'Tilpass applikasjonen etter dine behov og preferanser',
+};
 
-      <PageSection variant="card" title="Tilgjengelighet">
-        <AccessibilitySettings />
-      </PageSection>
-    </BasePage>
-  );
+/**
+ * Settings page server component
+ * Renders the SettingsContent client component
+ * @returns React element for settings page
+ */
+export default function SettingsPage(): React.ReactElement {
+  return <SettingsContent />;
 }

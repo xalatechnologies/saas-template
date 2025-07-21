@@ -479,6 +479,9 @@ Before submitting any component:
 - Consistent spacing scale (multiples of 4)
 - Semantic color usage from design system
 
+### Rule for Future Changes
+Client-Server Separation Rule: For all pages under /app directory, keep the page component as a server component (no 'use client' directive) responsible only for metadata exports and layout. Move all client-side logic (hooks, event handlers, UI state) to a separate client component with the 'use client' directive, named with a "Content" suffix. Always export client components through the components barrel file.
+
 ## Emergency Fixes
 
 ### Common Issues

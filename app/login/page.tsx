@@ -1,7 +1,14 @@
-'use client';
-
 import React from 'react';
+import { Metadata } from 'next';
 import { LoginForm } from '@/components';
+
+/**
+ * Metadata for the login page
+ */
+export const metadata: Metadata = {
+  title: 'Logg inn',
+  description: 'Logg inn på din konto',
+};
 
 /**
  * Login page component

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, Button, Input, Label } from '../ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Input, Label, PageSection } from '@/components';
 import { useAuth, useFormValidation, useUI } from '@/hooks';
 import { loginSchema } from '@/utils';
 import type { LoginCredentials } from '@/types';
@@ -71,20 +71,22 @@ export const LoginForm = (): JSX.Element => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background via-background to-accent/5 px-6 py-12">
+    <PageSection variant="transparent" className="flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-lg shadow-2xl">
         <CardHeader className="space-y-4 text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-xl ring-2 ring-primary/20">
-            <span className="text-2xl font-black text-primary-foreground">TM</span>
-          </div>
+          <PageSection variant="transparent" className="flex justify-center">
+            <div role="img" aria-label="Logo" className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary">
+              <span className="text-2xl font-bold">TM</span>
+            </div>
+          </PageSection>
           <CardTitle className="text-3xl font-black text-foreground">{t('auth.login')}</CardTitle>
-          <p className="text-lg text-muted-foreground mt-3">{t('dashboard.welcome')}</p>
+          <p>{t('dashboard.welcome')}</p>
         </CardHeader>
 
         <CardContent className="space-y-8">
           <form onSubmit={onSubmit} className="space-y-6">
             {/* Email Field */}
-            <div className="space-y-3">
+            <PageSection variant="transparent">
               <Label htmlFor="email" required>
                 {t('auth.email')}
               </Label>
@@ -99,14 +101,14 @@ export const LoginForm = (): JSX.Element => {
                 autoComplete="email"
                 required
               />
-            </div>
+            </PageSection>
 
             {/* Password Field */}
-            <div className="space-y-3">
+            <PageSection variant="transparent">
               <Label htmlFor="password" required>
                 {t('auth.password')}
               </Label>
-              <div className="relative">
+              <PageSection variant="transparent" className="relative">
                 <Input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
@@ -123,37 +125,39 @@ export const LoginForm = (): JSX.Element => {
                   type="button"
                   variant="ghost"
                   size="default"
-                  className="absolute right-0 top-0 h-full px-4 py-3 hover:bg-transparent"
+                  className="absolute right-0 top-0 h-full"
                   onClick={togglePasswordVisibility}
                   disabled={isLoading}
                   aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-muted-foreground" />
+                    <EyeOff aria-hidden="true" />
                   ) : (
-                    <Eye className="h-5 w-5 text-muted-foreground" />
+                    <Eye aria-hidden="true" />
                   )}
                 </Button>
-              </div>
-            </div>
+              </PageSection>
+            </PageSection>
 
             {/* Error Display */}
             {error && (
-              <div className="rounded-xl bg-destructive/10 border-2 border-destructive/20 p-4 mt-6">
-                <p className="text-base text-destructive font-medium">{error}</p>
-              </div>
+              <PageSection variant="transparent" className="rounded-xl bg-destructive/10 border-2 border-destructive/20 p-4">
+                <p>{error}</p>
+              </PageSection>
             )}
 
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full mt-8 h-14 text-lg font-semibold"
+              className="w-full"
               disabled={isLoading}
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-3 h-5 w-5 animate-spin" />
+                  <Loader2 className="animate-spin" aria-hidden="true" />
+                  <span>
                   {t('common.loading')}
+                  </span>
                 </>
               ) : (
                 t('auth.login')
@@ -162,16 +166,16 @@ export const LoginForm = (): JSX.Element => {
           </form>
 
           {/* Demo credentials */}
-          <div className="mt-8 p-6 bg-muted rounded-xl border-2 border-border">
-            <p className="text-base text-muted-foreground mb-3 font-medium">Demo credentials:</p>
-            <p className="text-sm text-muted-foreground">
+          <PageSection variant="transparent" className="bg-muted rounded-xl border-2 border-border">
+            <p>Demo credentials:</p>
+            <p>
               Email: demo@example.com
               <br />
               Password: password123
             </p>
-          </div>
+          </PageSection>
         </CardContent>
       </Card>
-    </div>
+    </PageSection>
   );
 };

@@ -107,10 +107,23 @@ export const no = {
   // Settings
   settings: {
     title: 'Innstillinger',
+    subtitle: 'Tilpass applikasjonen etter dine behov og preferanser',
     general: 'Generelt',
     appearance: 'Utseende',
     language: 'Språk',
-    theme: 'Tema',
+    theme: {
+      title: 'Tema-innstillinger',
+      description: 'Velg tema for applikasjonen',
+      select: 'Velg tema',
+    },
+    accessibility: {
+      title: 'Tilgjengelighet',
+      description: 'Tilpass tilgjengelighetsinnstillinger',
+      highContrast: 'Høy kontrast',
+      largeText: 'Stor tekst',
+      reduceMotion: 'Reduser bevegelser',
+      screenReader: 'Skjermleser-optimalisert',
+    },
     notifications: 'Varsler',
 
     // Theme options

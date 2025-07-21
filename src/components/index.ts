@@ -10,9 +10,12 @@ export { PageSection } from './layout/PageSection';
 export { ContentGrid } from './layout/ContentGrid';
 export { EmptyState } from './layout/EmptyState';
 export { LoadingState } from './layout/LoadingState';
+export { NotFoundContent } from './layout/NotFoundContent';
+export { ErrorContent } from './layout/ErrorContent';
 
 // Task components
 export { TaskCard } from './tasks/TaskCard';
+export { TasksContent } from './tasks/TasksContent';
 
 // Dashboard components
 export { TaskStats } from './dashboard/TaskStats';
@@ -25,6 +28,7 @@ export { TaskForm } from './forms/TaskForm';
 
 // Settings components
 export { ThemeSettings } from './settings/ThemeSettings';
+export { SettingsContent } from './settings/SettingsContent';
 export { AccessibilitySettings } from './accessibility/AccessibilitySettings';
 
 // GDPR components

@@ -102,10 +102,23 @@ export const en = {
   // Settings
   settings: {
     title: 'Settings',
+    subtitle: 'Customize the application according to your needs and preferences',
     general: 'General',
     appearance: 'Appearance',
     language: 'Language',
-    theme: 'Theme',
+    theme: {
+      title: 'Theme Settings',
+      description: 'Select application theme',
+      select: 'Select theme',
+    },
+    accessibility: {
+      title: 'Accessibility',
+      description: 'Customize accessibility settings',
+      highContrast: 'High contrast',
+      largeText: 'Large text',
+      reduceMotion: 'Reduce motion',
+      screenReader: 'Screen reader optimized',
+    },
     notifications: 'Notifications',
 
     // Theme options
