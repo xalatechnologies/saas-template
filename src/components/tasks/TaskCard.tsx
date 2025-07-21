@@ -20,14 +20,14 @@ interface TaskCardProps {
 /**
  * Task card component for displaying individual task information
  * @param props - Task card component properties
- * @returns JSX.Element
+ * @returns React.ReactElement
  */
 export const TaskCard = ({ 
   task, 
   onEdit, 
   onDelete, 
   onStatusChange 
-}: TaskCardProps): JSX.Element => {
+}: TaskCardProps): React.ReactElement => {
   const { t } = useUI();
 
   /**
@@ -35,7 +35,7 @@ export const TaskCard = ({
    * @param priority - Task priority level
    * @returns Badge variant string
    */
-  const getPriorityColor = (priority: Task['priority']): string => {
+  const getPriorityColor = (priority: Task['priority']): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
     switch (priority) {
       case 'urgent':
         return 'destructive';
@@ -55,7 +55,7 @@ export const TaskCard = ({
    * @param status - Task status
    * @returns Badge variant string
    */
-  const getStatusColor = (status: Task['status']): string => {
+  const getStatusColor = (status: Task['status']): 'default' | 'secondary' | 'destructive' | 'outline' | 'success' | 'warning' | 'info' => {
     switch (status) {
       case 'completed':
         return 'default';

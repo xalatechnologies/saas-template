@@ -28,7 +28,7 @@ export interface BadgeProps
   readonly children: React.ReactNode;
 }
 
-export const Badge = ({ className, variant, children, ...props }: BadgeProps): JSX.Element => {
+export const Badge = ({ className, variant, children, ...props }: BadgeProps): React.ReactElement => {
   return (
     <div className={cn(badgeVariants({ variant }), className)} {...props}>
       {children}

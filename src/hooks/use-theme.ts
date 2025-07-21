@@ -1,5 +1,5 @@
 import { useThemeStore } from '@/design-tokens';
-import type { ThemeConfig } from '@/design-tokens/types';
+import type { ThemeConfig } from '@/design-tokens';
 
 export const useTheme = () => {
   const {

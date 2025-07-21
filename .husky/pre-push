@@ -5,7 +5,7 @@ echo "🚀 Running pre-push quality checks..."
 
 # Run all tests
 echo "🧪 Running tests..."
-npm run test
+pnpm run test
 if [ $? -ne 0 ]; then
   echo "❌ Tests failed!"
   exit 1
@@ -13,7 +13,7 @@ fi
 
 # Build the application
 echo "🏗️ Building application..."
-npm run build
+pnpm run build
 if [ $? -ne 0 ]; then
   echo "❌ Build failed!"
   exit 1
@@ -21,7 +21,7 @@ fi
 
 # Run security audit
 echo "🔒 Running security audit..."
-npm audit --audit-level=moderate
+pnpm audit --audit-level=moderate
 if [ $? -ne 0 ]; then
   echo "❌ Security audit failed!"
   exit 1

@@ -10,8 +10,6 @@ export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
 
 export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ({ className, children, level = 1, variant = 'default', ...props }, ref) => {
-    const Tag = `h${level}` as keyof JSX.IntrinsicElements;
-    
     const variants = {
       default: 'text-foreground',
       muted: 'text-muted-foreground',
@@ -26,19 +24,19 @@ export const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
       6: 'text-lg font-semibold leading-normal',
     };
 
-    return (
-      <Tag
-        ref={ref}
-        className={cn(
+    return React.createElement(
+      `h${level}`,
+      {
+        ref,
+        className: cn(
           'tracking-tight',
           sizes[level],
           variants[variant],
           className
-        )}
-        {...props}
-      >
-        {children}
-      </Tag>
+        ),
+        ...props
+      },
+      children
     );
   }
 );

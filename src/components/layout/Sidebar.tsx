@@ -106,7 +106,7 @@ export const Sidebar = (): JSX.Element => {
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as any}
                   className={cn(
                     'flex items-center space-x-4 rounded-xl px-6 py-4 text-base font-semibold transition-all duration-200 hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-0.5',
                     isActive

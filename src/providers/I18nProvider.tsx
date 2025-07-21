@@ -52,7 +52,7 @@ export const I18nProvider = ({ children }: I18nProviderProps): JSX.Element => {
   const contextValue: I18nContextType = {
     language,
     setLanguage,
-    t: (key: string, options?: any) => i18n.t(key, options),
+    t: (key: string, options?: any) => i18n.t(key, options) as string,
   };
 
   return (

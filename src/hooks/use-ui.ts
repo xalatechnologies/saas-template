@@ -14,7 +14,7 @@ export const useUI = () => {
     clearNotifications,
   } = useUIStore();
 
-  const { theme, setTheme, toggleTheme } = useTheme();
+  const { currentTheme, setTheme, toggleDarkMode, isDarkMode } = useTheme();
   const { language, setLanguage, t } = useI18n();
 
   const showNotification = (
@@ -38,9 +38,10 @@ export const useUI = () => {
     toggleSidebar,
     
     // Theme
-    theme,
+    theme: currentTheme,
+    isDarkMode,
     setTheme,
-    toggleTheme,
+    toggleTheme: toggleDarkMode,
     
     // Language
     language,

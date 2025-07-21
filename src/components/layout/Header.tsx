@@ -11,7 +11,7 @@ import { useAuth, useUI } from '@/hooks';
  */
 export const Header = (): JSX.Element => {
   const { user, logout } = useAuth();
-  const { toggleSidebar, toggleTheme, theme, t } = useUI();
+  const { toggleSidebar, toggleTheme, theme, isDarkMode, t } = useUI();
 
   /**
    * Handles user logout action
@@ -55,9 +55,9 @@ export const Header = (): JSX.Element => {
             size="default"
             className="h-12 w-12"
             onClick={toggleTheme}
-            aria-label={theme === 'light' ? t('settings.darkTheme') : t('settings.lightTheme')}
+            aria-label={!isDarkMode ? t('settings.darkTheme') : t('settings.lightTheme')}
           >
-            {theme === 'light' ? (
+            {!isDarkMode ? (
               <Moon className="h-6 w-6" />
             ) : (
               <Sun className="h-6 w-6" />

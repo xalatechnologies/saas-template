@@ -53,11 +53,13 @@ export interface Typography {
   fontWeight: {
     thin: string;
     light: string;
+    extralight: string;
     normal: string;
     medium: string;
     semibold: string;
     bold: string;
     extrabold: string;
+    black: string;
   };
   lineHeight: {
     none: string;

@@ -62,6 +62,7 @@ export const useTasks = () => {
     createTask: handleCreateTask,
     updateTask: handleUpdateTask,
     deleteTask: handleDeleteTask,
+    handleDeleteTask,
     handleStatusChange,
     getTasksByStatus,
     getTasksByPriority,

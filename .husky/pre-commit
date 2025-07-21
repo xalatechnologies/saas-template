@@ -23,7 +23,7 @@ fi
 echo "💅 Checking code formatting..."
 npx prettier --check .
 if [ $? -ne 0 ]; then
-  echo "❌ Code formatting check failed! Run 'npm run format' to fix."
+  echo "❌ Code formatting check failed! Run 'pnpm run format' to fix."
   exit 1
 fi
 

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useThemeStore } from '@/design-tokens';
-import type { ThemeConfig } from '@/design-tokens/types';
+import type { ThemeConfig } from '@/design-tokens';
 
 interface ThemeContextType {
   readonly currentTheme: ThemeConfig;

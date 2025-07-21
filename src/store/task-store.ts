@@ -83,7 +83,7 @@ export const useTaskStore = create<TaskStore>()(
         await new Promise((resolve) => setTimeout(resolve, 500));
         
         set((state) => {
-          state.tasks = mockTasks;
+          state.tasks = mockTasks as any;
           state.isLoading = false;
         });
       } catch (error) {
@@ -114,7 +114,7 @@ export const useTaskStore = create<TaskStore>()(
         };
 
         set((state) => {
-          state.tasks.push(newTask);
+          state.tasks.push(newTask as any);
           state.isLoading = false;
         });
       } catch (error) {
@@ -142,7 +142,7 @@ export const useTaskStore = create<TaskStore>()(
               ...state.tasks[taskIndex],
               ...updates,
               updatedAt: new Date(),
-            };
+            } as any;
           }
           state.isLoading = false;
         });

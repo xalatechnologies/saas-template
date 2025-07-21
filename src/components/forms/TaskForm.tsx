@@ -86,7 +86,11 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): JSX.Element => 
 
   const onSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    await handleSubmit(formData);
+    const submitData = {
+      ...formData,
+      tags: formData.tags ? [...formData.tags] : undefined
+    };
+    await handleSubmit(submitData);
   };
 
   return (
