@@ -7,7 +7,10 @@ const nextConfig = {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
   },
   eslint: {
-    ignoreDuringBuilds: false,
+    ignoreDuringBuilds: process.env.SKIP_VALIDATION === 'true',
+  },
+  typescript: {
+    ignoreBuildErrors: process.env.SKIP_VALIDATION === 'true',
   },
   images: {
     unoptimized: true,
