@@ -4,9 +4,9 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, CheckSquare, Settings, User, X } from 'lucide-react';
-import { Button } from '../ui';
 import { useUI } from '@/hooks';
 import { cn } from '@/utils';
+import { Button } from '../ui';
 
 /**
  * Navigation item interface

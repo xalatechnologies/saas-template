@@ -6,34 +6,34 @@ import { persist } from 'zustand/middleware';
 
 interface AccessibilitySettings {
   // Visual accessibility
-  highContrast: boolean;
-  reducedMotion: boolean;
-  largeText: boolean;
-  focusIndicators: boolean;
+  readonly highContrast: boolean;
+  readonly reducedMotion: boolean;
+  readonly largeText: boolean;
+  readonly focusIndicators: boolean;
 
   // Motor accessibility
-  stickyKeys: boolean;
-  slowKeys: boolean;
-  mouseKeys: boolean;
+  readonly stickyKeys: boolean;
+  readonly slowKeys: boolean;
+  readonly mouseKeys: boolean;
 
   // Cognitive accessibility
-  simplifiedUI: boolean;
-  readingGuide: boolean;
-  autoplay: boolean;
+  readonly simplifiedUI: boolean;
+  readonly readingGuide: boolean;
+  readonly autoplay: boolean;
 
   // Screen reader
-  screenReaderOptimized: boolean;
-  skipLinks: boolean;
-  landmarkNavigation: boolean;
+  readonly screenReaderOptimized: boolean;
+  readonly skipLinks: boolean;
+  readonly landmarkNavigation: boolean;
 }
 
 interface AccessibilityStore extends AccessibilitySettings {
-  updateSetting: <K extends keyof AccessibilitySettings>(
+  readonly updateSetting: <K extends keyof AccessibilitySettings>(
     key: K,
     value: AccessibilitySettings[K],
   ) => void;
-  resetToDefaults: () => void;
-  applySystemPreferences: () => void;
+  readonly resetToDefaults: () => void;
+  readonly applySystemPreferences: () => void;
 }
 
 const defaultSettings: AccessibilitySettings = {
@@ -120,10 +120,10 @@ const applyAccessibilitySettings = (settings: AccessibilitySettings): void => {
 };
 
 interface AccessibilityContextType {
-  settings: AccessibilitySettings;
-  updateSetting: AccessibilityStore['updateSetting'];
-  resetToDefaults: () => void;
-  applySystemPreferences: () => void;
+  readonly settings: AccessibilitySettings;
+  readonly updateSetting: AccessibilityStore['updateSetting'];
+  readonly resetToDefaults: () => void;
+  readonly applySystemPreferences: () => void;
 }
 
 const AccessibilityContext = createContext<AccessibilityContextType | undefined>(undefined);

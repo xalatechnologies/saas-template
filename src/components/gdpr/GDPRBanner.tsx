@@ -7,27 +7,27 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface CookieConsent {
-  necessary: boolean;
-  functional: boolean;
-  analytics: boolean;
-  marketing: boolean;
-  timestamp: number;
-  version: string;
+  readonly necessary: boolean;
+  readonly functional: boolean;
+  readonly analytics: boolean;
+  readonly marketing: boolean;
+  readonly timestamp: number;
+  readonly version: string;
 }
 
 interface GDPRStore {
-  consent: CookieConsent | null;
-  bannerDismissed: boolean;
-  showPreferences: boolean;
+  readonly consent: CookieConsent | null;
+  readonly bannerDismissed: boolean;
+  readonly showPreferences: boolean;
 
   // Actions
-  setConsent: (consent: Partial<CookieConsent>) => void;
-  dismissBanner: () => void;
-  showPreferencesModal: () => void;
-  hidePreferencesModal: () => void;
-  acceptAll: () => void;
-  rejectAll: () => void;
-  resetConsent: () => void;
+  readonly setConsent: (consent: Partial<CookieConsent>) => void;
+  readonly dismissBanner: () => void;
+  readonly showPreferencesModal: () => void;
+  readonly hidePreferencesModal: () => void;
+  readonly acceptAll: () => void;
+  readonly rejectAll: () => void;
+  readonly resetConsent: () => void;
 }
 
 const CONSENT_VERSION = '1.0';

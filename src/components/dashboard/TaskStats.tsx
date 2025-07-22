@@ -10,10 +10,10 @@ import { useUI } from '@/hooks';
  */
 interface TaskStatsProps {
   readonly stats: {
-    total: number;
-    completed: number;
-    inProgress: number;
-    overdue: number;
+    readonly total: number;
+    readonly completed: number;
+    readonly inProgress: number;
+    readonly overdue: number;
   };
 }
 

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { Menu, Sun, Moon, Globe, Bell, Settings, LogOut } from 'lucide-react';
-import { Button, Avatar } from '../ui';
 import { useAuth, useUI } from '@/hooks';
+import { Button, Avatar } from '../ui';
 
 /**
  * Application header component with navigation and user controls

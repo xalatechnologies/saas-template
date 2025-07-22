@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { Calendar, User, MoreHorizontal } from 'lucide-react';
-import { Card, CardContent, Badge, Avatar, Button } from '../ui';
-import { formatDate, isOverdue, isDueToday } from '@/utils';
 import { useUI } from '@/hooks';
 import type { Task } from '@/types';
+import { formatDate, isOverdue, isDueToday } from '@/utils';
+import { Card, CardContent, Badge, Avatar, Button } from '../ui';
 
 /**
  * Task card component props interface

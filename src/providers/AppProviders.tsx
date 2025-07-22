@@ -3,10 +3,10 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import { ThemeProvider } from './ThemeProvider';
-import { I18nProvider } from './I18nProvider';
 import { AccessibilityProvider } from '../components/accessibility/AccessibilityProvider';
 import { GDPRBanner } from '../components/gdpr/GDPRBanner';
+import { ThemeProvider } from './ThemeProvider';
+import { I18nProvider } from './I18nProvider';
 
 // Create query client outside of component to avoid recreating on re-renders
 const queryClient = new QueryClient({

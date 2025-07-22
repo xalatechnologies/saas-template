@@ -2,6 +2,9 @@
 
 import React, { useState } from 'react';
 import { Plus, Calendar, Tag } from 'lucide-react';
+import { useFormValidation, useTasks, useUI } from '@/hooks';
+import type { CreateTaskInput, TaskPriority } from '@/types';
+import { createTaskSchema } from '@/utils';
 import {
   Dialog,
   DialogContent,
@@ -19,9 +22,6 @@ import {
   SelectValue,
   DatePicker,
 } from '../ui';
-import { useFormValidation, useTasks, useUI } from '@/hooks';
-import { createTaskSchema } from '@/utils';
-import type { CreateTaskInput, TaskPriority } from '@/types';
 
 interface TaskFormProps {
   readonly trigger?: React.ReactNode;
