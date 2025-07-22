@@ -3,7 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, CheckSquare, Settings, User, X } from 'lucide-react';
+import type { Route } from 'next';
+import { LayoutDashboard, CheckSquare, Settings, X } from 'lucide-react';
 import { useUI } from '@/hooks';
 import { cn } from '@/utils';
 import { Button } from '../ui';
@@ -12,7 +13,7 @@ import { Button } from '../ui';
  * Navigation item interface
  */
 interface NavItem {
-  readonly href: string;
+  readonly href: Route<string>;
   readonly label: string;
   readonly icon: React.ComponentType<{ className?: string }>;
 }
@@ -38,11 +39,6 @@ export const Sidebar = (): React.ReactElement => {
       href: '/tasks',
       label: t('navigation.tasks'),
       icon: CheckSquare,
-    },
-    {
-      href: '/profile',
-      label: t('navigation.profile'),
-      icon: User,
     },
     {
       href: '/settings',
@@ -106,7 +102,7 @@ export const Sidebar = (): React.ReactElement => {
               return (
                 <Link
                   key={item.href}
-                  href={item.href as any}
+                  href={item.href}
                   className={cn(
                     'flex items-center space-x-4 rounded-xl px-6 py-4 text-base font-semibold transition-all duration-200 hover:bg-accent hover:text-accent-foreground hover:shadow-md hover:-translate-y-0.5',
                     isActive

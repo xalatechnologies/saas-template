@@ -19,9 +19,9 @@ export const useFormValidation = <T extends Record<string, unknown>>({
 
       if (!result.success) {
         const validationErrors: Record<string, string> = {};
-        result.error.errors.forEach((error) => {
-          if (error.path[0]) {
-            validationErrors[error.path[0] as string] = error.message;
+        result.error.issues.forEach((issue) => {
+          if (issue.path[0]) {
+            validationErrors[issue.path[0] as string] = issue.message;
           }
         });
         setErrors(validationErrors);
