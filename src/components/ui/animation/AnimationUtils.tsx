@@ -1,105 +1,61 @@
-import { useEffect, useState, useRef, ReactElement } from 'react';
-import { animation } from '@/design-tokens/base/airbnb-animation';
-import { styled } from '@/styles';
-import { css, keyframes } from 'styled-components';
+'use client';
+
+import React, { ReactElement, useState, useEffect, useRef } from 'react';
+import { cn } from '@/utils';
+import { animation } from '@/src/design-tokens/base/animations';
 
 // ============================
-// Animation Keyframes
+// Animation CSS Classes
 // ============================
 
-export const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-
-export const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-export const fadeInDown = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-export const scaleIn = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
-
-export const pulse = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-`;
-
-export const shimmer = keyframes`
-  0% { background-position: -468px 0; }
-  100% { background-position: 468px 0; }
-`;
+export const animationClasses = {
+  fadeIn: 'animate-in fade-in duration-300',
+  fadeOut: 'animate-out fade-out duration-250',
+  slideUp: 'animate-in slide-in-from-bottom-4 duration-400',
+  slideDown: 'animate-in slide-in-from-top-4 duration-350',
+  scaleIn: 'animate-in zoom-in-95 duration-400',
+  scaleOut: 'animate-out zoom-out-95 duration-350',
+  pulse: 'animate-pulse',
+  shimmer: 'animate-pulse'
+};
 
 // ============================
-// Animation Mixins
+// Animation Utilities
 // ============================
 
-export const transitionMixin = (
-  properties: string = 'all',
+export const getTransitionClasses = (
   duration: keyof typeof animation.durations = 'normal',
-  easing: keyof typeof animation.easings = 'easeOut',
-  delay: keyof typeof animation.delay = 'none'
-) => css`
-  transition: ${properties} ${animation.durations[duration]} ${animation.easings[easing]} ${animation.delay[delay]};
-`;
+  easing: keyof typeof animation.easings = 'easeOut'
+) => {
+  const durationMap = {
+    xfast: 'duration-100',
+    fast: 'duration-200', 
+    normal: 'duration-300',
+    medium: 'duration-400',
+    slow: 'duration-500',
+    xslow: 'duration-800',
+    xxslow: 'duration-1200'
+  };
+  
+  const easingMap = {
+    linear: 'ease-linear',
+    standard: 'ease-out',
+    easeOut: 'ease-out',
+    emphasizedDecelerate: 'ease-out',
+    easeIn: 'ease-in',
+    emphasizedAccelerate: 'ease-in',
+    easeInOut: 'ease-in-out',
+    spring: 'ease-out'
+  };
+  
+  return `transition-all ${durationMap[duration as keyof typeof durationMap]} ${easingMap[easing as keyof typeof easingMap]}`;
+};
 
-export const animationMixin = (
-  animationName: any,
-  duration: keyof typeof animation.durations = 'normal',
-  easing: keyof typeof animation.easings = 'easeOut',
-  delay: keyof typeof animation.delay = 'none',
-  fillMode: string = 'forwards'
-) => css`
-  animation: ${animationName} ${animation.durations[duration]} ${animation.easings[easing]} ${animation.delay[delay]} ${fillMode};
-`;
+export const hoverScaleClasses = 'transition-transform duration-200 ease-out hover:scale-105';
 
-export const hoverScaleMixin = (scale: string = '1.03') => css`
-  ${transitionMixin('transform', 'fast', 'spring')}
-  &:hover {
-    transform: scale(${scale});
-  }
-`;
+export const cardHoverClasses = 'transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-xl';
 
-export const cardHoverMixin = () => css`
-  ${transitionMixin('transform, box-shadow', 'fast', 'spring')}
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-`;
-
-export const buttonPressMixin = () => css`
-  ${transitionMixin('transform, box-shadow', 'xfast', 'spring')}
-  &:active {
-    transform: scale(0.98);
-  }
-`;
+export const buttonPressClasses = 'transition-transform duration-100 ease-out active:scale-98';
 
 // ============================
 // Animation Components
@@ -109,7 +65,6 @@ interface FadeProps {
   children: ReactElement;
   duration?: keyof typeof animation.durations;
   easing?: keyof typeof animation.easings;
-  delay?: keyof typeof animation.delay;
   direction?: 'up' | 'down' | 'none';
   show?: boolean;
 }
@@ -118,7 +73,6 @@ export const Fade = ({
   children,
   duration = 'normal',
   easing = 'easeOut',
-  delay = 'none',
   direction = 'none',
   show = true,
 }: FadeProps) => {
@@ -134,16 +88,17 @@ export const Fade = ({
 
   if (!shouldRender) return null;
 
-  let animationToUse = fadeIn;
-  if (direction === 'up') animationToUse = fadeInUp;
-  if (direction === 'down') animationToUse = fadeInDown;
+  let animationClass = animationClasses.fadeIn;
+  if (direction === 'up') animationClass = animationClasses.slideUp;
+  if (direction === 'down') animationClass = animationClasses.slideDown;
 
   return (
     <div
-      style={{
-        animation: `${animationToUse} ${animation.durations[duration]} ${animation.easings[easing]} ${animation.delay[delay]}`,
-        opacity: show ? 1 : 0,
-      }}
+      className={cn(
+        animationClass,
+        getTransitionClasses(duration, easing),
+        show ? 'opacity-100' : 'opacity-0'
+      )}
       onAnimationEnd={onAnimationEnd}
     >
       {children}
@@ -162,19 +117,35 @@ export const StaggeredList = ({
   children,
   staggerDelay = 'small',
   initialDelay = 'none',
-  animation = 'fadeIn',
+  animation: animationType = 'fadeIn',
 }: StaggeredListProps) => {
+  const delayMap = {
+    none: 0,
+    short: 50,
+    medium: 100,
+    long: 200
+  };
+  
+  const staggerMap = {
+    xxsmall: 10,
+    xsmall: 20,
+    small: 30,
+    medium: 50,
+    large: 80,
+    xlarge: 100
+  };
+
   return (
     <>
       {children.map((child, index) => {
-        const calculatedDelay = `${parseInt(animation.delay[initialDelay] || '0') + parseInt(animation.stagger[staggerDelay] || '0') * index}ms`;
+        const calculatedDelay = delayMap[initialDelay as keyof typeof delayMap] + staggerMap[staggerDelay as keyof typeof staggerMap] * index;
         
         return (
           <div
             key={index}
+            className={cn(animationClasses[animationType as keyof typeof animationClasses])}
             style={{
-              animation: `${fadeIn} ${animation.presets[animation].duration} ${animation.presets[animation].easing}`,
-              animationDelay: calculatedDelay,
+              animationDelay: `${calculatedDelay}ms`,
               animationFillMode: 'both',
             }}
           >
@@ -186,36 +157,36 @@ export const StaggeredList = ({
   );
 };
 
-// Styled components using animation mixins
+// Component classes using animation utilities
 
-export const HoverCard = styled.div`
-  ${cardHoverMixin()}
-  border-radius: 8px;
-  overflow: hidden;
-`;
+export const HoverCard = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
+  <div className={cn(cardHoverClasses, 'rounded-xl overflow-hidden', className)}>
+    {children}
+  </div>
+);
 
-export const PressableButton = styled.button`
-  ${buttonPressMixin()}
-  border: none;
-  background: none;
-  cursor: pointer;
-`;
+export const PressableButton = ({ children, onClick, className = '' }: { children: React.ReactNode; onClick?: () => void; className?: string }) => (
+  <button 
+    onClick={onClick}
+    className={cn(buttonPressClasses, 'border-none bg-transparent cursor-pointer', className)}
+  >
+    {children}
+  </button>
+);
 
-export const ZoomImage = styled.img`
-  ${hoverScaleMixin('1.05')}
-  border-radius: 8px;
-  overflow: hidden;
-`;
+export const ZoomImage = ({ src, alt, className = '' }: { src: string; alt: string; className?: string }) => (
+  <img 
+    src={src} 
+    alt={alt}
+    className={cn(hoverScaleClasses, 'rounded-xl overflow-hidden', className)}
+  />
+);
 
 // Loading components
 
-export const SkeletonLoader = styled.div`
-  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  ${animationMixin(shimmer, 'xslow', 'linear')}
-  animation-iteration-count: infinite;
-  border-radius: 4px;
-`;
+export const SkeletonLoader = ({ className = '' }: { className?: string }) => (
+  <div className={cn('bg-muted animate-pulse rounded-lg', className)} />
+);
 
 // Custom hooks for animation
 
@@ -231,7 +202,6 @@ export const useInViewAnimation = (options: InViewAnimationOptions = {}) => {
     threshold = 0.1,
     rootMargin = '0px',
     triggerOnce = true,
-    animation = 'fadeIn',
   } = options;
 
   const ref = useRef<HTMLElement | null>(null);
@@ -264,17 +234,9 @@ export const useInViewAnimation = (options: InViewAnimationOptions = {}) => {
     };
   }, [threshold, rootMargin, triggerOnce]);
 
-  const animationStyle = isInView
-    ? {
-        opacity: 1,
-        transform: 'translateY(0)',
-        transition: `opacity ${animation.presets[animation].duration} ${animation.presets[animation].easing}, transform ${animation.presets[animation].duration} ${animation.presets[animation].easing}`,
-      }
-    : {
-        opacity: 0,
-        transform: 'translateY(20px)',
-        transition: 'none',
-      };
+  const animationClasses = isInView
+    ? cn('opacity-100 translate-y-0', getTransitionClasses('normal', 'easeOut'))
+    : 'opacity-0 translate-y-5';
 
-  return { ref, isInView, animationStyle };
+  return { ref, isInView, animationClasses };
 };

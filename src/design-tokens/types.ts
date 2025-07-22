@@ -159,4 +159,6 @@ export interface ThemeVariant {
   dark: ThemeConfig;
 }
 
-export type SectorThemes = Record<string, ThemeVariant>;
+export interface SectorThemes {
+  [key: string]: ThemeVariant;
+}

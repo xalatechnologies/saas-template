@@ -1,98 +1,149 @@
-import React, { ReactElement } from 'react';
-import { styled } from '@/styles';
-import { animation } from '@/design-tokens/base/airbnb-animation';
+'use client';
 
-/**
- * Props for TransitionCard component
- */
-interface TransitionCardProps {
-  /** Card content */
-  children: ReactElement;
-  /** Whether card is elevated on hover */
-  elevated?: boolean;
-  /** Scale factor when hovering (1.0 = no scale) */
-  hoverScale?: number;
-  /** Whether to animate when component mounts */
-  animateEntry?: boolean;
-  /** Custom CSS class name */
+import { ReactNode, useState } from 'react';
+import { animation } from '@/src/design-tokens/base/animations';
+import { cn } from '@/utils';
+
+export interface TransitionCardProps {
+  /** Children to animate */
+  children: ReactNode;
+  /** Hover animation type */
+  hoverAnimation?: 'lift' | 'scale' | 'glow' | 'none';
+  /** Click animation type */
+  clickAnimation?: 'scale' | 'press' | 'none';
+  /** Animation duration */
+  duration?: keyof typeof animation.durations;
+  /** Animation easing */
+  easing?: keyof typeof animation.easings;
+  /** Custom className */
   className?: string;
-  /** Optional click handler */
+  /** onClick handler */
   onClick?: () => void;
+  /** onHover handler */
+  onHover?: (isHovered: boolean) => void;
+  /** Disabled state */
+  disabled?: boolean;
 }
 
 /**
- * TransitionCard component that mimics Airbnb's card hover effects
- * Provides elevation, subtle scaling, and smooth shadow transitions
+ * TransitionCard component with hover and click animations
+ * @returns JSX.Element
  */
 export const TransitionCard = ({
   children,
-  elevated = true,
-  hoverScale = 1.02,
-  animateEntry = false,
+  hoverAnimation = 'lift',
+  clickAnimation = 'scale',
+  duration = 'fast',
+  easing = 'easeOut',
   className,
   onClick,
-}: TransitionCardProps): ReactElement => {
+  onHover,
+  disabled = false,
+}: TransitionCardProps): JSX.Element => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handleMouseEnter = () => {
+    if (disabled) return;
+    setIsHovered(true);
+    onHover?.(true);
+  };
+
+  const handleMouseLeave = () => {
+    if (disabled) return;
+    setIsHovered(false);
+    setIsPressed(false);
+    onHover?.(false);
+  };
+
+  const handleMouseDown = () => {
+    if (disabled) return;
+    setIsPressed(true);
+  };
+
+  const handleMouseUp = () => {
+    if (disabled) return;
+    setIsPressed(false);
+  };
+
+  const handleClick = () => {
+    if (disabled) return;
+    onClick?.();
+  };
+
+  const durationClasses = {
+    xfast: 'duration-100',
+    fast: 'duration-200',
+    normal: 'duration-300',
+    medium: 'duration-400',
+    slow: 'duration-500',
+    xslow: 'duration-800',
+    xxslow: 'duration-1200'
+  };
+
+  const easingClasses = {
+    linear: 'ease-linear',
+    standard: 'ease-out',
+    easeOut: 'ease-out',
+    emphasizedDecelerate: 'ease-out',
+    easeIn: 'ease-in',
+    emphasizedAccelerate: 'ease-in',
+    easeInOut: 'ease-in-out',
+    spring: 'ease-out'
+  };
+
+  const getHoverClasses = () => {
+    if (disabled || !isHovered) return '';
+    
+    switch (hoverAnimation) {
+      case 'lift':
+        return '-translate-y-2 shadow-xl';
+      case 'scale':
+        return 'scale-105';
+      case 'glow':
+        return 'shadow-2xl ring-2 ring-primary/20';
+      case 'none':
+      default:
+        return '';
+    }
+  };
+
+  const getClickClasses = () => {
+    if (disabled || !isPressed) return '';
+    
+    switch (clickAnimation) {
+      case 'scale':
+        return 'scale-95';
+      case 'press':
+        return 'translate-y-0.5';
+      case 'none':
+      default:
+        return '';
+    }
+  };
+
   return (
-    <StyledCard
-      className={className}
-      $elevated={elevated}
-      $hoverScale={hoverScale}
-      $animateEntry={animateEntry}
-      onClick={onClick}
+    <div
+      className={cn(
+        'transition-all',
+        durationClasses[duration as keyof typeof durationClasses],
+        easingClasses[easing as keyof typeof easingClasses],
+        'rounded-xl bg-card shadow-lg',
+        !disabled && onClick && 'cursor-pointer',
+        disabled && 'opacity-50 cursor-not-allowed',
+        getHoverClasses(),
+        getClickClasses(),
+        className
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onClick={handleClick}
     >
       {children}
-    </StyledCard>
+    </div>
   );
 };
 
-interface StyledCardProps {
-  $elevated: boolean;
-  $hoverScale: number;
-  $animateEntry: boolean;
-}
-
-const StyledCard = styled.div<StyledCardProps>`
-  position: relative;
-  border-radius: 12px;
-  overflow: hidden;
-  background-color: white;
-  
-  /* Base shadow */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  
-  /* Airbnb-style hover transition for transform and shadow */
-  transition: 
-    transform ${animation.durations.normal} ${animation.easings.spring},
-    box-shadow ${animation.durations.normal} ${animation.easings.spring};
-  
-  /* Entry animation if enabled */
-  ${({ $animateEntry }) => $animateEntry && `
-    animation: cardEntry ${animation.durations.normal} ${animation.easings.softLanding} forwards;
-    
-    @keyframes cardEntry {
-      from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-  `}
-  
-  /* Interactive hover effects */
-  ${({ $elevated, $hoverScale }) => $elevated && `
-    cursor: pointer;
-    
-    &:hover {
-      transform: translateY(-4px) scale(${$hoverScale});
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-    
-    &:active {
-      transform: translateY(-2px) scale(${$hoverScale * 0.99});
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    }
-  `}
-`;
+export default TransitionCard;

@@ -1,9 +1,9 @@
 /**
- * Animation tokens extracted from Airbnb design system
- * Use these tokens to maintain consistent animation patterns across the application
+ * Animation tokens for consistent motion patterns across the application
  */
+import { AnimationTokens } from '../animation-types';
 
-export const animation = {
+export const animation: AnimationTokens = {
   "durations": {
     "xfast": "100ms",
     "fast": "200ms",

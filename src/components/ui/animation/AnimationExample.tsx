@@ -1,169 +1,151 @@
-import React, { type ReactElement } from 'react';
-import { styled } from '@/styles';
-import { 
-  RevealSection, 
-  TransitionCard, 
-  ImageGallery,
-  StaggeredList,
-  ZoomableImage
-} from './';
+import React, { useState } from 'react';
+import { cn } from '@/utils';
+import { Button } from '../button';
+import { GridLayout } from '../../layout/GridLayout';
 
 /**
- * Example images for demonstration
+ * AnimationExample component demonstrating various animations
+ * @returns JSX.Element
  */
-const exampleImages = [
-  {
-    src: 'https://a0.muscache.com/im/pictures/miso/Hosting-53733023/original/1e4b3029-b84e-4506-bc0c-37b56f0daf16.jpeg',
-    alt: 'Example image 1',
-    aspectRatio: 1.5
-  },
-  {
-    src: 'https://a0.muscache.com/im/pictures/miso/Hosting-53662498/original/45b49c51-104c-441a-9336-def21b14b39c.jpeg',
-    alt: 'Example image 2',
-    aspectRatio: 1.5
-  },
-  {
-    src: 'https://a0.muscache.com/im/pictures/miso/Hosting-53662498/original/dc1f37fd-b5a8-4be1-b835-4b75ab3757d0.jpeg',
-    alt: 'Example image 3',
-    aspectRatio: 1.5
-  },
-];
+export const AnimationExample = (): JSX.Element => {
+  const [showFade, setShowFade] = useState(false);
+  const [showSlide, setShowSlide] = useState(false);
+  const [showScale, setShowScale] = useState(false);
+  const [showStagger, setShowStagger] = useState(false);
 
-/**
- * Sample card data for demonstration
- */
-const cardData = [
-  { title: 'Luxury Beachfront Villa', location: 'Malibu, California', price: '$350' },
-  { title: 'Mountain Retreat', location: 'Aspen, Colorado', price: '$275' },
-  { title: 'Urban Apartment', location: 'New York City', price: '$180' },
-];
+  const examples = [
+    { title: 'Item 1', color: 'bg-destructive' },
+    { title: 'Item 2', color: 'bg-primary' },
+    { title: 'Item 3', color: 'bg-success' },
+    { title: 'Item 4', color: 'bg-secondary' },
+  ];
 
-/**
- * Demonstrates usage of Airbnb-style animation components
- */
-export const AnimationExample = (): ReactElement => {
   return (
-    <Container>
-      <Title>Airbnb-Style Animation Examples</Title>
-      
-      <Section>
-        <SectionTitle>Reveal Section</SectionTitle>
-        <RevealSection direction="up" distance={20}>
-          <SectionContent>
-            This content fades in and slides up when it enters the viewport,
-            exactly like Airbnb's reveal effects on their homepage.
-          </SectionContent>
-        </RevealSection>
-      </Section>
-      
-      <Section>
-        <SectionTitle>Staggered Card Animations</SectionTitle>
-        <CardsContainer>
-          <StaggeredList
-            staggerDelay="medium"
-            initialDelay="short"
-          >
-            {cardData.map((card, index) => (
-              <TransitionCard key={index} elevated hoverScale={1.03} animateEntry>
-                <CardContent>
-                  <CardTitle>{card.title}</CardTitle>
-                  <CardLocation>{card.location}</CardLocation>
-                  <CardPrice>{card.price} night</CardPrice>
-                </CardContent>
-              </TransitionCard>
+    <div className="p-8 space-y-8 max-w-4xl mx-auto">
+      <div className="text-center space-y-4">
+        <h1 className="text-3xl font-bold text-foreground">
+          Animation Examples
+        </h1>
+        <p className="text-muted-foreground">
+          Demonstrating Tailwind CSS animations with design tokens
+        </p>
+      </div>
+
+      {/* Fade Animation */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold">Fade Animation</h2>
+          <Button onClick={() => setShowFade(!showFade)}>
+            {showFade ? 'Hide' : 'Show'} Fade
+          </Button>
+        </div>
+        {showFade && (
+          <div className="animate-in fade-in duration-300">
+            <div className="p-6 bg-card rounded-xl shadow-lg">
+              <p>This content fades in smoothly!</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Slide Animation */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold">Slide Animation</h2>
+          <Button onClick={() => setShowSlide(!showSlide)}>
+            {showSlide ? 'Hide' : 'Show'} Slide
+          </Button>
+        </div>
+        {showSlide && (
+          <div className="animate-in slide-in-from-bottom-4 duration-400">
+            <div className="p-6 bg-card rounded-xl shadow-lg">
+              <p>This content slides up from the bottom!</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Scale Animation */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold">Scale Animation</h2>
+          <Button onClick={() => setShowScale(!showScale)}>
+            {showScale ? 'Hide' : 'Show'} Scale
+          </Button>
+        </div>
+        {showScale && (
+          <div className="animate-in zoom-in-95 duration-500">
+            <div className="p-6 bg-card rounded-xl shadow-lg">
+              <p>This content scales in from 95%!</p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Staggered Animation */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          <h2 className="text-xl font-semibold">Staggered Animation</h2>
+          <Button onClick={() => setShowStagger(!showStagger)}>
+            {showStagger ? 'Hide' : 'Show'} Stagger
+          </Button>
+        </div>
+        {showStagger && (
+          <GridLayout columns={{ mobile: 1, tablet: 2 }} gap="lg">
+            {examples.map((example, index) => (
+              <div
+                key={example.title}
+                className={cn(
+                  'animate-in fade-in slide-in-from-bottom-4 duration-300',
+                  'p-4 rounded-xl text-white font-medium',
+                  example.color
+                )}
+                style={{
+                  animationDelay: `${index * 100}ms`,
+                  animationFillMode: 'both'
+                }}
+              >
+                {example.title}
+              </div>
             ))}
-          </StaggeredList>
-        </CardsContainer>
-      </Section>
-      
-      <Section>
-        <SectionTitle>Image Gallery with Hover Effects</SectionTitle>
-        <RevealSection direction="up" distance={15}>
-          <ImageGallery
-            images={exampleImages}
-            columns={3}
-            gap={1}
-            staggered
-          />
-        </RevealSection>
-      </Section>
-      
-      <Section>
-        <SectionTitle>Single Zoomable Image</SectionTitle>
-        <RevealSection direction="up">
-          <ZoomImageContainer>
-            <ZoomableImage 
-              src="https://a0.muscache.com/im/pictures/miso/Hosting-53733023/original/7fcce2f8-bd6a-4d4f-b96c-a0881b2412a2.jpeg"
-              alt="Zoomable image example"
-            />
-          </ZoomImageContainer>
-        </RevealSection>
-      </Section>
-    </Container>
+          </GridLayout>
+        )}
+      </div>
+
+      {/* Hover Effects */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Hover Effects</h2>
+        <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
+          <div className="p-6 bg-card rounded-xl shadow-lg transition-all duration-200 hover:-translate-y-1 hover:shadow-xl cursor-pointer">
+            <p className="font-medium">Lift on Hover</p>
+          </div>
+          <div className="p-6 bg-card rounded-xl shadow-lg transition-all duration-200 hover:scale-105 cursor-pointer">
+            <p className="font-medium">Scale on Hover</p>
+          </div>
+          <div className="p-6 bg-card rounded-xl shadow-lg transition-all duration-200 hover:shadow-2xl hover:ring-2 hover:ring-primary/20 cursor-pointer">
+            <p className="font-medium">Glow on Hover</p>
+          </div>
+        </GridLayout>
+      </div>
+
+      {/* Loading States */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-semibold">Loading States</h2>
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <p>Loading spinner</p>
+          </div>
+          <div className="space-y-2">
+            <div className="animate-pulse bg-muted rounded-lg h-4 w-3/4"></div>
+            <div className="animate-pulse bg-muted rounded-lg h-4 w-1/2"></div>
+            <div className="animate-pulse bg-muted rounded-lg h-4 w-5/6"></div>
+            <p className="text-sm text-muted-foreground">Skeleton loading</p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
-const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-`;
-
-const Title = styled.h1`
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  font-weight: 600;
-`;
-
-const Section = styled.section`
-  margin-bottom: 3rem;
-`;
-
-const SectionTitle = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
-`;
-
-const SectionContent = styled.div`
-  background-color: #f7f7f7;
-  padding: 2rem;
-  border-radius: 12px;
-  line-height: 1.6;
-`;
-
-const CardsContainer = styled.div`
-  display: flex;
-  gap: 1.5rem;
-  width: 100%;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const CardContent = styled.div`
-  padding: 1.5rem;
-`;
-
-const CardTitle = styled.h3`
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-`;
-
-const CardLocation = styled.p`
-  color: #717171;
-  margin-bottom: 1rem;
-`;
-
-const CardPrice = styled.p`
-  font-weight: 600;
-`;
-
-const ZoomImageContainer = styled.div`
-  width: 100%;
-  max-height: 400px;
-  overflow: hidden;
-  border-radius: 12px;
-`;
+export default AnimationExample;

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { MessageSquare } from 'lucide-react';
 import { Button, LanguageSelector } from '../ui';
+import { FlexLayout, GridLayout } from './';
 import { Header } from './Header';
 import { RightDrawer } from './RightDrawer';
 import { SkipLinks } from '@/components';
@@ -30,13 +31,13 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <FlexLayout direction="column" className="min-h-screen bg-background">
       <SkipLinks />
       
       {/* Header with web-specific navigation */}
       <Header showLogo navigation={navItems}>
         <>
-          <div className="hidden lg:flex items-center space-x-4">
+          <FlexLayout direction="row" align="center" gap="lg" className="hidden lg:flex">
             <LanguageSelector />
             <Button
               variant="outline"
@@ -57,12 +58,12 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
                 {t('auth.signup')}
               </Button>
             </Link>
-          </div>
+          </FlexLayout>
           
           {/* Mobile actions (only shown in mobile menu) */}
-          <div className="lg:hidden flex justify-center mb-3">
+          <FlexLayout direction="row" justify="center" className="lg:hidden mb-3">
             <LanguageSelector />
-          </div>
+          </FlexLayout>
           <Button
             variant="outline"
             onClick={() => {
@@ -94,7 +95,7 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
       {/* Footer */}
       <footer className="bg-muted/30 border-t border-border mt-auto">
         <div className="container mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <GridLayout columns={{ mobile: 1, tablet: 4 }} gap="lg">
             {/* Company Info */}
             <div className="md:col-span-2">
               <h3 className="text-xl font-bold mb-4">TaskManager</h3>
@@ -146,7 +147,7 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
                 </li>
               </ul>
             </div>
-          </div>
+          </GridLayout>
 
           <div className="mt-8 pt-8 border-t border-border text-center text-muted-foreground">
             <p>&copy; 2024 TaskManager. All rights reserved.</p>
@@ -162,6 +163,6 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
       >
         {/* Chatbot content will go here */}
       </RightDrawer>
-    </div>
+    </FlexLayout>
   );
 };

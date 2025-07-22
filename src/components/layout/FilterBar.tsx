@@ -12,6 +12,7 @@ import {
   Save
 } from 'lucide-react';
 import { Button, Input, Badge, Select, Checkbox, Label } from '../ui';
+import { FlexLayout, GridLayout } from './';
 import { cn } from '@/utils';
 
 export interface FilterOption {
@@ -192,7 +193,7 @@ const FilterContent = ({
       {savedFilters && savedFilters.length > 0 && (
         <div>
           <Label className="text-base font-medium mb-4">Quick Filters</Label>
-          <div className="flex flex-wrap gap-4">
+          <FlexLayout direction="row" wrap gap="lg">
             {savedFilters.map((saved) => (
               <Button
                 key={saved.id}
@@ -204,12 +205,12 @@ const FilterContent = ({
                 {saved.name}
               </Button>
             ))}
-          </div>
+          </FlexLayout>
         </div>
       )}
 
       {/* Basic Filters */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
         {basicFilters.map((filter) => (
           <FilterDropdown
             key={filter.id}
@@ -218,7 +219,7 @@ const FilterContent = ({
             onChange={(value) => onChange({ ...values, [filter.id]: value })}
           />
         ))}
-      </div>
+      </GridLayout>
 
       {/* Advanced Filters */}
       {advancedFilters.length > 0 && (

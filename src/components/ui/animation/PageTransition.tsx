@@ -1,141 +1,90 @@
-import React, { ReactElement, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { styled } from '@/styles';
-import { animation } from '@/design-tokens/base/airbnb-animation';
+'use client';
 
-/**
- * Props for the PageTransition component
- */
-interface PageTransitionProps {
-  /** Content to be animated */
-  children: ReactElement;
-  /** Unique identifier for this page/route */
-  routeKey: string;
-  /** Type of transition effect */
-  transitionType?: 'fade' | 'slide-up' | 'slide-horizontal';
-  /** Duration of animation */
+import { ReactNode } from 'react';
+import { animation } from '@/src/design-tokens/base/animations';
+import { cn } from '@/utils';
+
+export interface PageTransitionProps {
+  /** Children to animate */
+  children: ReactNode;
+  /** Transition type */
+  type?: 'fade' | 'slideUp' | 'slideDown' | 'slideLeft' | 'slideRight' | 'scale';
+  /** Animation duration */
   duration?: keyof typeof animation.durations;
-  /** Custom classname */
+  /** Animation easing */
+  easing?: keyof typeof animation.easings;
+  /** Animation delay */
+  delay?: keyof typeof animation.delay;
+  /** Custom className */
   className?: string;
+  /** Whether to animate in or out */
+  show?: boolean;
 }
 
 /**
- * Transition variants that match Airbnb's exact page transition animations
- */
-const getTransitionVariants = (type: string, duration: string, easing: string) => {
-  // Base variants for all transition types
-  const baseVariants = {
-    initial: {
-      opacity: 0,
-    },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: parseFloat(duration) / 1000, // Convert ms to seconds
-        ease: easing,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        duration: (parseFloat(duration) * 0.75) / 1000, // Exit slightly faster
-        ease: animation.easings.easeIn,
-      },
-    },
-  };
-
-  // Add transform properties based on transition type
-  switch (type) {
-    case 'slide-up':
-      return {
-        initial: {
-          ...baseVariants.initial,
-          y: 20,
-        },
-        animate: {
-          ...baseVariants.animate,
-          y: 0,
-        },
-        exit: {
-          ...baseVariants.exit,
-          y: -20,
-        },
-      };
-    case 'slide-horizontal':
-      return {
-        initial: {
-          ...baseVariants.initial,
-          x: 20,
-        },
-        animate: {
-          ...baseVariants.animate,
-          x: 0,
-        },
-        exit: {
-          ...baseVariants.exit,
-          x: -20,
-        },
-      };
-    case 'fade':
-    default:
-      return baseVariants;
-  }
-};
-
-/**
- * PageTransition component that provides smooth Airbnb-style transitions between routes/pages
- * Uses framer-motion for animation with carefully tuned parameters to match Airbnb's feel
+ * Page transition component using Tailwind animations
+ * @returns JSX.Element
  */
 export const PageTransition = ({
   children,
-  routeKey,
-  transitionType = 'fade',
+  type = 'fade',
   duration = 'normal',
+  easing = 'easeOut', 
+  delay = 'none',
   className,
-}: PageTransitionProps): ReactElement => {
-  const prevScrollY = useRef<number>(0);
+  show = true,
+}: PageTransitionProps): JSX.Element => {
+  const durationClasses = {
+    xfast: 'duration-100',
+    fast: 'duration-200',
+    normal: 'duration-300',
+    medium: 'duration-400', 
+    slow: 'duration-500',
+    xslow: 'duration-800',
+    xxslow: 'duration-1200'
+  };
 
-  // Save scroll position before animation starts
-  useEffect(() => {
-    prevScrollY.current = window.scrollY;
-    return () => {
-      // Store the scroll position when component unmounts
-      prevScrollY.current = window.scrollY;
-    };
-  }, [routeKey]);
+  const easingClasses = {
+    linear: 'ease-linear',
+    standard: 'ease-out',
+    easeOut: 'ease-out',
+    emphasizedDecelerate: 'ease-out',
+    easeIn: 'ease-in',
+    emphasizedAccelerate: 'ease-in',
+    easeInOut: 'ease-in-out',
+    spring: 'ease-out'
+  };
 
-  // Convert animation.durations string to number (remove 'ms')
-  const durationValue = animation.durations[duration];
-  
-  // Get the appropriate easing function based on transition type
-  const easingValue = 
-    transitionType === 'fade' 
-      ? animation.easings.easeOut 
-      : animation.easings.softLanding;
-  
-  const variants = getTransitionVariants(
-    transitionType,
-    durationValue,
-    easingValue
-  );
+  const delayClasses = {
+    none: 'delay-0',
+    short: 'delay-75',
+    medium: 'delay-100', 
+    long: 'delay-200'
+  };
+
+  const transitionTypes = {
+    fade: show ? 'animate-in fade-in' : 'animate-out fade-out',
+    slideUp: show ? 'animate-in slide-in-from-bottom-4' : 'animate-out slide-out-to-bottom-4',
+    slideDown: show ? 'animate-in slide-in-from-top-4' : 'animate-out slide-out-to-top-4', 
+    slideLeft: show ? 'animate-in slide-in-from-right-4' : 'animate-out slide-out-to-right-4',
+    slideRight: show ? 'animate-in slide-in-from-left-4' : 'animate-out slide-out-to-left-4',
+    scale: show ? 'animate-in zoom-in-95' : 'animate-out zoom-out-95'
+  };
 
   return (
-    <AnimatePresence mode="wait">
-      <Container
-        key={routeKey}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        variants={variants}
-        className={className}
-      >
-        {children}
-      </Container>
-    </AnimatePresence>
+    <div
+      className={cn(
+        'w-full',
+        transitionTypes[type],
+        durationClasses[duration as keyof typeof durationClasses],
+        easingClasses[easing as keyof typeof easingClasses],
+        delayClasses[delay as keyof typeof delayClasses],
+        className
+      )}
+    >
+      {children}
+    </div>
   );
 };
 
-const Container = styled(motion.div)`
-  width: 100%;
-  will-change: opacity, transform;
-`;
+export default PageTransition;

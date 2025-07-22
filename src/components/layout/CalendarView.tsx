@@ -12,6 +12,7 @@ import {
   MoreHorizontal
 } from 'lucide-react';
 import { Button, Badge, Select } from '../ui';
+import { FlexLayout, GridLayout } from './';
 import { cn } from '@/utils';
 
 export interface CalendarEvent<T> {
@@ -168,15 +169,15 @@ export function CalendarView<T>({
     <div className={cn('flex flex-col bg-card rounded-xl border border-border', className)} style={{ height }}>
       {/* Calendar Header */}
       {showControls && (
-        <div className="flex items-center justify-between p-4 border-b border-border">
-          <div className="flex items-center space-x-4">
+        <FlexLayout direction="row" align="center" justify="between" className="p-8 border-b border-border">
+          <FlexLayout direction="row" align="center" gap="lg">
             <h2 className="text-xl font-semibold">
               {currentDate.toLocaleDateString('en-US', { 
                 month: 'long', 
                 year: 'numeric' 
               })}
             </h2>
-            <div className="flex items-center space-x-1">
+            <FlexLayout direction="row" align="center" gap="xs">
               <Button
                 variant="ghost"
                 size="icon"
@@ -201,10 +202,10 @@ export function CalendarView<T>({
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
-            </div>
-          </div>
+            </FlexLayout>
+          </FlexLayout>
 
-          <div className="flex items-center space-x-4">
+          <FlexLayout direction="row" align="center" gap="lg">
             {onEventCreate && (
               <Button
                 onClick={() => onEventCreate(new Date(), new Date())}
@@ -224,8 +225,8 @@ export function CalendarView<T>({
               <option value="day">Day</option>
               <option value="agenda">Agenda</option>
             </Select>
-          </div>
-        </div>
+          </FlexLayout>
+        </FlexLayout>
       )}
 
       {/* Calendar Content */}
@@ -308,7 +309,7 @@ function MonthView<T>({
   return (
     <div className="h-full">
       {/* Week days header */}
-      <div className="grid grid-cols-7 border-b border-border">
+      <GridLayout columns={7} className="border-b border-border">
         {weekDays.map((day) => (
           <div
             key={day}
@@ -317,10 +318,10 @@ function MonthView<T>({
             {day}
           </div>
         ))}
-      </div>
+      </GridLayout>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 flex-1">
+      <GridLayout columns={7} className="flex-1">
         {weeks.map((week, weekIndex) => (
           <React.Fragment key={weekIndex}>
             {week.map((date, dayIndex) => {
@@ -340,7 +341,7 @@ function MonthView<T>({
                     isSelected && 'ring-2 ring-primary ring-inset'
                   )}
                 >
-                  <div className="flex items-start justify-between mb-1">
+                  <FlexLayout direction="row" align="start" justify="between" className="mb-1">
                     <span className={cn(
                       'text-sm font-medium',
                       isToday && 'text-primary'
@@ -352,7 +353,7 @@ function MonthView<T>({
                         {events.length}
                       </Badge>
                     )}
-                  </div>
+                  </FlexLayout>
                   <div className="space-y-1">
                     {events.slice(0, 3).map((event) => (
                       <CalendarEventItem
@@ -377,7 +378,7 @@ function MonthView<T>({
             })}
           </React.Fragment>
         ))}
-      </div>
+      </GridLayout>
     </div>
   );
 }

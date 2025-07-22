@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef, ReactElement } from 'react';
-import { styled } from '@/styles';
-import { animation } from '@/design-tokens/base/airbnb-animation';
+'use client';
+
+import React, { useState } from 'react';
+import { cn } from '@/utils';
 
 /**
  * Image object structure
@@ -18,219 +19,144 @@ interface ImageItem {
  * Props for ImageGallery component
  */
 interface ImageGalleryProps {
-  /** Array of image objects to display */
+  /** Array of images to display */
   images: ImageItem[];
-  /** Number of columns in the grid */
-  columns?: 1 | 2 | 3 | 4;
-  /** Gap between images in rem units */
-  gap?: number;
-  /** Whether to reveal images with staggered animation */
-  staggered?: boolean;
-  /** Whether to use a masonry layout */
-  masonry?: boolean;
-  /** Optional CSS class name */
+  /** Number of columns in grid */
+  columns?: number;
+  /** Gap between images */
+  gap?: 'sm' | 'md' | 'lg';
+  /** Aspect ratio for images */
+  aspectRatio?: 'square' | 'video' | 'portrait' | 'auto';
+  /** Enable image hover effects */
+  enableHover?: boolean;
+  /** Enable lazy loading */
+  lazyLoad?: boolean;
+  /** Callback when image is clicked */
+  onImageClick?: (image: ImageItem, index: number) => void;
+  /** Custom image rendering */
+  renderImage?: (image: ImageItem, index: number) => React.ReactNode;
+  /** Loading placeholder */
+  loadingPlaceholder?: React.ReactNode;
+  /** Error placeholder */
+  errorPlaceholder?: React.ReactNode;
+  /** Custom className */
   className?: string;
 }
 
 /**
- * ImageGallery component that replicates Airbnb's image gallery with hover effects
- * Features lazy loading, staggered reveals, and the signature Airbnb hover zoom
+ * Image Gallery component with animations
+ * @returns JSX.Element
  */
 export const ImageGallery = ({
   images,
   columns = 3,
-  gap = 1,
-  staggered = true,
-  masonry = false,
+  gap = 'md',
+  aspectRatio = 'auto',
+  enableHover = true,
+  lazyLoad = true,
+  onImageClick,
+  renderImage,
+  loadingPlaceholder,
+  errorPlaceholder,
   className,
-}: ImageGalleryProps): ReactElement => {
-  const [loadedImages, setLoadedImages] = useState<{ [key: string]: boolean }>({});
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+}: ImageGalleryProps): JSX.Element => {
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+  const [errorImages, setErrorImages] = useState<Set<number>>(new Set());
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleImageLoad = (src: string) => {
-    setLoadedImages((prev) => ({
-      ...prev,
-      [src]: true,
-    }));
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set(prev).add(index));
   };
 
-  const getStaggerDelay = (index: number): string => {
-    if (!staggered || !isVisible) return '0ms';
-    
-    const baseDelay = parseInt(animation.delay.short);
-    const perItem = parseInt(animation.stagger.medium);
-    
-    // Airbnb staggers by row in grid layouts
-    if (!masonry) {
-      const row = Math.floor(index / columns);
-      const col = index % columns;
-      return `${baseDelay + row * perItem + col * (perItem / 2)}ms`;
-    }
-    
-    // Simple staggering for masonry
-    return `${baseDelay + index * perItem}ms`;
+  const handleImageError = (index: number) => {
+    setErrorImages(prev => new Set(prev).add(index));
   };
 
-  // Split images into column arrays for masonry layout
-  const getColumnImages = () => {
-    const columnArrays: ImageItem[][] = Array.from({ length: columns }, () => []);
-    
-    images.forEach((image, index) => {
-      const columnIndex = index % columns;
-      columnArrays[columnIndex].push(image);
-    });
-    
-    return columnArrays;
+  const gapClasses = {
+    sm: 'gap-2',
+    md: 'gap-4', 
+    lg: 'gap-6'
+  };
+
+  const aspectRatioClasses = {
+    square: 'aspect-square',
+    video: 'aspect-video',
+    portrait: 'aspect-[3/4]',
+    auto: ''
+  };
+
+  const gridCols = {
+    1: 'grid-cols-1',
+    2: 'grid-cols-1 md:grid-cols-2',
+    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
+    5: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-5',
+    6: 'grid-cols-1 md:grid-cols-3 lg:grid-cols-6'
   };
 
   return (
-    <Container 
-      ref={containerRef}
-      className={className}
-      $columns={columns}
-      $gap={gap}
-      $masonry={masonry}
-    >
-      {masonry ? (
-        // Masonry layout (Airbnb explore page style)
-        getColumnImages().map((columnImages, colIndex) => (
-          <Column key={colIndex} $gap={gap}>
-            {columnImages.map((image, imgIndex) => {
-              const imageIndex = colIndex + imgIndex * columns;
-              return (
-                <ImageWrapper 
-                  key={image.src}
-                  $loaded={!!loadedImages[image.src]}
-                  $delay={getStaggerDelay(imageIndex)}
-                  $aspectRatio={image.aspectRatio}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    onLoad={() => handleImageLoad(image.src)}
-                    loading="lazy"
-                  />
-                </ImageWrapper>
-              );
-            })}
-          </Column>
-        ))
-      ) : (
-        // Grid layout (Airbnb listing page style)
-        images.map((image, index) => (
-          <ImageWrapper 
-            key={image.src}
-            $loaded={!!loadedImages[image.src]}
-            $delay={getStaggerDelay(index)}
-            $aspectRatio={image.aspectRatio}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              onLoad={() => handleImageLoad(image.src)}
-              loading="lazy"
-            />
-          </ImageWrapper>
-        ))
-      )}
-    </Container>
+    <div className={cn(
+      'grid w-full',
+      gridCols[Math.min(columns, 6) as keyof typeof gridCols] || gridCols[3],
+      gapClasses[gap],
+      className
+    )}>
+      {images.map((image, index) => (
+        <div
+          key={`${image.src}-${index}`}
+          className={cn(
+            'relative overflow-hidden rounded-xl bg-muted',
+            aspectRatioClasses[aspectRatio],
+            'animate-in fade-in duration-300',
+            enableHover && 'transition-transform duration-200 ease-out hover:scale-105 hover:-translate-y-1',
+            onImageClick && 'cursor-pointer'
+          )}
+          style={{ 
+            animationDelay: `${index * 50}ms`,
+            animationFillMode: 'both'
+          }}
+          onClick={() => onImageClick?.(image, index)}
+        >
+          {renderImage ? (
+            renderImage(image, index)
+          ) : (
+            <>
+              {!errorImages.has(index) && (
+                <img
+                  src={image.src}
+                  alt={image.alt}
+                  loading={lazyLoad ? 'lazy' : 'eager'}
+                  className={cn(
+                    'w-full h-full object-cover transition-opacity duration-300',
+                    loadedImages.has(index) ? 'opacity-100' : 'opacity-0'
+                  )}
+                  onLoad={() => handleImageLoad(index)}
+                  onError={() => handleImageError(index)}
+                />
+              )}
+              
+              {!loadedImages.has(index) && !errorImages.has(index) && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  {loadingPlaceholder || (
+                    <div className="animate-pulse bg-muted-foreground/20 rounded-lg w-8 h-8" />
+                  )}
+                </div>
+              )}
+              
+              {errorImages.has(index) && (
+                <div className="absolute inset-0 flex items-center justify-center bg-muted">
+                  {errorPlaceholder || (
+                    <div className="text-muted-foreground text-sm">
+                      Failed to load
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      ))}
+    </div>
   );
 };
 
-interface ContainerProps {
-  $columns: number;
-  $gap: number;
-  $masonry: boolean;
-}
-
-const Container = styled.div<ContainerProps>`
-  display: ${props => props.$masonry ? 'flex' : 'grid'};
-  grid-template-columns: ${props => `repeat(${props.$columns}, 1fr)`};
-  gap: ${props => `${props.$gap}rem`};
-  width: 100%;
-`;
-
-interface ColumnProps {
-  $gap: number;
-}
-
-const Column = styled.div<ColumnProps>`
-  display: flex;
-  flex-direction: column;
-  gap: ${props => `${props.$gap}rem`};
-  flex: 1;
-`;
-
-interface ImageWrapperProps {
-  $loaded: boolean;
-  $delay: string;
-  $aspectRatio?: number;
-}
-
-const ImageWrapper = styled.div<ImageWrapperProps>`
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  aspect-ratio: ${props => props.$aspectRatio || 1.5};
-  
-  /* Airbnb's signature image reveal animation */
-  opacity: ${props => (props.$loaded ? 1 : 0)};
-  transform: ${props => (props.$loaded ? 'translateY(0)' : 'translateY(10px)')};
-  transition: 
-    opacity ${animation.durations.normal} ${animation.easings.easeOut},
-    transform ${animation.durations.normal} ${animation.easings.softLanding};
-  transition-delay: ${props => props.$delay};
-`;
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  
-  /* Airbnb's signature image hover effect */
-  transition: transform ${animation.durations.normal} ${animation.easings.softLanding};
-  
-  /* Create the exact Airbnb image zoom on hover */
-  ${ImageWrapper}:hover & {
-    transform: scale(1.03);
-  }
-`;
-
-/**
- * Image with hover zoom effect, matches Airbnb's exact behavior
- */
-export const ZoomableImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-  overflow: hidden;
-  
-  /* Exact Airbnb transition timing */
-  transition: transform ${animation.durations.normal} ${animation.easings.softLanding};
-  
-  &:hover {
-    transform: scale(1.03);
-  }
-`;
+export default ImageGallery;

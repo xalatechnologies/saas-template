@@ -4,3 +4,4 @@ export * from './theme-manager';
 export * from './base/colors';
 export * from './base/typography';
 export * from './base/spacing';
+export * from './base/animations';

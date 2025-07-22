@@ -15,7 +15,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Button, Card, Badge } from '../ui';
-import { Container, GridLayout, CardLayout, CardLayoutHeader, CardLayoutBody } from '../layout';
+import { Container, GridLayout, FlexLayout, CardLayout, CardLayoutHeader, CardLayoutBody } from '../layout';
 import { cn } from '@/utils';
 
 interface Feature {
@@ -166,7 +166,7 @@ export const LandingContent = (): JSX.Element => {
               The professional task management solution that helps teams and individuals 
               stay organized, collaborate effectively, and achieve more every day.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <FlexLayout direction="row" align="center" justify="center" gap="lg" wrap>
               <Link href="/signup">
                 <Button size="lg" className="rounded-xl shadow-xl min-w-[200px]">
                   Start Free Trial
@@ -178,7 +178,7 @@ export const LandingContent = (): JSX.Element => {
                   Learn More
                 </Button>
               </Link>
-            </div>
+            </FlexLayout>
             <p className="text-sm text-muted-foreground mt-4">
               No credit card required • 14-day free trial
             </p>
@@ -203,7 +203,7 @@ export const LandingContent = (): JSX.Element => {
               return (
                 <CardLayout key={index} variant="elevated" className="hover:-translate-y-1 transition-transform">
                   <CardLayoutHeader>
-                    <div className="flex items-start space-x-4">
+                    <FlexLayout direction="row" align="start" gap="lg">
                       <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                         <Icon className="h-6 w-6 text-primary" />
                       </div>
@@ -215,7 +215,7 @@ export const LandingContent = (): JSX.Element => {
                           {feature.description}
                         </p>
                       </div>
-                    </div>
+                    </FlexLayout>
                   </CardLayoutHeader>
                 </CardLayout>
               );
@@ -267,11 +267,11 @@ export const LandingContent = (): JSX.Element => {
             {testimonials.map((testimonial, index) => (
               <CardLayout key={index} variant="bordered">
                 <CardLayoutBody className="space-y-4">
-                  <div className="flex space-x-1">
+                  <FlexLayout direction="row" gap="xs">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-primary text-primary" />
                     ))}
-                  </div>
+                  </FlexLayout>
                   <p className="text-muted-foreground italic">
                     "{testimonial.content}"
                   </p>
@@ -326,9 +326,11 @@ export const LandingContent = (): JSX.Element => {
                   <p className="text-muted-foreground mb-6">{plan.description}</p>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, i) => (
-                      <li key={i} className="flex items-start">
-                        <CheckCircle className="h-5 w-5 text-primary mr-3 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm">{feature}</span>
+                      <li key={i}>
+                        <FlexLayout direction="row" align="start" gap="sm">
+                          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                          <span className="text-sm">{feature}</span>
+                        </FlexLayout>
                       </li>
                     ))}
                   </ul>
@@ -355,7 +357,7 @@ export const LandingContent = (): JSX.Element => {
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
             Join thousands of teams already using TaskManager to achieve more.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <FlexLayout direction="row" align="center" justify="center" gap="lg" wrap>
             <Link href="/signup">
               <Button 
                 size="lg" 
@@ -375,7 +377,7 @@ export const LandingContent = (): JSX.Element => {
                 Contact Sales
               </Button>
             </Link>
-          </div>
+          </FlexLayout>
         </Container>
       </section>
     </div>
