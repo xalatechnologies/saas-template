@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import type { Route } from 'next';
 import { LayoutDashboard, CheckSquare, Settings, X } from 'lucide-react';
 import { useUI } from '@/hooks';
 import { cn } from '@/utils';
@@ -13,7 +12,7 @@ import { Button } from '../ui';
  * Navigation item interface
  */
 interface NavItem {
-  readonly href: Route<string>;
+  readonly href: string;
   readonly label: string;
   readonly icon: React.ComponentType<{ className?: string }>;
 }

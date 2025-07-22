@@ -1,21 +1,20 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import { LoginForm } from '@/components';
+'use client';
 
-/**
- * Metadata for the login page
- */
-export const metadata: Metadata = {
-  title: 'Logg inn',
-  description: 'Logg inn på din konto',
-};
+import React from 'react';
+import { AuthLayout, LoginFormContent } from '@/components';
 
 /**
  * Login page component
  * @returns Login form with authentication
  */
 export default function LoginPage(): React.ReactElement {
-  // Login page uses LoginForm component which handles its own layout
-  // This is an exception to BasePage usage since login is a special case
-  return <LoginForm />;
+  return (
+    <AuthLayout
+      title="Welcome back"
+      subtitle="Enter your credentials to access your account"
+      type="login"
+    >
+      <LoginFormContent />
+    </AuthLayout>
+  );
 }

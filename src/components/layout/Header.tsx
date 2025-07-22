@@ -5,11 +5,15 @@ import { Menu, Sun, Moon, Globe, Bell, Settings, LogOut } from 'lucide-react';
 import { useAuth, useUI } from '@/hooks';
 import { Button, Avatar } from '../ui';
 
+interface HeaderProps {
+  readonly children?: React.ReactNode;
+}
+
 /**
  * Application header component with navigation and user controls
  * @returns React.ReactElement
  */
-export const Header = (): React.ReactElement => {
+export const Header = ({ children }: HeaderProps): React.ReactElement => {
   const { user, logout } = useAuth();
   const { toggleSidebar, toggleTheme, isDarkMode, t } = useUI();
 
@@ -87,6 +91,9 @@ export const Header = (): React.ReactElement => {
           >
             <Settings className="h-6 w-6" />
           </Button>
+
+          {/* Additional actions (e.g., Assistant button) */}
+          {children}
 
           {/* User menu */}
           {user && (

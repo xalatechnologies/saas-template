@@ -1,17 +1,8 @@
 // All UI Components (from ui directory)
 export * from './ui';
 
-// Layout components
-export { Layout } from './layout/Layout';
-export { Header } from './layout/Header';
-export { Sidebar } from './layout/Sidebar';
-export { BasePage } from './layout/BasePage';
-export { PageSection } from './layout/PageSection';
-export { ContentGrid } from './layout/ContentGrid';
-export { EmptyState } from './layout/EmptyState';
-export { LoadingState } from './layout/LoadingState';
-export { NotFoundContent } from './layout/NotFoundContent';
-export { ErrorContent } from './layout/ErrorContent';
+// Layout components - re-export everything from layout/index.ts
+export * from './layout';
 
 // Task components
 export { TaskCard } from './tasks/TaskCard';
@@ -23,6 +14,8 @@ export { DashboardContent } from './dashboard/DashboardContent';
 
 // Auth components
 export { LoginForm } from './auth/LoginForm';
+export { LoginFormContent } from './auth/LoginFormContent';
+export { SignupFormContent } from './auth/SignupFormContent';
 
 // Form components
 export { TaskForm } from './forms/TaskForm';
