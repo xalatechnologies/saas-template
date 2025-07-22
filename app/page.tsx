@@ -1,19 +1,20 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { DashboardContent } from '@/components';
+import { LandingContent } from '@/components';
 
 /**
- * Metadata for the dashboard page
+ * Metadata for the home page
  */
 export const metadata: Metadata = {
-  title: 'Dashboard',
-  description: 'Oversikt over oppgaver og prosjekter',
+  title: 'TaskManager - Professional Task Management Solution',
+  description: 'Streamline your workflow with our powerful task management platform. Built for teams and individuals who want to get things done.',
+  keywords: ['task management', 'productivity', 'team collaboration', 'project management'],
 };
 
 /**
- * Dashboard page server component - main application entry point
- * @returns React element with dashboard content
+ * Home page component - shows landing page
+ * @returns React element with landing content
  */
-export default function DashboardPage(): React.ReactElement {
-  return <DashboardContent />;
+export default function HomePage(): React.ReactElement {
+  return <LandingContent />;
 }

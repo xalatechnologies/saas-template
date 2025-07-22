@@ -36,7 +36,7 @@ export const LoginForm = (): React.ReactElement => {
     schema: loginSchema,
     onSubmit: async (data: LoginCredentials) => {
       await login(data);
-      router.push('/');
+      router.push('/dashboard');
     },
   });
 

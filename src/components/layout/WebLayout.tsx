@@ -29,8 +29,8 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
 
   const navItems: NavItem[] = [
     { href: '/', label: t('navigation.home') },
-    { href: '/features', label: t('navigation.features') },
-    { href: '/pricing', label: t('navigation.pricing') },
+    { href: '#features', label: t('navigation.features') },
+    { href: '#pricing', label: t('navigation.pricing') },
     { href: '/about', label: t('navigation.about') },
     { href: '/contact', label: t('navigation.contact') },
   ];

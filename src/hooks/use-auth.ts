@@ -13,7 +13,7 @@ export const useAuth = () => {
 
   const redirectIfAuthenticated = (): void => {
     if (!isLoading && user) {
-      router.push('/');
+      router.push('/dashboard');
     }
   };
 

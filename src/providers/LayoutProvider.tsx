@@ -25,7 +25,7 @@ export const LayoutProvider = ({ children }: LayoutProviderProps): JSX.Element =
   }
   
   // Dashboard routes use DashboardLayout
-  if (dashboardRoutes.some(route => pathname.startsWith(route)) || pathname === '/') {
+  if (dashboardRoutes.some(route => pathname.startsWith(route))) {
     return <DashboardLayout>{children}</DashboardLayout>;
   }
 

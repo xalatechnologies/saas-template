@@ -30,7 +30,7 @@ export const Sidebar = (): React.ReactElement => {
    */
   const navItems: NavItem[] = [
     {
-      href: '/',
+      href: '/dashboard',
       label: t('navigation.dashboard'),
       icon: LayoutDashboard,
     },

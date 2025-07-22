@@ -7,6 +7,7 @@ import { AccessibilityProvider } from '../components/accessibility/Accessibility
 import { GDPRBanner } from '../components/gdpr/GDPRBanner';
 import { ThemeProvider } from './ThemeProvider';
 import { I18nProvider } from './I18nProvider';
+import { LayoutProvider } from './LayoutProvider';
 
 // Create query client outside of component to avoid recreating on re-renders
 const queryClient = new QueryClient({
@@ -38,7 +39,9 @@ export const AppProviders = ({ children }: AppProvidersProps): React.ReactElemen
       <AccessibilityProvider>
         <ThemeProvider>
           <I18nProvider>
-            {children}
+            <LayoutProvider>
+              {children}
+            </LayoutProvider>
             <Toaster
               position="top-right"
               toastOptions={{
