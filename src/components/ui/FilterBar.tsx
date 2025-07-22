@@ -92,21 +92,21 @@ export const FilterBar = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="rounded-xl"
         >
-          <Filter className="h-5 w-5 mr-4" />
+          <Filter style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginRight: 'var(--spacing-sm)' }} />
           Filters
           {activeFiltersCount > 0 && (
-            <Badge variant="secondary" className="ml-4">
+            <Badge variant="secondary" style={{ marginLeft: 'var(--spacing-sm)' }}>
               {activeFiltersCount}
             </Badge>
           )}
           <ChevronDown className={cn(
-            'h-5 w-5 ml-4 transition-transform',
+            'transition-transform',
             isExpanded && 'rotate-180'
-          )} />
+          )} style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginLeft: 'var(--spacing-sm)' }} />
         </Button>
 
         {isExpanded && (
-          <div className="absolute top-full left-0 mt-4 w-96 bg-background border border-border rounded-xl shadow-2xl p-6 z-50">
+          <div className="absolute top-full left-0 bg-background border border-border rounded-2xl shadow-2xl z-50" style={{ marginTop: 'var(--spacing-sm)', width: '384px', padding: 'var(--spacing-lg)' }}>
             <FilterContent
               filters={filters}
               values={values}
@@ -123,7 +123,7 @@ export const FilterBar = ({
   }
 
   return (
-    <div className={cn('bg-muted/30 rounded-xl p-6', className)}>
+    <div className={cn('bg-muted/30 rounded-2xl', className)} style={{ padding: 'var(--spacing-lg)' }}>
       <FilterContent
         filters={filters}
         values={values}
@@ -175,7 +175,7 @@ const FilterContent = ({
   const advancedFilters = filters.slice(3);
 
   return (
-    <div className="space-y-6">
+    <FlexLayout direction="column" gap="lg">
       {/* Search */}
       {showSearch && onSearchChange && (
         <div className="relative">
@@ -184,7 +184,8 @@ const FilterContent = ({
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search..."
-            className="pl-12 rounded-xl"
+            className="rounded-2xl"
+            style={{ paddingLeft: 'var(--spacing-3xl)' }}
           />
         </div>
       )}

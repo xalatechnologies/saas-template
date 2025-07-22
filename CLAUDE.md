@@ -328,3 +328,40 @@ export const TaskModal = ({ isOpen, onClose }: TaskModalProps): JSX.Element => {
 8. **Theme Compatibility**: Test with all sector themes
 
 This application maintains high production standards. Every component must meet these requirements for consistency, accessibility, and maintainability.
+
+## CRITICAL: Project History Documentation
+
+### .cursor-updates File Management
+**MANDATORY**: All significant development activities, decisions, and milestones MUST be documented in the `.cursor-updates` file. This file serves as the project's memory and enables intelligent context-aware assistance.
+
+#### What to Document:
+1. **New Features**: When implementing new functionality, add to the current phase section
+2. **Bug Fixes**: Document significant bugs and their resolutions under "Issues & Resolutions"
+3. **Technical Decisions**: Record architectural choices with rationale
+4. **Lessons Learned**: Add insights that could help future development
+5. **Milestones**: Mark completion of major features or phases
+
+#### Format for Updates:
+```markdown
+### Phase [Number]: [Name]
+**[Feature/Component Name]**
+- Description of what was implemented
+- Key technical details
+- Challenges faced and solutions
+- Files affected: [list main files]
+- Date: [YYYY-MM-DD]
+```
+
+#### Example Entry:
+```markdown
+### Phase 13: Smart Agent Enhancement
+**Context Engineering & Memory System**
+- Implemented multi-layered context system (project, session, conversation, semantic, temporal)
+- Added memory management with working, episodic, semantic, and procedural memory types
+- Created conversation state tracking with mood detection and user preferences
+- Integrated project history loader to learn from past implementations
+- Files affected: src/packages/smart-agent/context/*, src/packages/smart-agent/memory/*
+- Date: 2024-07-22
+```
+
+**Remember**: The `.cursor-updates` file is not just documentation - it's the project's collective memory that makes AI assistance more intelligent and context-aware over time.

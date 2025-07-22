@@ -100,7 +100,7 @@ export const ChatbotLayout = ({
       direction="column"
       className={cn(
         'bg-background',
-        isFullscreen ? 'fixed inset-0 z-50' : 'h-[calc(100vh-5rem)]',
+        isFullscreen ? 'fixed inset-0 z-50' : 'h-full',
         className
       )}
     >
@@ -114,20 +114,20 @@ export const ChatbotLayout = ({
       />
 
       {/* Messages Area */}
-      <Container size="xl" className="flex-1 overflow-y-auto py-12">
+      <Container size="xl" className="flex-1 overflow-y-auto" style={{ paddingTop: 'var(--spacing-xl)', paddingBottom: 'var(--spacing-xl)' }}>
         {messages.length === 0 && welcomeMessage ? (
-          <div className="max-w-3xl mx-auto">
+          <Container size="md" centered>
             {welcomeMessage}
             {suggestions && suggestions.length > 0 && (
-              <div className="mt-16">
-                <p className="text-lg text-muted-foreground mb-8">Try asking:</p>
+              <div style={{ marginTop: 'var(--spacing-2xl)' }}>
+                <p className="text-lg text-muted-foreground" style={{ marginBottom: 'var(--spacing-lg)' }}>Try asking:</p>
                 <FlexLayout direction="row" wrap gap="md">
                   {suggestions.map((suggestion, index) => (
                     <Button
                       key={index}
                       variant="outline"
                       onClick={() => onSuggestionClick?.(suggestion)}
-                      className="rounded-2xl text-lg h-16 px-8"
+                      className="rounded-2xl text-lg" style={{ height: 'var(--button-lg)', paddingLeft: 'var(--spacing-lg)', paddingRight: 'var(--spacing-lg)' }}"
                     >
                       {suggestion}
                     </Button>
@@ -135,9 +135,10 @@ export const ChatbotLayout = ({
                 </FlexLayout>
               </div>
             )}
-          </div>
+          </Container>
         ) : (
-          <FlexLayout direction="column" gap="xl" className="max-w-3xl mx-auto">
+          <Container size="md" centered>
+            <FlexLayout direction="column" gap="xl">
             {messages.map((message, index) => (
               <ChatMessage
                 key={message.id}
@@ -148,24 +149,25 @@ export const ChatbotLayout = ({
             {isLoading && (
               <FlexLayout direction="row" align="start" gap="md">
                 <Avatar size="md" className="bg-primary/10">
-                  <Bot className="h-8 w-8 text-primary" />
+                  <Bot className="text-primary" style={{ height: 'var(--icon-lg)', width: 'var(--icon-lg)' }} />
                 </Avatar>
-                <div className="bg-muted rounded-2xl px-8 py-6">
+                <div className="bg-muted rounded-2xl" style={{ padding: 'var(--spacing-lg)' }}>
                   <FlexLayout direction="row" align="center" gap="md">
-                    <Loader2 className="h-6 w-6 animate-spin" />
+                    <Loader2 className="animate-spin" style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
                     <span className="text-lg text-muted-foreground">Thinking...</span>
                   </FlexLayout>
                 </div>
               </FlexLayout>
             )}
-            <div ref={messagesEndRef} />
-          </FlexLayout>
+              <div ref={messagesEndRef} />
+            </FlexLayout>
+          </Container>
         )}
       </Container>
 
       {/* Input Area */}
       <div className="border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <Container size="lg" className="py-8">
+        <Container size="lg" style={{ paddingTop: 'var(--spacing-lg)', paddingBottom: 'var(--spacing-lg)' }}>
           <ChatInput
             onSend={onSendMessage}
             placeholder={placeholder}
@@ -196,13 +198,14 @@ const ChatHeader = ({
       align="center"
       justify="between"
       className={cn(
-        'px-12 py-8 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+        'border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         className
       )}
+      style={{ paddingLeft: 'var(--spacing-xl)', paddingRight: 'var(--spacing-xl)', paddingTop: 'var(--spacing-lg)', paddingBottom: 'var(--spacing-lg)' }}
     >
       <FlexLayout direction="row" align="center" gap="lg">
         <Avatar size="lg" className="bg-primary/10">
-          <Bot className="h-10 w-10 text-primary" />
+          <Bot className="text-primary" style={{ height: 'var(--icon-xl)', width: 'var(--icon-xl)' }} />
         </Avatar>
         <div>
           <h2 className="text-xl font-semibold text-foreground">{title}</h2>
@@ -216,23 +219,23 @@ const ChatHeader = ({
           variant="ghost"
           size="icon"
           onClick={() => onAction?.('refresh')}
-          className="rounded-2xl h-12 w-12"
+          className="rounded-2xl" style={{ height: 'var(--button-lg)', width: 'var(--button-lg)' }}
           aria-label="Refresh conversation"
         >
-          <RefreshCw className="h-5 w-5" />
+          <RefreshCw style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
         </Button>
         {onToggleFullscreen && (
           <Button
             variant="ghost"
             size="icon"
             onClick={onToggleFullscreen}
-            className="rounded-2xl h-12 w-12"
+            className="rounded-2xl" style={{ height: 'var(--button-lg)', width: 'var(--button-lg)' }}
             aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
           >
             {isFullscreen ? (
-              <Minimize2 className="h-5 w-5" />
+              <Minimize2 style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
             ) : (
-              <Maximize2 className="h-5 w-5" />
+              <Maximize2 style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
             )}
           </Button>
         )}
@@ -240,10 +243,10 @@ const ChatHeader = ({
           variant="ghost"
           size="icon"
           onClick={() => onAction?.('menu')}
-          className="rounded-2xl h-12 w-12"
+          className="rounded-2xl" style={{ height: 'var(--button-lg)', width: 'var(--button-lg)' }}
           aria-label="More options"
         >
-          <MoreVertical className="h-5 w-5" />
+          <MoreVertical style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
         </Button>
       </FlexLayout>
     </FlexLayout>
@@ -267,9 +270,9 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
     >
       <Avatar size="md" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
         {isUser ? (
-          <User className="h-8 w-8 text-primary-foreground" />
+          <User className="text-primary-foreground" style={{ height: 'var(--icon-lg)', width: 'var(--icon-lg)' }} />
         ) : (
-          <Bot className="h-8 w-8 text-primary" />
+          <Bot className="text-primary" style={{ height: 'var(--icon-lg)', width: 'var(--icon-lg)' }} />
         )}
       </Avatar>
       <FlexLayout
@@ -282,15 +285,16 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
       >
         <div
           className={cn(
-            'rounded-2xl px-8 py-6',
+            'rounded-2xl',
             isUser
               ? 'bg-primary text-primary-foreground'
               : 'bg-muted text-foreground'
           )}
+          style={{ padding: 'var(--spacing-lg)' }}
         >
           <p className="text-lg whitespace-pre-wrap">{message.content}</p>
           {message.attachments && message.attachments.length > 0 && (
-            <FlexLayout direction="column" gap="md" className="mt-6">
+            <FlexLayout direction="column" gap="md" style={{ marginTop: 'var(--spacing-lg)' }}>
               {message.attachments.map((attachment) => (
                 <FlexLayout
                   key={attachment.id}
@@ -298,14 +302,15 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
                   align="center"
                   gap="md"
                   className={cn(
-                    'p-6 rounded-2xl',
+                    'rounded-2xl',
                     isUser ? 'bg-primary-foreground/10' : 'bg-background/50'
                   )}
+                  style={{ padding: 'var(--spacing-md)' }}
                 >
                   {attachment.type === 'image' ? (
-                    <ImageIcon className="h-6 w-6" />
+                    <ImageIcon style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
                   ) : (
-                    <FileText className="h-6 w-6" />
+                    <FileText style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
                   )}
                   <span className="text-lg truncate">{attachment.name}</span>
                   <span className="text-lg opacity-70">
@@ -384,12 +389,13 @@ const ChatInput = ({
               direction="row"
               align="center"
               gap="md"
-              className="bg-muted rounded-2xl px-6 py-4"
+              className="bg-muted rounded-2xl"
+              style={{ paddingLeft: 'var(--spacing-lg)', paddingRight: 'var(--spacing-lg)', paddingTop: 'var(--spacing-md)', paddingBottom: 'var(--spacing-md)' }}
             >
               {attachment.type === 'image' ? (
-                <ImageIcon className="h-6 w-6" />
+                <ImageIcon style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
               ) : (
-                <FileText className="h-6 w-6" />
+                <FileText style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
               )}
               <span className="text-lg truncate max-w-[150px]">
                 {attachment.name}
@@ -398,9 +404,9 @@ const ChatInput = ({
                 variant="ghost"
                 size="icon"
                 onClick={() => removeAttachment(attachment.id)}
-                className="h-12 w-12 rounded-2xl"
+                className="rounded-2xl" style={{ height: 'var(--button-md)', width: 'var(--button-md)' }}"
               >
-                <X className="h-5 w-5" />
+                <X style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
               </Button>
             </FlexLayout>
           ))}
@@ -421,10 +427,10 @@ const ChatInput = ({
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled}
-              className="rounded-2xl h-12 w-12"
+              className="rounded-2xl" style={{ height: 'var(--button-lg)', width: 'var(--button-lg)' }}"
               aria-label="Attach file"
             >
-              <Paperclip className="h-6 w-6" />
+              <Paperclip style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
             </Button>
           </>
         )}
@@ -435,7 +441,7 @@ const ChatInput = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="pr-20 rounded-2xl h-20 text-lg"
+            className="rounded-2xl text-lg" style={{ height: 'var(--button-xl)', paddingRight: 'var(--spacing-3xl)' }}"
             autoComplete="off"
           />
           {voiceEnabled && (
@@ -443,19 +449,20 @@ const ChatInput = ({
               variant="ghost"
               size="icon"
               disabled={disabled}
-              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-2xl h-16 w-16"
+              className="absolute top-1/2 -translate-y-1/2 rounded-2xl" style={{ right: 'var(--spacing-sm)', height: 'var(--button-lg)', width: 'var(--button-lg)' }}"
               aria-label="Voice input"
             >
-              <Mic className="h-6 w-6" />
+              <Mic style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
             </Button>
           )}
         </div>
         <Button
           onClick={handleSend}
           disabled={disabled || (!input.trim() && attachments.length === 0)}
-          className="rounded-2xl h-20 px-12 shadow-xl"
+          className="rounded-2xl shadow-xl" style={{ height: 'var(--button-xl)', paddingLeft: 'var(--spacing-xl)', paddingRight: 'var(--spacing-xl)' }}"
+          style={{ paddingLeft: 'var(--spacing-2xl)', paddingRight: 'var(--spacing-2xl)' }}
         >
-          <Send className="h-8 w-8" />
+          <Send style={{ height: 'var(--icon-lg)', width: 'var(--icon-lg)' }} />
         </Button>
       </FlexLayout>
     </FlexLayout>

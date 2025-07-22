@@ -1,16 +1,40 @@
 /**
  * Smart Agent System
- * Enforces consistent coding standards across AI tools
+ * Enforces consistent coding standards across AI tools with context and memory
  */
 
 // Core exports
 export { PromptInjector } from './core/prompt-injector';
 export type { PromptContext } from './core/prompt-injector';
 export { EnhancedPromptInjector, enhancedPromptInjector } from './core/enhanced-prompt-injector';
+export { SmartPromptInjector, smartPromptInjector } from './core/smart-prompt-injector';
 
 // Configuration
 export type { SmartAgentConfig } from './config/smart-agent.config';
 export { smartAgentConfig, platformConfigs } from './config/smart-agent.config';
+
+// Context Engineering
+export { contextEngine } from './context/context-engine';
+export { conversationManager } from './context/conversation-manager';
+export type { 
+  ContextLayer, 
+  ProjectContext, 
+  SessionContext, 
+  ConversationContext,
+  SemanticContext,
+  TemporalContext 
+} from './context/types';
+
+// Memory Management
+export { memoryManager } from './memory/memory-manager';
+export type {
+  MemorySystem,
+  WorkingMemory,
+  EpisodicMemory,
+  SemanticMemory,
+  ProceduralMemory,
+  MemoryItem
+} from './memory/types';
 
 // Task management
 export type { Task, TaskContext, TaskResult } from './tasks/task-manager';
@@ -20,14 +44,15 @@ export { TaskManager, taskManager } from './tasks/task-manager';
 export type { ProjectRules } from './integrations/rules-loader';
 export { RulesLoader, rulesLoader } from './integrations/rules-loader';
 export { CursorIntegration, cursorIntegration } from './integrations/cursor-integration';
+export { ProjectHistoryLoader, projectHistoryLoader } from './integrations/project-history-loader';
 
 // Import necessary types and instances for utility functions
-import { enhancedPromptInjector } from './core/enhanced-prompt-injector';
+import { smartPromptInjector } from './core/smart-prompt-injector';
 import type { PromptContext } from './core/prompt-injector';
 
-// Utility functions
+// Enhanced utility functions
 export async function initializeSmartAgent(): Promise<void> {
-  await enhancedPromptInjector.initialize();
+  await smartPromptInjector.initialize();
 }
 
 export async function generatePrompt(
@@ -35,10 +60,8 @@ export async function generatePrompt(
   platform?: PromptContext['platform'],
   context?: PromptContext
 ): Promise<string> {
-  if (platform) {
-    return enhancedPromptInjector.generatePlatformPrompt(userPrompt, platform, context);
-  }
-  return enhancedPromptInjector.injectEnhancedPrompt(userPrompt, context);
+  // Use the smart injector for context-aware prompts
+  return smartPromptInjector.generateSmartPrompt(userPrompt, context);
 }
 
 export async function validateCode(code: string): Promise<{
@@ -46,5 +69,25 @@ export async function validateCode(code: string): Promise<{
   errors: string[];
   warnings: string[];
 }> {
-  return enhancedPromptInjector.validateCode(code);
+  return smartPromptInjector.validateCode(code);
+}
+
+// New context-aware functions
+export async function learnFromInteraction(
+  success: boolean,
+  feedback?: string
+): Promise<void> {
+  return smartPromptInjector.learnFromOutcome(success, feedback);
+}
+
+export async function endAgentSession(satisfaction: number): Promise<void> {
+  return smartPromptInjector.endSession(satisfaction);
+}
+
+export function getMemoryStats() {
+  return memoryManager.getMemoryStats();
+}
+
+export function getConversationSummary() {
+  return conversationManager.getConversationSummary();
 }

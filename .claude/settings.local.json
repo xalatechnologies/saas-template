@@ -6,7 +6,10 @@
       "Bash(pnpm run lint:*)",
       "Bash(pnpm run type-check:*)",
       "Bash(grep:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(npm run validate:all:*)",
+      "Bash(node:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

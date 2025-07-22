@@ -577,3 +577,46 @@ Client-Server Separation Rule: For all pages under /app directory, keep the page
 5. **i18n missing**: Add translations to all language files
 
 Remember: This is a production-ready application with high standards for code quality, accessibility, and Norwegian compliance. Every change should maintain these standards.
+
+## CRITICAL: Project History Documentation
+
+### .cursor-updates File Management
+**MANDATORY**: All significant development activities, decisions, and milestones MUST be documented in the `.cursor-updates` file. This file serves as the project's memory and enables intelligent context-aware assistance.
+
+#### What to Document:
+1. **New Features**: When implementing new functionality, add to the current phase section
+2. **Bug Fixes**: Document significant bugs and their resolutions under "Issues & Resolutions"
+3. **Technical Decisions**: Record architectural choices with rationale
+4. **Lessons Learned**: Add insights that could help future development
+5. **Milestones**: Mark completion of major features or phases
+
+#### Format for Updates:
+```markdown
+### Phase [Number]: [Name]
+**[Feature/Component Name]**
+- Description of what was implemented
+- Key technical details
+- Challenges faced and solutions
+- Files affected: [list main files]
+- Date: [YYYY-MM-DD]
+```
+
+#### Example Entry:
+```markdown
+### Phase 13: Smart Agent Enhancement
+**Context Engineering & Memory System**
+- Implemented multi-layered context system (project, session, conversation, semantic, temporal)
+- Added memory management with working, episodic, semantic, and procedural memory types
+- Created conversation state tracking with mood detection and user preferences
+- Integrated project history loader to learn from past implementations
+- Files affected: src/packages/smart-agent/context/*, src/packages/smart-agent/memory/*
+- Date: 2024-07-22
+```
+
+**IMPORTANT**: After completing any significant task:
+1. Update the `.cursor-updates` file immediately
+2. Include specific technical details that would help understand the implementation
+3. Document any patterns or approaches that worked well
+4. Note any pitfalls or challenges for future reference
+
+The `.cursor-updates` file is not just documentation - it's the project's collective memory that makes AI assistance more intelligent and context-aware over time. The Smart Agent system reads this file to provide better, more contextual help.

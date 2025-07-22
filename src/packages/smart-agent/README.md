@@ -1,25 +1,40 @@
-# Smart Agent System
+# Smart Agent System with Context Engineering & Memory
 
-A comprehensive system for enforcing consistent coding standards across AI-powered development tools (Cursor, Claude, Windsurf, Replit, etc.).
+An intelligent development assistant that learns from your project history, maintains conversation context, and provides personalized guidance across AI-powered development tools (Cursor, Claude, Windsurf, Replit, etc.).
 
 ## Overview
 
-The Smart Agent System ensures that all AI-generated code follows your project's specific standards by:
+The Smart Agent System is now enhanced with advanced context engineering and memory capabilities:
 
-1. **Loading existing rules** from `.cursorrules` and `CLAUDE.md`
-2. **Enriching prompts** with project-specific context and standards
-3. **Validating code** against forbidden/required patterns
-4. **Managing tasks** with consistent execution across platforms
+1. **Context Engineering** - Multi-layered context awareness (project, session, conversation, semantic, temporal)
+2. **Memory Management** - Different memory types (working, episodic, semantic, procedural) with forgetting curve
+3. **Project History** - Learns from `.cursor-updates` file to understand project evolution
+4. **Conversation State** - Maintains conversation flow, mood, and user preferences
+5. **Smart Prompts** - Generates context-aware, personalized responses based on history and memory
+6. **Learning System** - Improves over time by learning from interactions
 
 ## Architecture
 
 ```
 smart-agent/
 ├── config/              # Configuration and standards
-├── core/               # Prompt injection engine
-├── integrations/       # Platform-specific integrations
-├── tasks/              # Task management system
-├── validators/         # Code validation logic
+├── context/            # Context engineering system
+│   ├── context-engine.ts     # Multi-layered context management
+│   ├── conversation-manager.ts # Conversation state tracking
+│   └── types.ts              # Context type definitions
+├── core/               # Prompt injection engines
+│   ├── prompt-injector.ts    # Base prompt injection
+│   ├── enhanced-prompt-injector.ts # Rule-based enhancement
+│   └── smart-prompt-injector.ts    # Context-aware AI
+├── memory/             # Memory management system
+│   ├── memory-manager.ts     # Memory storage and retrieval
+│   └── types.ts              # Memory type definitions
+├── integrations/       # Platform integrations
+│   ├── cursor-integration.ts # Cursor IDE integration
+│   ├── rules-loader.ts       # Load .cursorrules/CLAUDE.md
+│   └── project-history-loader.ts # Load project history
+├── tasks/              # Task management
+├── validators/         # Code validation
 └── cli/               # Command-line interface
 ```
 
@@ -196,25 +211,36 @@ The system automatically loads from:
 
 ## Key Features
 
-### 1. Rule Enforcement
-- Loads existing `.cursorrules` and `CLAUDE.md`
-- Merges forbidden/required patterns
-- Validates code in real-time
+### 1. Context Engineering
+- **Multi-layered Context**: Project, session, conversation, semantic, and temporal contexts
+- **Smart Context Window**: Optimizes token usage by prioritizing relevant context
+- **Dynamic Context Building**: Automatically gathers context based on current task
 
-### 2. Context-Aware Prompts
-- Detects component/feature from file path
-- Adds relevant project sections
-- Includes validation checklists
+### 2. Memory System
+- **Working Memory**: Limited capacity (7±2 items) with LRU eviction
+- **Episodic Memory**: Remembers sessions, interactions, and outcomes
+- **Semantic Memory**: Stores concepts, patterns, and relationships
+- **Procedural Memory**: Learns workflows and shortcuts
+- **Forgetting Curve**: Implements Ebbinghaus forgetting curve for realistic memory
 
-### 3. Task Management
-- Track development tasks
-- Generate consistent prompts
-- Score validation results
+### 3. Conversation Intelligence
+- **Mood Detection**: Adapts tone based on conversation (collaborative, focused, debugging, etc.)
+- **User Preferences**: Learns and remembers communication style preferences
+- **Momentum Tracking**: Maintains conversation flow and engagement
+- **Context Establishment**: Tracks what's been discussed to avoid repetition
 
-### 4. Platform Agnostic
-- Works with any AI tool
-- Consistent standards everywhere
-- Easy integration
+### 4. Project History Awareness
+- **Learns from .cursor-updates**: Understands project phases and evolution
+- **Pattern Recognition**: Identifies successful patterns from history
+- **Lesson Application**: Applies lessons learned to current tasks
+- **Similar Task Detection**: Finds and references similar past implementations
+
+### 5. Smart Prompt Generation
+- **Personalized Greetings**: Context-aware introductions
+- **Relevant History**: References similar past work
+- **Memory Integration**: Includes relevant memories in prompts
+- **Task-Specific Guidance**: Provides tips based on task type
+- **Encouraging Tone**: Adapts encouragement to task complexity
 
 ## Best Practices
 
@@ -223,27 +249,91 @@ The system automatically loads from:
 3. **Validate often**: Run validation before committing
 4. **Platform-specific**: Use platform-specific wrappers when available
 
-## Example Workflow
+## Example: Context-Aware Interaction
 
-```bash
-# 1. Create a task
-npx smart-agent task create
-# Choose: create_component
-# Title: BookingCard Component
-# Description: Card for displaying booking information
+### Traditional Agent Response:
+```
+Create a component using TypeScript with strict types, use GridLayout system...
+[Generic rules dump]
+```
 
-# 2. Generate prompt
-npx smart-agent task execute <task-id>
-# Copy the generated prompt
+### Smart Agent Response:
+```
+Hey! I'm excited to work on this with you. I notice this is similar to what we 
+did in Phase 5: Task Management Core Features. That implementation worked really well!
 
-# 3. Use in Cursor/Claude/etc
-# Paste the prompt and let AI generate code
+Based on our previous work, I remember:
+- We created TaskCard using the Card component from our UI system
+- The GridLayout system helped with responsive design
+- We followed the validation patterns from TaskForm
 
-# 4. Validate result
-npx smart-agent validate src/components/BookingCard.tsx
-# Fix any validation errors
+In our conversation so far, we've established:
+- You prefer to start with TypeScript interfaces
+- You like comprehensive examples
+- You're working on the booking feature
 
-# 5. Commit when validation passes
+💡 Relevant lessons from our project:
+- Component Purity: UI components without business logic
+- Error Boundaries: Graceful error handling at component level
+
+✨ Patterns that have worked well:
+- Component organization by feature
+- Strict TypeScript with explicit return types
+- Design token system for consistent styling
+
+🎯 Tips for this task:
+- Start with TypeScript interfaces for props
+- Use our existing UI components as building blocks
+- Remember to add proper accessibility attributes
+
+This should be straightforward. Let me know if you need any clarification!
+```
+
+## Advanced Usage
+
+### Context-Aware Development
+```typescript
+import { generatePrompt, learnFromInteraction, getMemoryStats } from '@/packages/smart-agent';
+
+// Generate context-aware prompt
+const prompt = await generatePrompt(
+  "Create a booking card component",
+  'cursor',
+  { 
+    component: 'BookingCard',
+    targetDirectory: 'src/components/ui/'
+  }
+);
+
+// After implementation, provide feedback
+await learnFromInteraction(true, "The component worked perfectly!");
+
+// Check memory statistics
+const stats = getMemoryStats();
+console.log(`Memory usage: ${stats.workingMemoryUsage}%`);
+console.log(`Learned patterns: ${stats.totalPatterns}`);
+```
+
+### Conversation Management
+```typescript
+import { conversationManager } from '@/packages/smart-agent';
+
+// Start a conversation with preferences
+conversationManager.startConversation({
+  communicationStyle: 'casual',
+  explanationDepth: 'detailed',
+  codeStyle: {
+    commentsLevel: 'detailed',
+    examplePreference: 'comprehensive'
+  }
+});
+
+// During conversation
+conversationManager.establishContext('Using booking feature');
+conversationManager.clarifyConcept('GridLayout system');
+
+// Get summary
+const summary = conversationManager.getConversationSummary();
 ```
 
 ## Troubleshooting
