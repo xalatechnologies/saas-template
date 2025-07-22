@@ -156,12 +156,6 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
       id: user.id,
       name: user.name,
       email: user.email,
-      preferences: {
-        theme: 'system',
-        language: 'en',
-        emailNotifications: true,
-        pushNotifications: false,
-      },
     });
   };
 

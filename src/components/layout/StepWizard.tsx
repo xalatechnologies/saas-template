@@ -122,9 +122,9 @@ export const StepWizard = ({
       <div className={cn('w-full space-y-8', className)}>
         {/* Progress Bar */}
         {showProgressBar && (
-          <div className="space-y-2">
-            <Progress value={progress} className="h-2" />
-            <p className="text-sm text-muted-foreground text-center">
+          <div className="space-y-4">
+            <Progress value={progress} className="h-4" />
+            <p className="text-base text-muted-foreground text-center">
               Step {currentStep + 1} of {steps.length}
             </p>
           </div>
@@ -144,7 +144,7 @@ export const StepWizard = ({
                   onClick={() => isClickable && goToStep(index)}
                   disabled={!isClickable}
                   className={cn(
-                    'flex flex-col items-center space-y-2 p-4 rounded-xl transition-all duration-200',
+                    'flex flex-col items-center space-y-4 p-6 rounded-xl transition-all duration-200',
                     isClickable && 'cursor-pointer hover:bg-accent',
                     !isClickable && 'cursor-not-allowed opacity-50',
                     isActive && 'bg-primary/10'
@@ -152,16 +152,16 @@ export const StepWizard = ({
                 >
                   <div
                     className={cn(
-                      'h-12 w-12 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-200 shadow-lg',
+                      'h-16 w-16 rounded-full flex items-center justify-center text-base font-semibold transition-all duration-200 shadow-lg',
                       isCompleted && 'bg-primary text-primary-foreground',
                       isActive && !isCompleted && 'bg-primary/20 text-primary border-2 border-primary',
                       !isActive && !isCompleted && 'bg-muted text-muted-foreground'
                     )}
                   >
                     {isCompleted ? (
-                      <Check className="h-5 w-5" />
+                      <Check className="h-6 w-6" />
                     ) : Icon ? (
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-6 w-6" />
                     ) : (
                       index + 1
                     )}
@@ -169,21 +169,21 @@ export const StepWizard = ({
                   <div className="text-center">
                     <p
                       className={cn(
-                        'text-sm font-semibold',
+                        'text-base font-semibold',
                         isActive ? 'text-foreground' : 'text-muted-foreground'
                       )}
                     >
                       {step.title}
                     </p>
                     {step.description && (
-                      <p className="text-xs text-muted-foreground mt-1 max-w-[150px]">
+                      <p className="text-base text-muted-foreground mt-2 max-w-[200px]">
                         {step.description}
                       </p>
                     )}
                   </div>
                 </button>
                 {index < steps.length - 1 && (
-                  <ChevronRight className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                  <ChevronRight className="h-6 w-6 text-muted-foreground flex-shrink-0" />
                 )}
               </React.Fragment>
             );
@@ -191,7 +191,7 @@ export const StepWizard = ({
         </div>
 
         {/* Step Content */}
-        <div className="min-h-[400px]">{children}</div>
+        <div className="min-h-[600px]">{children}</div>
       </div>
     </StepWizardContext.Provider>
   );
@@ -246,14 +246,14 @@ export const WizardActions = ({
   };
 
   return (
-    <div className={cn('flex items-center justify-between pt-8', className)}>
+    <div className={cn('flex items-center justify-between pt-12', className)}>
       <Button
         variant="outline"
         onClick={handlePrev}
         disabled={isFirstStep}
         className="rounded-xl"
       >
-        <ChevronLeft className="h-4 w-4 mr-2" />
+        <ChevronLeft className="h-5 w-5 mr-4" />
         {prevLabel}
       </Button>
 
@@ -264,7 +264,7 @@ export const WizardActions = ({
         className="rounded-xl shadow-lg"
       >
         {isLastStep ? completeLabel : nextLabel}
-        {!isLastStep && <ChevronRight className="h-4 w-4 ml-2" />}
+        {!isLastStep && <ChevronRight className="h-5 w-5 ml-4" />}
       </Button>
     </div>
   );

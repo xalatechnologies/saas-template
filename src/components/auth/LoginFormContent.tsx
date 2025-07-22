@@ -86,12 +86,10 @@ export const LoginFormContent = (): JSX.Element => {
           <Label htmlFor="password" className="text-base font-semibold">
             {t('auth.password')}
           </Label>
-          <Link 
-            href="/forgot-password" 
-            className="text-sm font-medium text-primary hover:underline"
-          >
+          {/* TODO: Add forgot password link when route is available */}
+          <span className="text-sm font-medium text-primary hover:underline cursor-pointer">
             Forgot password?
-          </Link>
+          </span>
         </div>
         <div className="relative">
           <Input

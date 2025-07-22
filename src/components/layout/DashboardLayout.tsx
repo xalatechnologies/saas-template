@@ -23,14 +23,14 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps): JSX.Element
     <div className="min-h-screen bg-background" role="application">
       <SkipLinks />
       
-      {/* Sidebar */}
+      {/* Sidebar - Fixed position */}
       <Sidebar />
       
-      {/* Main Content Area */}
-      <div className="lg:pl-64">
-        {/* Header with Language Selector and Assistant Button */}
+      {/* Main Content Area - Offset by sidebar width */}
+      <div className="flex flex-col min-h-screen lg:ml-80">
+        {/* Header - Fixed at top */}
         <Header>
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-6">
             <LanguageSelector />
             <Button
               variant="outline"
@@ -38,20 +38,20 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps): JSX.Element
               className="rounded-xl"
               aria-label="Open assistant"
             >
-              <MessageSquare className="h-4 w-4 lg:mr-2" />
+              <MessageSquare className="h-6 w-6 lg:mr-4" />
               <span className="hidden lg:inline">Assistant</span>
             </Button>
           </div>
         </Header>
         
-        {/* Main Content */}
+        {/* Main Content - Scrollable area below header */}
         <main
           id="main-content"
-          className="min-h-[calc(100vh-5rem)] bg-gradient-to-br from-background via-background to-accent/5"
+          className="flex-1 bg-background"
           role="main"
           aria-label="Dashboard content"
         >
-          <div className="container mx-auto px-6 py-8">
+          <div className="w-full px-8 lg:px-12 py-8 lg:py-12">
             {children}
           </div>
         </main>

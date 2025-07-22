@@ -91,21 +91,21 @@ export const FilterBar = ({
           onClick={() => setIsExpanded(!isExpanded)}
           className="rounded-xl"
         >
-          <Filter className="h-4 w-4 mr-2" />
+          <Filter className="h-5 w-5 mr-4" />
           Filters
           {activeFiltersCount > 0 && (
-            <Badge variant="secondary" className="ml-2">
+            <Badge variant="secondary" className="ml-4">
               {activeFiltersCount}
             </Badge>
           )}
           <ChevronDown className={cn(
-            'h-4 w-4 ml-2 transition-transform',
+            'h-5 w-5 ml-4 transition-transform',
             isExpanded && 'rotate-180'
           )} />
         </Button>
 
         {isExpanded && (
-          <div className="absolute top-full left-0 mt-2 w-96 bg-background border border-border rounded-xl shadow-2xl p-4 z-50">
+          <div className="absolute top-full left-0 mt-4 w-96 bg-background border border-border rounded-xl shadow-2xl p-6 z-50">
             <FilterContent
               filters={filters}
               values={values}
@@ -122,7 +122,7 @@ export const FilterBar = ({
   }
 
   return (
-    <div className={cn('bg-muted/30 rounded-xl p-4', className)}>
+    <div className={cn('bg-muted/30 rounded-xl p-6', className)}>
       <FilterContent
         filters={filters}
         values={values}
@@ -174,16 +174,16 @@ const FilterContent = ({
   const advancedFilters = filters.slice(3);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {/* Search */}
       {showSearch && onSearchChange && (
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search..."
-            className="pl-10 rounded-xl"
+            className="pl-12 rounded-xl"
           />
         </div>
       )}
@@ -191,15 +191,15 @@ const FilterContent = ({
       {/* Saved Filters */}
       {savedFilters && savedFilters.length > 0 && (
         <div>
-          <Label className="text-sm font-medium mb-2">Quick Filters</Label>
-          <div className="flex flex-wrap gap-2">
+          <Label className="text-base font-medium mb-4">Quick Filters</Label>
+          <div className="flex flex-wrap gap-4">
             {savedFilters.map((saved) => (
               <Button
                 key={saved.id}
                 variant="outline"
-                size="sm"
+                size="default"
                 onClick={() => onChange(saved.filters)}
-                className="rounded-lg"
+                className="rounded-xl"
               >
                 {saved.name}
               </Button>
@@ -209,7 +209,7 @@ const FilterContent = ({
       )}
 
       {/* Basic Filters */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {basicFilters.map((filter) => (
           <FilterDropdown
             key={filter.id}
@@ -226,21 +226,21 @@ const FilterContent = ({
           {onToggleAdvanced && (
             <Button
               variant="ghost"
-              size="sm"
+              size="default"
               onClick={onToggleAdvanced}
-              className="w-full rounded-lg"
+              className="w-full rounded-xl"
             >
-              <SlidersHorizontal className="h-4 w-4 mr-2" />
+              <SlidersHorizontal className="h-5 w-5 mr-4" />
               {showAdvanced ? 'Hide' : 'Show'} Advanced Filters
               <ChevronDown className={cn(
-                'h-4 w-4 ml-2 transition-transform',
+                'h-5 w-5 ml-4 transition-transform',
                 showAdvanced && 'rotate-180'
               )} />
             </Button>
           )}
 
           {showAdvanced && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 border-t border-border">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-6 border-t border-border">
               {advancedFilters.map((filter) => (
                 <FilterDropdown
                   key={filter.id}
@@ -255,33 +255,33 @@ const FilterContent = ({
       )}
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-4 border-t border-border">
-        <div className="flex items-center space-x-2">
+      <div className="flex items-center justify-between pt-6 border-t border-border">
+        <div className="flex items-center space-x-4">
           <Button
             variant="ghost"
-            size="sm"
+            size="default"
             onClick={onReset}
-            className="rounded-lg"
+            className="rounded-xl"
           >
-            <RotateCcw className="h-4 w-4 mr-2" />
+            <RotateCcw className="h-5 w-5 mr-4" />
             Reset
           </Button>
           {onSave && (
             <Button
               variant="ghost"
-              size="sm"
+              size="default"
               onClick={() => {
                 const name = prompt('Save filter as:');
                 if (name) onSave(name);
               }}
-              className="rounded-lg"
+              className="rounded-xl"
             >
-              <Save className="h-4 w-4 mr-2" />
+              <Save className="h-5 w-5 mr-4" />
               Save
             </Button>
           )}
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-base text-muted-foreground">
           {Object.keys(values).length} filters active
         </div>
       </div>
@@ -299,7 +299,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'select':
       return (
         <div>
-          <Label className="text-sm mb-1">{filter.label}</Label>
+          <Label className="text-base mb-2">{filter.label}</Label>
           <Select
             value={value || ''}
             onValueChange={onChange}
@@ -317,15 +317,15 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'multiselect':
       return (
         <div>
-          <Label className="text-sm mb-1">{filter.label}</Label>
-          <div className="space-y-2 max-h-32 overflow-y-auto p-2 border border-border rounded-lg">
+          <Label className="text-base mb-2">{filter.label}</Label>
+          <div className="space-y-4 max-h-48 overflow-y-auto p-4 border border-border rounded-xl">
             {filter.options?.map((option) => {
               const isChecked = Array.isArray(value) && value.includes(option.value);
               
               return (
                 <label
                   key={option.value}
-                  className="flex items-center space-x-2 cursor-pointer"
+                  className="flex items-center space-x-4 cursor-pointer"
                 >
                   <Checkbox
                     checked={isChecked}
@@ -338,7 +338,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
                       }
                     }}
                   />
-                  <span className="text-sm">{option.label}</span>
+                  <span className="text-base">{option.label}</span>
                 </label>
               );
             })}
@@ -349,14 +349,14 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'date':
       return (
         <div>
-          <Label className="text-sm mb-1">{filter.label}</Label>
+          <Label className="text-base mb-2">{filter.label}</Label>
           <div className="relative">
-            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
               type="date"
               value={value || ''}
               onChange={(e) => onChange(e.target.value)}
-              className="pl-10 rounded-lg"
+              className="pl-12 rounded-xl"
             />
           </div>
         </div>
@@ -364,26 +364,26 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
 
     case 'toggle':
       return (
-        <label className="flex items-center space-x-2 cursor-pointer">
+        <label className="flex items-center space-x-4 cursor-pointer">
           <Checkbox
             checked={value || false}
             onCheckedChange={onChange}
           />
-          <span className="text-sm font-medium">{filter.label}</span>
+          <span className="text-base font-medium">{filter.label}</span>
         </label>
       );
 
     default:
       return (
         <div>
-          <Label className="text-sm mb-1">{filter.label}</Label>
+          <Label className="text-base mb-2">{filter.label}</Label>
           <div className="relative">
-            {Icon && <Icon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />}
+            {Icon && <Icon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />}
             <Input
               value={value || ''}
               onChange={(e) => onChange(e.target.value)}
               placeholder={filter.placeholder}
-              className={cn('rounded-lg', Icon && 'pl-10')}
+              className={cn('rounded-xl', Icon && 'pl-12')}
             />
           </div>
         </div>
@@ -412,7 +412,7 @@ export const ActiveFilters = ({
   if (activeFilters.length === 0) return null;
 
   return (
-    <div className={cn('flex flex-wrap gap-2', className)}>
+    <div className={cn('flex flex-wrap gap-4', className)}>
       {activeFilters.map((filter) => {
         const value = values[filter.id];
         const displayValue = Array.isArray(value) ? `${value.length} selected` : value;
@@ -421,9 +421,9 @@ export const ActiveFilters = ({
           <Badge
             key={filter.id}
             variant="secondary"
-            className="rounded-lg pl-3 pr-1 py-1"
+            className="rounded-xl pl-4 pr-2 py-2"
           >
-            <span className="text-xs">
+            <span className="text-base">
               {filter.label}: {displayValue}
             </span>
             <Button
@@ -434,9 +434,9 @@ export const ActiveFilters = ({
                 delete newValues[filter.id];
                 onChange(newValues);
               }}
-              className="h-4 w-4 ml-1 rounded"
+              className="h-6 w-6 ml-2 rounded-xl"
             >
-              <X className="h-3 w-3" />
+              <X className="h-4 w-4" />
             </Button>
           </Badge>
         );

@@ -164,6 +164,9 @@ export const no = {
     close: 'Lukk',
     notifications: 'Varsler',
     moreOptions: 'Flere alternativer',
+    goToHome: 'Gå til forsiden',
+    openMenu: 'Åpne meny',
+    toggleMenu: 'Veksle meny',
     navigation: {
       home: 'Gå til forsiden',
       tasks: 'Vis oppgaver',
@@ -179,6 +182,26 @@ export const no = {
     thisWeek: 'Denne uken',
     lastWeek: 'Forrige uke',
     nextWeek: 'Neste uke',
+  },
+
+  // Search
+  search: {
+    placeholder: 'Søk oppgaver, prosjekter, personer...',
+    openSearch: 'Åpne søk',
+    noResults: 'Ingen resultater funnet',
+    tryDifferentKeywords: 'Prøv å søke med andre nøkkelord',
+    recentSearches: 'Nylige søk',
+    trending: 'Populært',
+    filters: 'Filtre',
+    clearFilters: 'Fjern alle',
+    categories: {
+      all: 'Alle',
+      tasks: 'Oppgaver',
+      projects: 'Prosjekter',
+      people: 'Personer',
+      files: 'Filer',
+      pages: 'Sider',
+    },
   },
 
   // Norwegian specific

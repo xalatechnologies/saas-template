@@ -101,7 +101,7 @@ export const Modal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center p-6"
       role="dialog"
       aria-modal="true"
       aria-labelledby={title ? 'modal-title' : undefined}
@@ -127,7 +127,7 @@ export const Modal = ({
       >
         {/* Default Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-start justify-between p-6 border-b border-border">
+          <div className="flex items-start justify-between p-8 border-b border-border">
             <div>
               {title && (
                 <h2 id="modal-title" className="text-xl font-semibold text-foreground">
@@ -135,7 +135,7 @@ export const Modal = ({
                 </h2>
               )}
               {description && (
-                <p id="modal-description" className="mt-1 text-sm text-muted-foreground">
+                <p id="modal-description" className="mt-2 text-base text-muted-foreground">
                   {description}
                 </p>
               )}
@@ -145,10 +145,10 @@ export const Modal = ({
                 variant="ghost"
                 size="icon"
                 onClick={onClose}
-                className="rounded-xl -mt-2 -mr-2"
+                className="rounded-xl -mt-4 -mr-4"
                 aria-label="Close modal"
               >
-                <X className="h-4 w-4" />
+                <X className="h-5 w-5" />
               </Button>
             )}
           </div>
@@ -169,7 +169,7 @@ export const Modal = ({
  */
 export const ModalHeader = ({ children, className }: ModalHeaderProps): JSX.Element => {
   return (
-    <div className={cn('px-6 py-4 border-b border-border', className)}>
+    <div className={cn('px-8 py-6 border-b border-border', className)}>
       {children}
     </div>
   );
@@ -181,7 +181,7 @@ export const ModalHeader = ({ children, className }: ModalHeaderProps): JSX.Elem
  */
 export const ModalBody = ({ children, className }: ModalBodyProps): JSX.Element => {
   return (
-    <div className={cn('p-6', className)}>
+    <div className={cn('p-8', className)}>
       {children}
     </div>
   );
@@ -193,7 +193,7 @@ export const ModalBody = ({ children, className }: ModalBodyProps): JSX.Element 
  */
 export const ModalFooter = ({ children, className }: ModalFooterProps): JSX.Element => {
   return (
-    <div className={cn('px-6 py-4 border-t border-border flex items-center justify-end space-x-4', className)}>
+    <div className={cn('px-8 py-6 border-t border-border flex items-center justify-end space-x-6', className)}>
       {children}
     </div>
   );

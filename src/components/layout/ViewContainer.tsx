@@ -98,10 +98,10 @@ export const ViewContainer = ({
 
   return (
     <ViewContainerContext.Provider value={contextValue}>
-      <div className={cn('flex flex-col space-y-4', className)}>
+      <div className={cn('flex flex-col space-y-6', className)}>
         {/* Header Bar */}
-        <div className="flex items-center justify-between flex-wrap gap-4 pb-4 border-b border-border">
-          <div className="flex items-center space-x-4">
+        <div className="flex items-center justify-between flex-wrap gap-6 pb-6 border-b border-border">
+          <div className="flex items-center space-x-6">
             {/* View Switcher */}
             {showViewSwitcher && availableViewOptions.length > 1 && (
               <ViewSwitcher
@@ -113,10 +113,10 @@ export const ViewContainer = ({
 
             {/* Item Count */}
             {showItemCount && (
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-4 text-base text-muted-foreground">
                 {selectedItems > 0 && (
                   <>
-                    <Badge variant="secondary" className="rounded-lg">
+                    <Badge variant="secondary" className="rounded-xl">
                       {selectedItems} selected
                     </Badge>
                     <span>of</span>
@@ -128,7 +128,7 @@ export const ViewContainer = ({
           </div>
 
           {/* Actions */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             {onRefresh && (
               <Button
                 variant="outline"
@@ -137,7 +137,7 @@ export const ViewContainer = ({
                 className="rounded-xl"
                 aria-label="Refresh"
               >
-                <RefreshCw className="h-4 w-4" />
+                <RefreshCw className="h-5 w-5" />
               </Button>
             )}
             {onExport && (
@@ -148,7 +148,7 @@ export const ViewContainer = ({
                 className="rounded-xl"
                 aria-label="Export"
               >
-                <Download className="h-4 w-4" />
+                <Download className="h-5 w-5" />
               </Button>
             )}
           </div>
@@ -174,7 +174,7 @@ interface ViewSwitcherProps {
 
 const ViewSwitcher = ({ views, currentView, onChange }: ViewSwitcherProps): JSX.Element => {
   return (
-    <div className="flex items-center rounded-xl border border-border p-1">
+    <div className="flex items-center rounded-xl border border-border p-2">
       {views.map((view) => {
         const Icon = view.icon;
         const isActive = currentView === view.id;
@@ -183,17 +183,17 @@ const ViewSwitcher = ({ views, currentView, onChange }: ViewSwitcherProps): JSX.
           <Button
             key={view.id}
             variant={isActive ? 'default' : 'ghost'}
-            size="sm"
+            size="default"
             onClick={() => onChange(view.id)}
             disabled={view.disabled}
             className={cn(
-              'rounded-lg px-3',
-              isActive && 'shadow-md'
+              'rounded-xl px-6',
+              isActive && 'shadow-lg'
             )}
             aria-label={`Switch to ${view.label} view`}
           >
-            <Icon className="h-4 w-4" />
-            <span className="ml-2 hidden sm:inline">{view.label}</span>
+            <Icon className="h-5 w-5" />
+            <span className="ml-4 hidden sm:inline">{view.label}</span>
           </Button>
         );
       })}

@@ -38,11 +38,14 @@ export const TasksContent = (): React.ReactElement => {
   // Redirect to login if not authenticated
   useEffect(() => {
     requireAuth();
+  }, [requireAuth]);
 
+  // Fetch tasks when user is authenticated
+  useEffect(() => {
     if (user) {
       fetchTasks();
     }
-  }, [user, requireAuth, fetchTasks]);
+  }, [user, fetchTasks]);
 
   /**
    * Filters tasks based on search and filter criteria

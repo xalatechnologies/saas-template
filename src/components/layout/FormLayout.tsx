@@ -47,18 +47,24 @@ export const FormLayout = ({
   className,
 }: FormLayoutProps): JSX.Element => {
   const variants = {
-    default: 'space-y-8',
-    card: 'bg-card rounded-xl border border-border shadow-xl p-8 space-y-8',
-    inline: 'space-y-6',
+    default: 'space-y-12',
+    card: 'bg-card rounded-xl border border-border shadow-xl p-8 space-y-12',
+    inline: 'space-y-8',
     split: 'grid lg:grid-cols-2 gap-12',
+  };
+
+  const columnClasses = {
+    1: '',
+    2: 'grid grid-cols-1 md:grid-cols-2 gap-8',
+    3: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8',
   };
 
   return (
     <div className={cn('w-full', className)}>
       {(title || description) && (
-        <div className="mb-8">
+        <div className="mb-12">
           {title && (
-            <h2 className="text-2xl font-bold text-foreground mb-2">{title}</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">{title}</h2>
           )}
           {description && (
             <p className="text-muted-foreground">{description}</p>
@@ -68,7 +74,7 @@ export const FormLayout = ({
       <div
         className={cn(
           variants[variant],
-          columns > 1 && `grid grid-cols-1 md:grid-cols-${columns} gap-8`
+          columns > 1 && columnClasses[columns]
         )}
       >
         {children}
@@ -88,18 +94,18 @@ export const FormSection = ({
   className,
 }: FormSectionProps): JSX.Element => {
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn('space-y-8', className)}>
       {(title || description) && (
-        <div className="border-b border-border pb-4">
+        <div className="border-b border-border pb-6">
           {title && (
-            <h3 className="text-lg font-semibold text-foreground mb-1">{title}</h3>
+            <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
           )}
           {description && (
-            <p className="text-sm text-muted-foreground">{description}</p>
+            <p className="text-base text-muted-foreground">{description}</p>
           )}
         </div>
       )}
-      <div className="space-y-6">{children}</div>
+      <div className="space-y-8">{children}</div>
     </div>
   );
 };
@@ -116,7 +122,7 @@ export const FormRow = ({
   return (
     <div
       className={cn(
-        'grid gap-6',
+        'grid gap-8',
         columns === 1 && 'grid-cols-1',
         columns === 2 && 'grid-cols-1 sm:grid-cols-2',
         columns === 3 && 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
@@ -142,19 +148,19 @@ export const FormField = ({
   className,
 }: FormFieldProps): JSX.Element => {
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn('space-y-4', className)}>
       {label && (
-        <label className="text-sm font-semibold text-foreground flex items-center gap-1">
+        <label className="text-base font-semibold text-foreground flex items-center gap-2">
           {label}
           {required && <span className="text-destructive">*</span>}
         </label>
       )}
       <div>{children}</div>
       {description && !error && (
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-base text-muted-foreground">{description}</p>
       )}
       {error && (
-        <p className="text-sm text-destructive" role="alert">
+        <p className="text-base text-destructive" role="alert">
           {error}
         </p>
       )}

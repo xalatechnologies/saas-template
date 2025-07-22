@@ -3,19 +3,19 @@ import { baseColors, successScale, warningScale, errorScale } from '../base/colo
 import { typography } from '../base/typography';
 import { spacing, borderRadius, shadows } from '../base/spacing';
 
-// Public sector - More vibrant professional blue
+// Public sector - Professional blue inspired by digdir/nsm.no
 const publicPrimary: ColorScale = {
-  50: '#eff6ff',
-  100: '#dbeafe',
-  200: '#bfdbfe',
-  300: '#93c5fd',
-  400: '#60a5fa',
-  500: '#3b82f6', // Vibrant blue
-  600: '#2563eb',
-  700: '#1d4ed8',
-  800: '#1e40af',
-  900: '#1e3a8a',
-  950: '#172554',
+  50: '#f0f7ff',
+  100: '#e0efff',
+  200: '#c7e2ff',
+  300: '#a5cfff',
+  400: '#70b3ff',
+  500: '#0062ff', // Professional blue
+  600: '#0052e6',
+  700: '#0045cc',
+  800: '#003ba3',
+  900: '#002f80',
+  950: '#001f5c',
 };
 
 const publicSecondary: ColorScale = {

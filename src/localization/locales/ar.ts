@@ -143,6 +143,9 @@ export const ar = {
     import: 'استيراد',
     print: 'طباعة',
     close: 'إغلاق',
+    goToHome: 'الانتقال إلى الصفحة الرئيسية',
+    openMenu: 'فتح القائمة',
+    toggleMenu: 'تبديل القائمة',
 
     // Date/Time
     today: 'اليوم',
@@ -151,6 +154,26 @@ export const ar = {
     thisWeek: 'هذا الأسبوع',
     lastWeek: 'الأسبوع الماضي',
     nextWeek: 'الأسبوع القادم',
+  },
+
+  // Search
+  search: {
+    placeholder: 'البحث في المهام والمشاريع والأشخاص...',
+    openSearch: 'فتح البحث',
+    noResults: 'لا توجد نتائج',
+    tryDifferentKeywords: 'حاول البحث بكلمات مفتاحية مختلفة',
+    recentSearches: 'عمليات البحث الأخيرة',
+    trending: 'الأكثر رواجاً',
+    filters: 'المرشحات',
+    clearFilters: 'مسح الكل',
+    categories: {
+      all: 'الكل',
+      tasks: 'المهام',
+      projects: 'المشاريع',
+      people: 'الأشخاص',
+      files: 'الملفات',
+      pages: 'الصفحات',
+    },
   },
 
   // Norwegian specific (keeping original terms)

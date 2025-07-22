@@ -125,6 +125,7 @@ export interface Shadows {
   xs: string;
   sm: string;
   base: string;
+  outline: string;
   md: string;
   lg: string;
   xl: string;

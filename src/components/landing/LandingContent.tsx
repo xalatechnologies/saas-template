@@ -227,7 +227,11 @@ export const LandingContent = (): JSX.Element => {
       {/* Stats Section */}
       <section className="py-20 bg-primary text-primary-foreground">
         <Container size="lg">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <GridLayout 
+            columns={{ mobile: 2, desktop: 4 }}
+            gap="xl"
+            className="text-center"
+          >
             <div>
               <div className="text-4xl lg:text-5xl font-bold mb-2">10K+</div>
               <div className="text-primary-foreground/80">Active Users</div>
@@ -244,7 +248,7 @@ export const LandingContent = (): JSX.Element => {
               <div className="text-4xl lg:text-5xl font-bold mb-2">4.9</div>
               <div className="text-primary-foreground/80">User Rating</div>
             </div>
-          </div>
+          </GridLayout>
         </Container>
       </section>
 
@@ -295,7 +299,11 @@ export const LandingContent = (): JSX.Element => {
               Choose the plan that's right for you. All plans include a 14-day free trial.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <Container size="lg">
+            <GridLayout 
+              columns={{ mobile: 1, tablet: 3 }}
+              gap="xl"
+            >
             {pricingPlans.map((plan, index) => (
               <CardLayout
                 key={index}
@@ -333,7 +341,8 @@ export const LandingContent = (): JSX.Element => {
                 </CardLayoutBody>
               </CardLayout>
             ))}
-          </div>
+            </GridLayout>
+          </Container>
         </Container>
       </section>
 

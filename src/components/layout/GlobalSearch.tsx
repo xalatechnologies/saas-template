@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button, Input, Badge } from '../ui';
 import { cn } from '@/utils';
+import { useUI } from '@/hooks';
 
 interface SearchResult {
   readonly id: string;
@@ -68,7 +69,7 @@ interface SearchModalProps {
  */
 export const GlobalSearch = ({
   onSearch,
-  placeholder = 'Search anything...',
+  placeholder,
   recentSearches = [],
   trendingSearches = [],
   categories = [],
@@ -77,6 +78,7 @@ export const GlobalSearch = ({
   showFilters = true,
   showShortcut = true,
 }: GlobalSearchProps): JSX.Element => {
+  const { t } = useUI();
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -194,10 +196,10 @@ export const GlobalSearch = ({
           onClick={() => setIsOpen(true)}
           className={cn('rounded-xl', className)}
         >
-          <Search className="h-4 w-4 mr-2" />
+          <Search className="h-5 w-5 mr-4" />
           Search
           {showShortcut && (
-            <kbd className="ml-2 text-xs bg-muted px-1.5 py-0.5 rounded">⌘K</kbd>
+            <kbd className="ml-4 text-base bg-muted px-4 py-2 rounded-xl">⌘K</kbd>
           )}
         </Button>
         <SearchModal
@@ -216,17 +218,17 @@ export const GlobalSearch = ({
     <div ref={searchRef} className={cn('relative', className)}>
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
           ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={placeholder || t('search.placeholder')}
           className={cn(
-            'pl-10 pr-10 rounded-xl h-12',
-            variant === 'dropdown' ? 'w-64' : 'w-full'
+            'pl-12 pr-12 h-12 border-border',
+            variant === 'dropdown' ? 'w-full' : 'w-full'
           )}
         />
         {query && (
@@ -237,13 +239,13 @@ export const GlobalSearch = ({
               setQuery('');
               setResults([]);
             }}
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg"
+            className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl"
           >
-            <X className="h-4 w-4" />
+            <X className="h-5 w-5" />
           </Button>
         )}
         {showShortcut && !query && (
-          <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-xs bg-muted px-1.5 py-0.5 rounded">
+          <kbd className="absolute right-4 top-1/2 -translate-y-1/2 text-base bg-muted px-4 py-2 rounded-xl">
             ⌘K
           </kbd>
         )}
@@ -251,22 +253,22 @@ export const GlobalSearch = ({
 
       {/* Search Results Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-xl shadow-2xl overflow-hidden z-50 max-h-[500px] overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 mt-4 bg-background border border-border rounded-xl shadow-2xl overflow-hidden z-50 max-h-[600px] overflow-y-auto">
           {/* Filters */}
           {showFilters && categories.length > 0 && (
-            <div className="p-4 border-b border-border">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold">Filters</span>
+            <div className="p-6 border-b border-border">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-base font-semibold">{t('search.filters')}</span>
                 <Button
                   variant="ghost"
-                  size="sm"
+                  size="default"
                   onClick={() => setFilters({})}
-                  className="text-xs"
+                  className="text-base"
                 >
-                  Clear all
+                  {t('search.clearFilters')}
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-4">
                 {categories.map((category) => {
                   const Icon = category.icon;
                   const isActive = filters.category === category.id;
@@ -275,17 +277,17 @@ export const GlobalSearch = ({
                     <Button
                       key={category.id}
                       variant={isActive ? 'default' : 'outline'}
-                      size="sm"
+                      size="default"
                       onClick={() => setFilters({
                         ...filters,
                         category: isActive ? undefined : category.id
                       })}
-                      className="rounded-lg"
+                      className="rounded-xl"
                     >
-                      {Icon && <Icon className="h-3 w-3 mr-1" />}
+                      {Icon && <Icon className="h-5 w-5 mr-2" />}
                       {category.label}
                       {category.count !== undefined && (
-                        <Badge variant="secondary" className="ml-1 text-xs">
+                        <Badge variant="secondary" className="ml-2 text-base">
                           {category.count}
                         </Badge>
                       )}
@@ -298,15 +300,15 @@ export const GlobalSearch = ({
 
           {/* Loading State */}
           {isLoading && (
-            <div className="p-8 text-center">
-              <Loader2 className="h-6 w-6 animate-spin mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">Searching...</p>
+            <div className="p-12 text-center">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-muted-foreground" />
+              <p className="text-base text-muted-foreground">{t('common.loading')}</p>
             </div>
           )}
 
           {/* Results */}
           {!isLoading && query && results.length > 0 && (
-            <div className="py-2">
+            <div className="py-4">
               {results.map((result, index) => {
                 const Icon = result.icon || FileText;
                 const isSelected = index === selectedIndex;
@@ -317,20 +319,20 @@ export const GlobalSearch = ({
                     onClick={() => handleResultClick(result)}
                     onMouseEnter={() => setSelectedIndex(index)}
                     className={cn(
-                      'w-full px-4 py-3 flex items-center space-x-3 hover:bg-accent transition-colors',
+                      'w-full px-6 py-4 flex items-center space-x-4 hover:bg-accent transition-colors',
                       isSelected && 'bg-accent'
                     )}
                   >
-                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="h-6 w-6 text-primary" />
                     </div>
                     <div className="flex-1 text-left">
                       <p className="font-medium text-foreground">{result.title}</p>
                       {result.subtitle && (
-                        <p className="text-sm text-muted-foreground">{result.subtitle}</p>
+                        <p className="text-base text-muted-foreground">{result.subtitle}</p>
                       )}
                     </div>
-                    <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                    <ArrowRight className="h-5 w-5 text-muted-foreground" />
                   </button>
                 );
               })}
@@ -339,31 +341,31 @@ export const GlobalSearch = ({
 
           {/* No Results */}
           {!isLoading && query && results.length === 0 && (
-            <div className="p-8 text-center">
-              <Search className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-              <p className="font-medium text-foreground mb-1">No results found</p>
-              <p className="text-sm text-muted-foreground">
-                Try searching with different keywords
+            <div className="p-12 text-center">
+              <Search className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <p className="font-medium text-foreground mb-2">{t('search.noResults')}</p>
+              <p className="text-base text-muted-foreground">
+                {t('search.tryDifferentKeywords')}
               </p>
             </div>
           )}
 
           {/* Initial State */}
           {!query && (
-            <div className="p-4 space-y-4">
+            <div className="p-6 space-y-6">
               {/* Recent Searches */}
               {recentSearches.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
-                    Recent Searches
+                  <h3 className="text-base font-semibold text-muted-foreground mb-4 flex items-center">
+                    <Clock className="h-5 w-5 mr-2" />
+                    {t('search.recentSearches')}
                   </h3>
-                  <div className="space-y-1">
+                  <div className="space-y-2">
                     {recentSearches.map((search, index) => (
                       <button
                         key={index}
                         onClick={() => setQuery(search)}
-                        className="w-full text-left px-3 py-2 rounded-lg hover:bg-accent text-sm"
+                        className="w-full text-left px-4 py-3 rounded-xl hover:bg-accent text-base"
                       >
                         {search}
                       </button>
@@ -375,20 +377,20 @@ export const GlobalSearch = ({
               {/* Trending Searches */}
               {trendingSearches.length > 0 && (
                 <div>
-                  <h3 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center">
-                    <TrendingUp className="h-4 w-4 mr-1" />
-                    Trending
+                  <h3 className="text-base font-semibold text-muted-foreground mb-4 flex items-center">
+                    <TrendingUp className="h-5 w-5 mr-2" />
+                    {t('search.trending')}
                   </h3>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-4">
                     {trendingSearches.map((search, index) => (
                       <Button
                         key={index}
                         variant="outline"
-                        size="sm"
+                        size="default"
                         onClick={() => setQuery(search)}
-                        className="rounded-lg"
+                        className="rounded-xl"
                       >
-                        <Hash className="h-3 w-3 mr-1" />
+                        <Hash className="h-5 w-5 mr-2" />
                         {search}
                       </Button>
                     ))}
@@ -418,7 +420,7 @@ const SearchModal = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-      <div className="flex items-start justify-center pt-20">
+      <div className="flex items-start justify-center pt-24">
         <div className="w-full max-w-2xl bg-background rounded-xl shadow-2xl">
           <GlobalSearch
             onSearch={onSearch}
@@ -426,7 +428,7 @@ const SearchModal = ({
             trendingSearches={trendingSearches}
             categories={categories}
             variant="inline"
-            className="p-4"
+            className="p-6"
           />
         </div>
       </div>

@@ -18,6 +18,7 @@ export const LayoutProvider = ({ children }: LayoutProviderProps): JSX.Element =
   // Define which routes should use specific layouts
   const dashboardRoutes = ['/dashboard', '/tasks', '/settings', '/profile'];
   const authRoutes = ['/login', '/signup', '/forgot-password', '/reset-password'];
+  const publicRoutes = ['/', '/about', '/contact', '/pricing'];
   
   // Auth routes render their own layout (AuthLayout)
   if (authRoutes.some(route => pathname.startsWith(route))) {
@@ -29,6 +30,11 @@ export const LayoutProvider = ({ children }: LayoutProviderProps): JSX.Element =
     return <DashboardLayout>{children}</DashboardLayout>;
   }
 
-  // All other routes use WebLayout
-  return <WebLayout>{children}</WebLayout>;
+  // Public routes use WebLayout
+  if (pathname === '/' || publicRoutes.some(route => pathname.startsWith(route))) {
+    return <WebLayout>{children}</WebLayout>;
+  }
+
+  // Default to no layout wrapper (for unknown routes)
+  return <>{children}</>;
 };

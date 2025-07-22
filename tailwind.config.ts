@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import { spacing, borderRadius } from './src/design-tokens';
 
 const config: Config = {
   darkMode: ['class'],
@@ -10,6 +11,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: spacing,
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
       },
@@ -18,6 +20,8 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       borderRadius: {
+        ...borderRadius,
+        // Keep the existing CSS variable-based values as overrides
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',

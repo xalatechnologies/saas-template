@@ -64,28 +64,28 @@ export const TabsLayout = ({
     default: {
       container: 'border-b border-border',
       list: 'flex space-x-8',
-      tab: 'px-1 py-4 text-sm font-medium transition-all duration-200 border-b-2 -mb-px',
+      tab: 'px-4 py-4 text-base font-medium transition-all duration-200 border-b-2 -mb-px',
       active: 'text-foreground border-primary',
       inactive: 'text-muted-foreground border-transparent hover:text-foreground hover:border-border',
     },
     pills: {
-      container: 'bg-muted/30 p-1 rounded-xl',
-      list: 'flex space-x-1',
-      tab: 'px-6 py-3 text-sm font-medium rounded-xl transition-all duration-200',
+      container: 'bg-muted/30 p-2 rounded-xl',
+      list: 'flex space-x-2',
+      tab: 'px-6 py-4 text-base font-medium rounded-xl transition-all duration-200',
       active: 'bg-background text-foreground shadow-lg',
       inactive: 'text-muted-foreground hover:text-foreground hover:bg-background/50',
     },
     underline: {
       container: '',
       list: 'flex space-x-8',
-      tab: 'px-1 py-3 text-sm font-medium transition-all duration-200 relative',
-      active: 'text-foreground after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary',
+      tab: 'px-4 py-4 text-base font-medium transition-all duration-200 relative',
+      active: 'text-foreground after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-primary',
       inactive: 'text-muted-foreground hover:text-foreground',
     },
     vertical: {
-      container: 'flex space-x-8',
-      list: 'flex flex-col space-y-2 w-64',
-      tab: 'px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 text-left',
+      container: 'flex space-x-12',
+      list: 'flex flex-col space-y-4 w-80',
+      tab: 'px-6 py-4 text-base font-medium rounded-xl transition-all duration-200 text-left',
       active: 'bg-primary/10 text-primary border-l-4 border-primary',
       inactive: 'text-muted-foreground hover:bg-accent hover:text-foreground',
     },
@@ -121,13 +121,13 @@ export const TabsLayout = ({
                     tab.disabled && 'opacity-50 cursor-not-allowed'
                   )}
                 >
-                  <span className="flex items-center space-x-2">
-                    {Icon && <Icon className="h-4 w-4" />}
+                  <span className="flex items-center space-x-4">
+                    {Icon && <Icon className="h-5 w-5" />}
                     <span>{tab.label}</span>
                     {tab.badge !== undefined && (
                       <span
                         className={cn(
-                          'ml-2 px-2 py-0.5 text-xs font-semibold rounded-full',
+                          'ml-4 px-4 py-2 text-base font-semibold rounded-xl',
                           isActive
                             ? 'bg-primary text-primary-foreground'
                             : 'bg-muted text-muted-foreground'
@@ -143,7 +143,7 @@ export const TabsLayout = ({
           </div>
           {isVertical && <div className="flex-1">{children}</div>}
         </div>
-        {!isVertical && <div className="mt-6">{children}</div>}
+        {!isVertical && <div className="mt-8">{children}</div>}
       </div>
     </TabsContext.Provider>
   );

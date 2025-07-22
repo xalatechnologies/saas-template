@@ -143,6 +143,9 @@ export const fr = {
     import: 'Importer',
     print: 'Imprimer',
     close: 'Fermer',
+    goToHome: 'Aller à la page d\'accueil',
+    openMenu: 'Ouvrir le menu',
+    toggleMenu: 'Basculer le menu',
 
     // Date/Time
     today: "Aujourd'hui",
@@ -151,6 +154,26 @@ export const fr = {
     thisWeek: 'Cette semaine',
     lastWeek: 'La semaine dernière',
     nextWeek: 'La semaine prochaine',
+  },
+
+  // Search
+  search: {
+    placeholder: 'Rechercher tâches, projets, personnes...',
+    openSearch: 'Ouvrir la recherche',
+    noResults: 'Aucun résultat trouvé',
+    tryDifferentKeywords: 'Essayez de rechercher avec des mots-clés différents',
+    recentSearches: 'Recherches récentes',
+    trending: 'Tendances',
+    filters: 'Filtres',
+    clearFilters: 'Tout effacer',
+    categories: {
+      all: 'Tout',
+      tasks: 'Tâches',
+      projects: 'Projets',
+      people: 'Personnes',
+      files: 'Fichiers',
+      pages: 'Pages',
+    },
   },
 
   // Norwegian specific (keeping original terms)

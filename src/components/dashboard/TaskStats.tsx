@@ -3,6 +3,7 @@
 import React from 'react';
 import { CheckCircle, Clock, AlertTriangle, List } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui';
+import { GridLayout } from '../layout';
 import { useUI } from '@/hooks';
 
 /**
@@ -60,7 +61,10 @@ export const TaskStats = ({ stats }: TaskStatsProps): React.ReactElement => {
   ];
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <GridLayout 
+      columns={{ mobile: 1, tablet: 2, desktop: 4 }}
+      gap="lg"
+    >
       {statItems.map((item) => {
         const Icon = item.icon;
 
@@ -88,6 +92,6 @@ export const TaskStats = ({ stats }: TaskStatsProps): React.ReactElement => {
           </Card>
         );
       })}
-    </div>
+    </GridLayout>
   );
 };

@@ -160,6 +160,9 @@ export const en = {
     close: 'Close',
     notifications: 'Notifications',
     moreOptions: 'More options',
+    goToHome: 'Go to homepage',
+    openMenu: 'Open menu',
+    toggleMenu: 'Toggle menu',
     navigation: {
       home: 'Go to homepage',
       tasks: 'View tasks',
@@ -173,6 +176,26 @@ export const en = {
     thisWeek: 'This week',
     lastWeek: 'Last week',
     nextWeek: 'Next week',
+  },
+
+  // Search
+  search: {
+    placeholder: 'Search tasks, projects, people...',
+    openSearch: 'Open search',
+    noResults: 'No results found',
+    tryDifferentKeywords: 'Try searching with different keywords',
+    recentSearches: 'Recent Searches',
+    trending: 'Trending',
+    filters: 'Filters',
+    clearFilters: 'Clear all',
+    categories: {
+      all: 'All',
+      tasks: 'Tasks',
+      projects: 'Projects',
+      people: 'People',
+      files: 'Files',
+      pages: 'Pages',
+    },
   },
 
   // Norwegian specific (keeping original terms)

@@ -22,6 +22,7 @@ import {
   SelectValue,
   DatePicker,
 } from '../ui';
+import { GridLayout } from '../layout';
 
 interface TaskFormProps {
   readonly trigger?: React.ReactNode;
@@ -144,7 +145,10 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): React.ReactElem
           </div>
 
           {/* Priority and Due Date Row */}
-          <div className="grid grid-cols-2 gap-6">
+          <GridLayout 
+            columns={{ mobile: 1, tablet: 2 }}
+            gap="lg"
+          >
             {/* Priority */}
             <div className="space-y-3">
               <Label>
@@ -182,7 +186,7 @@ export const TaskForm = ({ trigger, onSuccess }: TaskFormProps): React.ReactElem
                 className="w-full"
               />
             </div>
-          </div>
+          </GridLayout>
 
           {/* Submit Buttons */}
           <div className="flex justify-end space-x-4 pt-6">

@@ -21,7 +21,7 @@ interface SignupData {
 export const SignupFormContent = (): JSX.Element => {
   const { t } = useUI();
   const router = useRouter();
-  const { register, isLoading, error } = useAuth();
+  const { login, isLoading, error } = useAuth();
 
   const [formData, setFormData] = useState<SignupData>({
     name: '',
@@ -38,8 +38,7 @@ export const SignupFormContent = (): JSX.Element => {
       if (!agreedToTerms) {
         throw new Error('Please agree to the terms and conditions');
       }
-      await register({
-        name: data.name,
+      await login({
         email: data.email,
         password: data.password,
       });

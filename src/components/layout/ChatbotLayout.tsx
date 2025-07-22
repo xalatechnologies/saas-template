@@ -113,20 +113,20 @@ export const ChatbotLayout = ({
       />
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div className="flex-1 overflow-y-auto px-6 py-8">
         {messages.length === 0 && welcomeMessage ? (
           <div className="max-w-3xl mx-auto">
             {welcomeMessage}
             {suggestions && suggestions.length > 0 && (
-              <div className="mt-8">
-                <p className="text-sm text-muted-foreground mb-4">Try asking:</p>
-                <div className="flex flex-wrap gap-3">
+              <div className="mt-12">
+                <p className="text-base text-muted-foreground mb-6">Try asking:</p>
+                <div className="flex flex-wrap gap-4">
                   {suggestions.map((suggestion, index) => (
                     <Button
                       key={index}
                       variant="outline"
                       onClick={() => onSuggestionClick?.(suggestion)}
-                      className="rounded-xl text-sm"
+                      className="rounded-xl text-base"
                     >
                       {suggestion}
                     </Button>
@@ -136,7 +136,7 @@ export const ChatbotLayout = ({
             )}
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto space-y-6">
+          <div className="max-w-3xl mx-auto space-y-8">
             {messages.map((message, index) => (
               <ChatMessage
                 key={message.id}
@@ -145,14 +145,14 @@ export const ChatbotLayout = ({
               />
             ))}
             {isLoading && (
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-4">
                 <Avatar size="sm" className="bg-primary/10">
-                  <Bot className="h-5 w-5 text-primary" />
+                  <Bot className="h-6 w-6 text-primary" />
                 </Avatar>
-                <div className="bg-muted rounded-xl px-4 py-3">
-                  <div className="flex items-center space-x-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm text-muted-foreground">Thinking...</span>
+                <div className="bg-muted rounded-xl px-6 py-4">
+                  <div className="flex items-center space-x-4">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span className="text-base text-muted-foreground">Thinking...</span>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@ export const ChatbotLayout = ({
 
       {/* Input Area */}
       <div className="border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-3xl mx-auto p-4">
+        <div className="max-w-3xl mx-auto p-6">
           <ChatInput
             onSend={onSendMessage}
             placeholder={placeholder}
@@ -192,22 +192,22 @@ const ChatHeader = ({
   return (
     <div
       className={cn(
-        'flex items-center justify-between px-6 py-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+        'flex items-center justify-between px-8 py-6 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         className
       )}
     >
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-6">
         <Avatar size="md" className="bg-primary/10">
-          <Bot className="h-6 w-6 text-primary" />
+          <Bot className="h-8 w-8 text-primary" />
         </Avatar>
         <div>
           <h2 className="text-lg font-semibold text-foreground">{title}</h2>
           {subtitle && (
-            <p className="text-sm text-muted-foreground">{subtitle}</p>
+            <p className="text-base text-muted-foreground">{subtitle}</p>
           )}
         </div>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-4">
         <Button
           variant="ghost"
           size="icon"
@@ -215,7 +215,7 @@ const ChatHeader = ({
           className="rounded-xl"
           aria-label="Refresh conversation"
         >
-          <RefreshCw className="h-4 w-4" />
+          <RefreshCw className="h-5 w-5" />
         </Button>
         {onToggleFullscreen && (
           <Button
@@ -226,9 +226,9 @@ const ChatHeader = ({
             aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
           >
             {isFullscreen ? (
-              <Minimize2 className="h-4 w-4" />
+              <Minimize2 className="h-5 w-5" />
             ) : (
-              <Maximize2 className="h-4 w-4" />
+              <Maximize2 className="h-5 w-5" />
             )}
           </Button>
         )}
@@ -239,7 +239,7 @@ const ChatHeader = ({
           className="rounded-xl"
           aria-label="More options"
         >
-          <MoreVertical className="h-4 w-4" />
+          <MoreVertical className="h-5 w-5" />
         </Button>
       </div>
     </div>
@@ -255,49 +255,49 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
   return (
     <div
       className={cn(
-        'flex items-start space-x-3',
+        'flex items-start space-x-4',
         isUser && 'flex-row-reverse space-x-reverse'
       )}
     >
       <Avatar size="sm" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
         {isUser ? (
-          <User className="h-5 w-5 text-primary-foreground" />
+          <User className="h-6 w-6 text-primary-foreground" />
         ) : (
-          <Bot className="h-5 w-5 text-primary" />
+          <Bot className="h-6 w-6 text-primary" />
         )}
       </Avatar>
       <div
         className={cn(
-          'flex flex-col space-y-2 max-w-[70%]',
+          'flex flex-col space-y-4 max-w-[70%]',
           isUser && 'items-end'
         )}
       >
         <div
           className={cn(
-            'rounded-xl px-4 py-3',
+            'rounded-xl px-6 py-4',
             isUser
               ? 'bg-primary text-primary-foreground'
               : 'bg-muted text-foreground'
           )}
         >
-          <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+          <p className="text-base whitespace-pre-wrap">{message.content}</p>
           {message.attachments && message.attachments.length > 0 && (
-            <div className="mt-3 space-y-2">
+            <div className="mt-4 space-y-4">
               {message.attachments.map((attachment) => (
                 <div
                   key={attachment.id}
                   className={cn(
-                    'flex items-center space-x-2 p-2 rounded-lg',
+                    'flex items-center space-x-4 p-4 rounded-xl',
                     isUser ? 'bg-primary-foreground/10' : 'bg-background/50'
                   )}
                 >
                   {attachment.type === 'image' ? (
-                    <ImageIcon className="h-4 w-4" />
+                    <ImageIcon className="h-5 w-5" />
                   ) : (
-                    <FileText className="h-4 w-4" />
+                    <FileText className="h-5 w-5" />
                   )}
-                  <span className="text-xs truncate">{attachment.name}</span>
-                  <span className="text-xs opacity-70">
+                  <span className="text-base truncate">{attachment.name}</span>
+                  <span className="text-base opacity-70">
                     ({(attachment.size / 1024).toFixed(1)}KB)
                   </span>
                 </div>
@@ -305,7 +305,7 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
             </div>
           )}
         </div>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-base text-muted-foreground">
           {message.timestamp.toLocaleTimeString([], { 
             hour: '2-digit', 
             minute: '2-digit' 
@@ -364,35 +364,35 @@ const ChatInput = ({
   };
 
   return (
-    <div className={cn('space-y-3', className)}>
+    <div className={cn('space-y-6', className)}>
       {attachments.length > 0 && (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-4">
           {attachments.map((attachment) => (
             <div
               key={attachment.id}
-              className="flex items-center space-x-2 bg-muted rounded-lg px-3 py-2"
+              className="flex items-center space-x-4 bg-muted rounded-xl px-4 py-3"
             >
               {attachment.type === 'image' ? (
-                <ImageIcon className="h-4 w-4" />
+                <ImageIcon className="h-5 w-5" />
               ) : (
-                <FileText className="h-4 w-4" />
+                <FileText className="h-5 w-5" />
               )}
-              <span className="text-sm truncate max-w-[150px]">
+              <span className="text-base truncate max-w-[150px]">
                 {attachment.name}
               </span>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => removeAttachment(attachment.id)}
-                className="h-6 w-6 rounded"
+                className="h-8 w-8 rounded-xl"
               >
-                <X className="h-3 w-3" />
+                <X className="h-4 w-4" />
               </Button>
             </div>
           ))}
         </div>
       )}
-      <div className="flex items-end space-x-2">
+      <div className="flex items-end space-x-4">
         {attachmentsEnabled && (
           <>
             <input
@@ -421,7 +421,7 @@ const ChatInput = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="pr-12 rounded-xl min-h-[48px]"
+            className="pr-16 rounded-xl min-h-[64px]"
             autoComplete="off"
           />
           {voiceEnabled && (
@@ -429,19 +429,19 @@ const ChatInput = ({
               variant="ghost"
               size="icon"
               disabled={disabled}
-              className="absolute right-1 top-1 rounded-lg"
+              className="absolute right-2 top-2 rounded-xl"
               aria-label="Voice input"
             >
-              <Mic className="h-4 w-4" />
+              <Mic className="h-5 w-5" />
             </Button>
           )}
         </div>
         <Button
           onClick={handleSend}
           disabled={disabled || (!input.trim() && attachments.length === 0)}
-          className="rounded-xl h-12 px-6 shadow-lg"
+          className="rounded-xl h-16 px-8 shadow-lg"
         >
-          <Send className="h-5 w-5" />
+          <Send className="h-6 w-6" />
         </Button>
       </div>
     </div>

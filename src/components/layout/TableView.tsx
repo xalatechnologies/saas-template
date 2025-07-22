@@ -160,25 +160,25 @@ export function TableView<T extends Record<string, any>>({
     <div className={cn('w-full', className)}>
       {/* Bulk Actions Bar */}
       {bulkActions && selectedRowIds.size > 0 && (
-        <div className="mb-4 p-4 bg-accent rounded-xl flex items-center justify-between">
-          <span className="text-sm font-medium">
+        <div className="mb-6 p-6 bg-accent rounded-xl flex items-center justify-between">
+          <span className="text-base font-medium">
             {selectedRowIds.size} item{selectedRowIds.size !== 1 ? 's' : ''} selected
           </span>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-4">
             {bulkActions.map((action) => {
               const Icon = action.icon;
               return (
                 <Button
                   key={action.id}
                   variant={action.variant || 'outline'}
-                  size="sm"
+                  size="default"
                   onClick={() => {
                     const selectedItems = data.filter((_, i) => selectedRowIds.has(i));
                     action.onClick(selectedItems);
                   }}
-                  className="rounded-lg"
+                  className="rounded-xl"
                 >
-                  {Icon && <Icon className="h-4 w-4 mr-2" />}
+                  {Icon && <Icon className="h-5 w-5 mr-4" />}
                   {action.label}
                 </Button>
               );
@@ -198,7 +198,7 @@ export function TableView<T extends Record<string, any>>({
             <tr className="border-b border-border">
               {/* Selection Column */}
               {hasSelection && (
-                <th className="w-12 px-4 py-3">
+                <th className="w-16 px-6 py-4">
                   <Checkbox
                     checked={selectedRowIds.size === data.length && data.length > 0}
                     indeterminate={selectedRowIds.size > 0 && selectedRowIds.size < data.length}
@@ -213,12 +213,12 @@ export function TableView<T extends Record<string, any>>({
                 <th
                   key={column.id}
                   className={cn(
-                    'px-6 py-3 text-left text-sm font-semibold text-foreground',
+                    'px-8 py-4 text-left text-base font-semibold text-foreground',
                     column.align === 'center' && 'text-center',
                     column.align === 'right' && 'text-right',
                     column.sticky === 'left' && 'sticky left-0 bg-muted/50',
                     column.sticky === 'right' && 'sticky right-0 bg-muted/50',
-                    compact && 'py-2'
+                    compact && 'py-3'
                   )}
                   style={{
                     width: column.width,
@@ -226,7 +226,7 @@ export function TableView<T extends Record<string, any>>({
                     maxWidth: column.maxWidth,
                   }}
                 >
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-4">
                     <span>{column.header}</span>
                     
                     {/* Sort Indicator */}
@@ -235,16 +235,16 @@ export function TableView<T extends Record<string, any>>({
                         variant="ghost"
                         size="icon"
                         onClick={() => handleSort(column.id)}
-                        className="h-6 w-6 rounded"
+                        className="h-8 w-8 rounded-xl"
                       >
                         {sortColumn === column.id ? (
                           sortDirection === 'asc' ? (
-                            <ChevronUp className="h-4 w-4" />
+                            <ChevronUp className="h-5 w-5" />
                           ) : (
-                            <ChevronDown className="h-4 w-4" />
+                            <ChevronDown className="h-5 w-5" />
                           )
                         ) : (
-                          <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
+                          <ChevronsUpDown className="h-5 w-5 text-muted-foreground" />
                         )}
                       </Button>
                     )}
@@ -252,12 +252,12 @@ export function TableView<T extends Record<string, any>>({
 
                   {/* Column Filter */}
                   {column.filterable && onFilter && (
-                    <div className="mt-2">
+                    <div className="mt-4">
                       <Input
                         value={columnFilters[column.id] || ''}
                         onChange={(e) => handleFilter(column.id, e.target.value)}
                         placeholder="Filter..."
-                        className="h-8 text-xs rounded"
+                        className="h-12 text-base rounded-xl"
                         onClick={(e) => e.stopPropagation()}
                       />
                     </div>
@@ -267,7 +267,7 @@ export function TableView<T extends Record<string, any>>({
 
               {/* Actions Column */}
               {hasActions && (
-                <th className="w-20 px-4 py-3 text-right">
+                <th className="w-24 px-6 py-4 text-right">
                   <span className="sr-only">Actions</span>
                 </th>
               )}
@@ -280,11 +280,11 @@ export function TableView<T extends Record<string, any>>({
               <tr>
                 <td
                   colSpan={columns.length + (hasSelection ? 1 : 0) + (hasActions ? 1 : 0)}
-                  className="px-6 py-12 text-center"
+                  className="px-8 py-16 text-center"
                 >
                   <div className="flex flex-col items-center justify-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-                    <p className="mt-4 text-sm text-muted-foreground">Loading...</p>
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+                    <p className="mt-6 text-base text-muted-foreground">Loading...</p>
                   </div>
                 </td>
               </tr>
@@ -292,7 +292,7 @@ export function TableView<T extends Record<string, any>>({
               <tr>
                 <td
                   colSpan={columns.length + (hasSelection ? 1 : 0) + (hasActions ? 1 : 0)}
-                  className="px-6 py-12 text-center"
+                  className="px-8 py-16 text-center"
                 >
                   <p className="text-muted-foreground">{emptyMessage}</p>
                 </td>
@@ -315,7 +315,7 @@ export function TableView<T extends Record<string, any>>({
                   >
                     {/* Selection Cell */}
                     {hasSelection && (
-                      <td className="w-12 px-4 py-3">
+                      <td className="w-16 px-6 py-4">
                         <Checkbox
                           checked={isSelected}
                           onCheckedChange={() => handleRowSelect(index, item)}
@@ -336,12 +336,12 @@ export function TableView<T extends Record<string, any>>({
                         <td
                           key={column.id}
                           className={cn(
-                            'px-6 py-3 text-sm',
+                            'px-8 py-4 text-base',
                             column.align === 'center' && 'text-center',
                             column.align === 'right' && 'text-right',
                             column.sticky === 'left' && 'sticky left-0 bg-background',
                             column.sticky === 'right' && 'sticky right-0 bg-background',
-                            compact && 'py-2'
+                            compact && 'py-3'
                           )}
                         >
                           {content}
@@ -351,7 +351,7 @@ export function TableView<T extends Record<string, any>>({
 
                     {/* Actions Cell */}
                     {hasActions && (
-                      <td className="w-20 px-4 py-3 text-right">
+                      <td className="w-24 px-6 py-4 text-right">
                         <RowActions actions={actions} item={item} />
                       </td>
                     )}
@@ -388,9 +388,9 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className="h-8 w-8 rounded-lg"
+        className="h-10 w-10 rounded-xl"
       >
-        <MoreHorizontal className="h-4 w-4" />
+        <MoreHorizontal className="h-5 w-5" />
       </Button>
 
       {isOpen && (
@@ -399,7 +399,7 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 top-full mt-1 w-48 bg-background border border-border rounded-lg shadow-xl z-50">
+          <div className="absolute right-0 top-full mt-2 w-56 bg-background border border-border rounded-xl shadow-xl z-50">
             {actions.map((action) => {
               const Icon = action.icon;
               return (
@@ -411,11 +411,11 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
                     setIsOpen(false);
                   }}
                   className={cn(
-                    'w-full px-4 py-2 text-sm text-left hover:bg-accent flex items-center space-x-2',
+                    'w-full px-6 py-3 text-base text-left hover:bg-accent flex items-center space-x-4',
                     action.variant === 'destructive' && 'text-destructive hover:bg-destructive/10'
                   )}
                 >
-                  {Icon && <Icon className="h-4 w-4" />}
+                  {Icon && <Icon className="h-5 w-5" />}
                   <span>{action.label}</span>
                 </button>
               );

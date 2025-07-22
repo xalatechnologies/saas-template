@@ -1,21 +1,35 @@
 'use client';
 
-import React from 'react';
-import { Menu, Sun, Moon, Globe, Bell, Settings, LogOut } from 'lucide-react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Menu, Bell, X, Search } from 'lucide-react';
 import { useAuth, useUI } from '@/hooks';
 import { Button, Avatar } from '../ui';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { GlobalSearch } from './GlobalSearch';
+import { Container, FlexLayout, GridLayout } from '../layout';
 
 interface HeaderProps {
   readonly children?: React.ReactNode;
+  readonly showLogo?: boolean;
+  readonly navigation?: readonly { href: string; label: string }[];
 }
 
 /**
  * Application header component with navigation and user controls
  * @returns React.ReactElement
  */
-export const Header = ({ children }: HeaderProps): React.ReactElement => {
+export const Header = ({ children, showLogo = false, navigation }: HeaderProps): React.ReactElement => {
   const { user, logout } = useAuth();
-  const { toggleSidebar, toggleTheme, isDarkMode, t } = useUI();
+  const { toggleSidebar, t } = useUI();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   /**
    * Handles user logout action
@@ -25,102 +39,205 @@ export const Header = ({ children }: HeaderProps): React.ReactElement => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b-2 border-border bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 shadow-xl">
-      <div className="container flex h-24 items-center space-x-8 px-8">
-        {/* Mobile menu button */}
-        <Button
-          variant="ghost"
-          size="default"
-          className="lg:hidden h-12 w-12"
-          onClick={toggleSidebar}
-          aria-label={t('navigation.menu')}
+    <header className="sticky top-0 z-40 h-20 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <Container size="full" className="h-full">
+        <FlexLayout 
+          direction="row" 
+          align="center" 
+          justify="between"
+          gap="lg"
+          className="h-full"
         >
-          <Menu className="h-6 w-6" />
-        </Button>
-
-        {/* Logo */}
-        <div className="flex items-center space-x-6">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-xl ring-2 ring-primary/20">
-            <span className="text-xl font-black text-primary-foreground">TM</span>
-          </div>
-          <h1 className="text-2xl font-black text-foreground">{t('dashboard.title')}</h1>
-        </div>
-
-        {/* Spacer */}
-        <div className="flex-1" />
-
-        {/* Actions */}
-        <div className="flex items-center space-x-4">
-          {/* Theme toggle */}
-          <Button
-            variant="ghost"
-            size="default"
-            className="h-12 w-12"
-            onClick={toggleTheme}
-            aria-label={!isDarkMode ? t('settings.darkTheme') : t('settings.lightTheme')}
-          >
-            {!isDarkMode ? <Moon className="h-6 w-6" /> : <Sun className="h-6 w-6" />}
-          </Button>
-
-          {/* Language selector */}
-          <Button
-            variant="ghost"
-            size="default"
-            className="h-12 w-12"
-            aria-label={t('settings.language')}
-          >
-            <Globe className="h-6 w-6" />
-          </Button>
-
-          {/* Notifications */}
-          <Button
-            variant="ghost"
-            size="default"
-            className="h-12 w-12"
-            aria-label={t('common.notifications')}
-          >
-            <Bell className="h-6 w-6" />
-          </Button>
-
-          {/* Settings */}
-          <Button
-            variant="ghost"
-            size="default"
-            className="h-12 w-12"
-            aria-label={t('navigation.settings')}
-          >
-            <Settings className="h-6 w-6" />
-          </Button>
-
-          {/* Additional actions (e.g., Assistant button) */}
-          {children}
-
-          {/* User menu */}
-          {user && (
-            <div className="flex items-center space-x-6 pl-4">
-              <Avatar
-                src={user.avatar}
-                alt={user.name}
-                fallback={user.name.charAt(0).toUpperCase()}
-                size="lg"
-              />
-              <div className="hidden md:block">
-                <div className="text-lg font-bold text-foreground">{user.name}</div>
-                <div className="text-base text-muted-foreground">{user.email}</div>
-              </div>
+          {/* Left section */}
+          <FlexLayout direction="row" align="center" gap="md">
+            {/* Logo for WebLayout */}
+            {showLogo && (
+              <Link 
+                href="/" 
+                className="text-xl font-bold text-primary"
+                aria-label={t('common.goToHome')}
+              >
+                <FlexLayout direction="row" align="center" gap="sm">
+                  <span className="bg-primary text-primary-foreground rounded-xl px-3 py-2">TM</span>
+                  <span className="hidden sm:block">TaskManager</span>
+                </FlexLayout>
+              </Link>
+            )}
+            
+            {/* Mobile menu button */}
+            {!showLogo ? (
               <Button
                 variant="ghost"
-                size="default"
-                className="h-12 w-12"
-                onClick={handleLogout}
-                aria-label={t('auth.logout')}
+                size="icon"
+                className="lg:hidden"
+                onClick={toggleSidebar}
+                aria-label={t('common.openMenu')}
               >
-                <LogOut className="h-6 w-6" />
+                <Menu className="h-5 w-5" />
               </Button>
-            </div>
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="lg:hidden"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={t('common.toggleMenu')}
+                aria-expanded={mobileMenuOpen}
+              >
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
+            )}
+
+            {/* Navigation for WebLayout */}
+            {showLogo && navigation && (
+              <nav className="hidden lg:block">
+                <FlexLayout direction="row" align="center" gap="xl">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </FlexLayout>
+              </nav>
+            )}
+          </FlexLayout>
+
+          {/* Center - Global Search */}
+          {user && (
+            <Container size="sm" className="flex-1 hidden md:block">
+              <GlobalSearch
+                onSearch={async (query, filters) => {
+                  // TODO: Implement actual search functionality
+                  console.log('Search:', query, filters);
+                  // Mock search results for now
+                  return [
+                    {
+                      id: '1',
+                      type: 'task',
+                      title: `Task containing "${query}"`,
+                      subtitle: 'In progress • High priority',
+                      url: '/tasks/1'
+                    },
+                    {
+                      id: '2', 
+                      type: 'page',
+                      title: 'Dashboard',
+                      subtitle: 'Main dashboard page',
+                      url: '/dashboard'
+                    }
+                  ];
+                }}
+                placeholder={t('search.placeholder')}
+                variant="dropdown"
+                showShortcut
+              />
+            </Container>
           )}
-        </div>
-      </div>
+
+          {/* Right section */}
+          <FlexLayout direction="row" align="center" gap="sm">
+            {/* Additional actions (e.g., Assistant button) */}
+            {children}
+
+            {/* Search button for mobile */}
+            {user && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                aria-label={t('search.openSearch')}
+                onClick={() => {
+                  // TODO: Open mobile search modal
+                }}
+              >
+                <Search className="h-5 w-5" />
+              </Button>
+            )}
+
+            {/* Notifications */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="relative"
+              aria-label={t('common.notifications')}
+            >
+              <Bell className="h-5 w-5" />
+              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
+            </Button>
+
+            {/* User menu */}
+            {user && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar
+                      src={user.avatar}
+                      alt={user.name}
+                      fallback={user.name.charAt(0).toUpperCase()}
+                      size="sm"
+                      className="h-8 w-8"
+                    />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" align="end" forceMount>
+                  <DropdownMenuLabel className="font-normal">
+                    <FlexLayout direction="column" gap="xs">
+                      <p className="text-sm font-medium leading-none">{user.name}</p>
+                      <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                    </FlexLayout>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>
+                    <Link href="/profile" className="flex w-full">
+                      {t('navigation.profile')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link href="/settings" className="flex w-full">
+                      {t('navigation.settings')}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout}>{t('auth.logout')}</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </FlexLayout>
+        </FlexLayout>
+      </Container>
+
+      {/* Mobile Menu - only for WebLayout */}
+      {showLogo && mobileMenuOpen && navigation && (
+        <Container size="full" className="lg:hidden py-6 border-t border-border">
+          <FlexLayout direction="column" gap="md">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-border">
+              <FlexLayout direction="column" gap="sm">
+                <FlexLayout direction="row" justify="center">
+                  {/* LanguageSelector will be in children */}
+                </FlexLayout>
+                {/* Additional mobile actions will be rendered from children */}
+                <FlexLayout direction="column" gap="xs">
+                  {children}
+                </FlexLayout>
+              </FlexLayout>
+            </div>
+          </FlexLayout>
+        </Container>
+      )}
     </header>
   );
 };
