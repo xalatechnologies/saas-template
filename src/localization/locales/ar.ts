@@ -6,6 +6,11 @@ export const ar = {
     settings: 'الإعدادات',
     profile: 'الملف الشخصي',
     logout: 'تسجيل الخروج',
+    home: 'الرئيسية',
+    features: 'المميزات',
+    pricing: 'الأسعار',
+    about: 'حول',
+    contact: 'اتصل بنا',
   },
 
   // Dashboard
@@ -80,6 +85,7 @@ export const ar = {
     login: 'تسجيل الدخول',
     logout: 'تسجيل الخروج',
     register: 'التسجيل',
+    signup: 'إنشاء حساب',
     email: 'البريد الإلكتروني',
     password: 'كلمة المرور',
     confirmPassword: 'تأكيد كلمة المرور',

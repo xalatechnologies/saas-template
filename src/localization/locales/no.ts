@@ -6,6 +6,11 @@ export const no = {
     settings: 'Innstillinger',
     profile: 'Profil',
     logout: 'Logg ut',
+    home: 'Hjem',
+    features: 'Funksjoner',
+    pricing: 'Priser',
+    about: 'Om oss',
+    contact: 'Kontakt',
   },
 
   // Dashboard
@@ -85,6 +90,7 @@ export const no = {
     login: 'Logg inn',
     logout: 'Logg ut',
     register: 'Registrer',
+    signup: 'Registrer deg',
     email: 'E-post',
     password: 'Passord',
     confirmPassword: 'Bekreft passord',

@@ -6,6 +6,11 @@ export const fr = {
     settings: 'Paramètres',
     profile: 'Profil',
     logout: 'Déconnexion',
+    home: 'Accueil',
+    features: 'Fonctionnalités',
+    pricing: 'Tarifs',
+    about: 'À propos',
+    contact: 'Contact',
   },
 
   // Dashboard
@@ -80,6 +85,7 @@ export const fr = {
     login: 'Connexion',
     logout: 'Déconnexion',
     register: "S'inscrire",
+    signup: "S'inscrire",
     email: 'E-mail',
     password: 'Mot de passe',
     confirmPassword: 'Confirmer le mot de passe',

@@ -39,6 +39,9 @@ export {
   FocusTrap,
 } from './accessibility/AccessibilityProvider';
 
+// Development components
+export { DevMode } from './dev';
+
 // Re-export types for convenience
 export type { BasePageProps } from './layout/BasePage';
 export type { PageSectionProps } from './layout/PageSection';

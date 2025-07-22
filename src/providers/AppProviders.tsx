@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { AccessibilityProvider } from '../components/accessibility/AccessibilityProvider';
 import { GDPRBanner } from '../components/gdpr/GDPRBanner';
+import { DevMode } from '../components/dev';
 import { ThemeProvider } from './ThemeProvider';
 import { I18nProvider } from './I18nProvider';
 import { LayoutProvider } from './LayoutProvider';
@@ -54,6 +55,7 @@ export const AppProviders = ({ children }: AppProvidersProps): React.ReactElemen
               }}
             />
             <GDPRBanner />
+            <DevMode />
           </I18nProvider>
         </ThemeProvider>
       </AccessibilityProvider>

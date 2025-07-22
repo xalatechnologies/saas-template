@@ -6,6 +6,11 @@ export const en = {
     settings: 'Settings',
     profile: 'Profile',
     logout: 'Logout',
+    home: 'Home',
+    features: 'Features',
+    pricing: 'Pricing',
+    about: 'About',
+    contact: 'Contact',
   },
 
   // Dashboard
@@ -80,6 +85,7 @@ export const en = {
     login: 'Login',
     logout: 'Logout',
     register: 'Register',
+    signup: 'Sign up',
     email: 'Email',
     password: 'Password',
     confirmPassword: 'Confirm password',

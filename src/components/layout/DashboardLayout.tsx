@@ -6,7 +6,7 @@ import { Header } from './Header';
 import { Sidebar } from './Sidebar';
 import { RightDrawer } from './RightDrawer';
 import { SkipLinks } from '@/components';
-import { Button } from '../ui';
+import { Button, LanguageSelector } from '../ui';
 
 interface DashboardLayoutProps {
   readonly children: React.ReactNode;
@@ -28,17 +28,20 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps): JSX.Element
       
       {/* Main Content Area */}
       <div className="lg:pl-64">
-        {/* Header with Assistant Button */}
+        {/* Header with Language Selector and Assistant Button */}
         <Header>
-          <Button
-            variant="outline"
-            onClick={() => setDrawerOpen(true)}
-            className="rounded-xl"
-            aria-label="Open assistant"
-          >
-            <MessageSquare className="h-4 w-4 lg:mr-2" />
-            <span className="hidden lg:inline">Assistant</span>
-          </Button>
+          <div className="flex items-center space-x-3">
+            <LanguageSelector />
+            <Button
+              variant="outline"
+              onClick={() => setDrawerOpen(true)}
+              className="rounded-xl"
+              aria-label="Open assistant"
+            >
+              <MessageSquare className="h-4 w-4 lg:mr-2" />
+              <span className="hidden lg:inline">Assistant</span>
+            </Button>
+          </div>
         </Header>
         
         {/* Main Content */}

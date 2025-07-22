@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, MessageSquare } from 'lucide-react';
-import { Button } from '../ui';
+import { Button, LanguageSelector } from '../ui';
 import { RightDrawer } from './RightDrawer';
 import { SkipLinks } from '@/components';
 import { cn } from '@/utils';
@@ -68,6 +68,7 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
 
             {/* Desktop Actions */}
             <div className="hidden lg:flex items-center space-x-4">
+              <LanguageSelector />
               <Button
                 variant="outline"
                 onClick={() => setDrawerOpen(true)}
@@ -117,6 +118,9 @@ export const WebLayout = ({ children }: WebLayoutProps): JSX.Element => {
                   </Link>
                 ))}
                 <div className="flex flex-col space-y-3 pt-4 border-t border-border">
+                  <div className="flex justify-center">
+                    <LanguageSelector />
+                  </div>
                   <Button
                     variant="outline"
                     onClick={() => {

@@ -7,6 +7,7 @@ export * from './input';
 export * from './label';
 export * from './separator';
 export { Heading, AppText, type HeadingProps, type AppTextProps } from './typography';
+export * from './LanguageSelector';
 
 // Advanced UI Components
 export * from './accordion';
