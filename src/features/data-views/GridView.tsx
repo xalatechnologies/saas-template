@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { MoreVertical, Grid2x2, Grid3x3, Square } from 'lucide-react';
-import { Button, Checkbox } from '../ui';
-import { GridLayout, FlexLayout } from './';
+import { Button, Checkbox, GridLayout, FlexLayout } from '@/components';
 import { cn } from '@/utils';
 
 export interface GridViewProps<T> {

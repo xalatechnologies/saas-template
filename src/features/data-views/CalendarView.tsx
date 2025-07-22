@@ -11,8 +11,7 @@ import {
   Users,
   MoreHorizontal
 } from 'lucide-react';
-import { Button, Badge, Select } from '../ui';
-import { FlexLayout, GridLayout } from './';
+import { Button, Badge, Select, FlexLayout, GridLayout, Container } from '@/components';
 import { cn } from '@/utils';
 
 export interface CalendarEvent<T> {
@@ -153,25 +152,29 @@ export function CalendarView<T>({
 
   if (loading) {
     return (
-      <div 
-        className={cn('flex items-center justify-center bg-card rounded-xl', className)}
+      <FlexLayout 
+        direction="column"
+        align="center"
+        justify="center"
+        className={cn('bg-card rounded-2xl', className)}
         style={{ height }}
       >
-        <div className="text-center">
-          <CalendarIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
-          <p className="text-sm text-muted-foreground">Loading calendar...</p>
-        </div>
-      </div>
+        <FlexLayout direction="column" align="center" gap="lg">
+          <CalendarIcon className="h-16 w-16 text-muted-foreground animate-pulse" />
+          <p className="text-lg text-muted-foreground">Loading calendar...</p>
+        </FlexLayout>
+      </FlexLayout>
     );
   }
 
   return (
-    <div className={cn('flex flex-col bg-card rounded-xl border border-border', className)} style={{ height }}>
+    <FlexLayout direction="column" className={cn('bg-card rounded-2xl border border-border', className)} style={{ height }}>
       {/* Calendar Header */}
       {showControls && (
-        <FlexLayout direction="row" align="center" justify="between" className="p-8 border-b border-border">
+        <Container className="p-12 border-b border-border">
+          <FlexLayout direction="row" align="center" justify="between">
           <FlexLayout direction="row" align="center" gap="lg">
-            <h2 className="text-xl font-semibold">
+            <h2 className="text-2xl font-semibold">
               {currentDate.toLocaleDateString('en-US', { 
                 month: 'long', 
                 year: 'numeric' 
@@ -182,15 +185,15 @@ export function CalendarView<T>({
                 variant="ghost"
                 size="icon"
                 onClick={navigatePrevious}
-                className="h-8 w-8 rounded-lg"
+                className="h-12 w-12 rounded-2xl"
               >
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronLeft className="h-6 w-6" />
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={navigateToday}
-                className="rounded-lg"
+                className="rounded-2xl h-16 px-8"
               >
                 Today
               </Button>
@@ -198,9 +201,9 @@ export function CalendarView<T>({
                 variant="ghost"
                 size="icon"
                 onClick={navigateNext}
-                className="h-8 w-8 rounded-lg"
+                className="h-12 w-12 rounded-2xl"
               >
-                <ChevronRight className="h-4 w-4" />
+                <ChevronRight className="h-6 w-6" />
               </Button>
             </FlexLayout>
           </FlexLayout>
@@ -209,16 +212,15 @@ export function CalendarView<T>({
             {onEventCreate && (
               <Button
                 onClick={() => onEventCreate(new Date(), new Date())}
-                className="rounded-xl"
+                className="rounded-2xl h-16 px-8"
               >
-                <Plus className="h-4 w-4 mr-2" />
+                <Plus className="h-6 w-6 mr-4" />
                 New Event
               </Button>
             )}
             <Select
               value={view}
               onValueChange={(value) => setView(value as CalendarView)}
-              className="w-32"
             >
               <option value="month">Month</option>
               <option value="week">Week</option>
@@ -226,11 +228,12 @@ export function CalendarView<T>({
               <option value="agenda">Agenda</option>
             </Select>
           </FlexLayout>
-        </FlexLayout>
+          </FlexLayout>
+        </Container>
       )}
 
       {/* Calendar Content */}
-      <div className="flex-1 overflow-auto">
+      <Container className="flex-1 overflow-auto p-8">
         {view === 'month' && (
           <MonthView
             weeks={weeks}
@@ -274,8 +277,8 @@ export function CalendarView<T>({
             renderEvent={renderEvent}
           />
         )}
-      </div>
-    </div>
+      </Container>
+    </FlexLayout>
   );
 }
 
@@ -307,13 +310,13 @@ function MonthView<T>({
   today.setHours(0, 0, 0, 0);
 
   return (
-    <div className="h-full">
+    <FlexLayout direction="column" className="h-full">
       {/* Week days header */}
-      <GridLayout columns={7} className="border-b border-border">
+      <GridLayout columns={{ mobile: 7, tablet: 7, desktop: 7 }} className="border-b border-border">
         {weekDays.map((day) => (
           <div
             key={day}
-            className="p-2 text-center text-sm font-semibold text-muted-foreground"
+            className="p-4 text-center text-lg font-semibold text-muted-foreground"
           >
             {day}
           </div>
@@ -321,7 +324,7 @@ function MonthView<T>({
       </GridLayout>
 
       {/* Calendar grid */}
-      <GridLayout columns={7} className="flex-1">
+      <GridLayout columns={{ mobile: 7, tablet: 7, desktop: 7 }} className="flex-1">
         {weeks.map((week, weekIndex) => (
           <React.Fragment key={weekIndex}>
             {week.map((date, dayIndex) => {
@@ -335,26 +338,26 @@ function MonthView<T>({
                   key={dayIndex}
                   onClick={() => onDateClick(date)}
                   className={cn(
-                    'min-h-[100px] border-r border-b border-border p-2 cursor-pointer hover:bg-accent transition-colors',
+                    'min-h-[120px] border-r border-b border-border p-4 cursor-pointer hover:bg-accent transition-colors',
                     !isCurrentMonth && 'bg-muted/30 text-muted-foreground',
                     isToday && 'bg-primary/5',
                     isSelected && 'ring-2 ring-primary ring-inset'
                   )}
                 >
-                  <FlexLayout direction="row" align="start" justify="between" className="mb-1">
+                  <FlexLayout direction="row" align="start" justify="between" className="mb-2">
                     <span className={cn(
-                      'text-sm font-medium',
+                      'text-lg font-medium',
                       isToday && 'text-primary'
                     )}>
                       {date.getDate()}
                     </span>
                     {events.length > 0 && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-base">
                         {events.length}
                       </Badge>
                     )}
                   </FlexLayout>
-                  <div className="space-y-1">
+                  <FlexLayout direction="column" gap="xs">
                     {events.slice(0, 3).map((event) => (
                       <CalendarEventItem
                         key={event.id}
@@ -368,18 +371,18 @@ function MonthView<T>({
                       />
                     ))}
                     {events.length > 3 && (
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-base text-muted-foreground">
                         +{events.length - 3} more
                       </p>
                     )}
-                  </div>
+                  </FlexLayout>
                 </div>
               );
             })}
           </React.Fragment>
         ))}
       </GridLayout>
-    </div>
+    </FlexLayout>
   );
 }
 

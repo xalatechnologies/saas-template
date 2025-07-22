@@ -2,7 +2,7 @@
 
 import React, { useState, createContext, useContext } from 'react';
 import { Check, ChevronRight, ChevronLeft } from 'lucide-react';
-import { Button, Progress } from '../ui';
+import { Button, Progress } from '@/components';
 import { cn } from '@/utils';
 
 interface Step {

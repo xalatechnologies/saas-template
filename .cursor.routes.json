@@ -1,0 +1,27 @@
+{
+  "src/app": {
+    "type": "page",
+    "use_ui": true,
+    "localized": true,
+    "agent": "Task Management Smart Agent"
+  },
+  "src/components/ui": {
+    "type": "component",
+    "must_use_tailwind": true,
+    "must_use_jsdoc": true
+  },
+  "src/components/layout": {
+    "type": "component",
+    "base": "GridLayout System",
+    "must_use_tailwind": true
+  },
+  "src/features": {
+    "type": "feature",
+    "use_ui": true,
+    "localized": true
+  },
+  "src/packages": {
+    "type": "component",
+    "must_use_jsdoc": true
+  }
+}

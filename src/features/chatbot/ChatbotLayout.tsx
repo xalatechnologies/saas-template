@@ -16,7 +16,7 @@ import {
   Maximize2,
   RefreshCw
 } from 'lucide-react';
-import { Button, Input, Avatar } from '../ui';
+import { Button, Input, Avatar, FlexLayout, Container } from '@/components';
 import { cn } from '@/utils';
 
 interface Message {
@@ -96,9 +96,10 @@ export const ChatbotLayout = ({
   }, [messages]);
 
   return (
-    <div
+    <FlexLayout
+      direction="column"
       className={cn(
-        'flex flex-col bg-background',
+        'bg-background',
         isFullscreen ? 'fixed inset-0 z-50' : 'h-[calc(100vh-5rem)]',
         className
       )}
@@ -113,30 +114,30 @@ export const ChatbotLayout = ({
       />
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-6 py-8">
+      <Container size="xl" className="flex-1 overflow-y-auto py-12">
         {messages.length === 0 && welcomeMessage ? (
           <div className="max-w-3xl mx-auto">
             {welcomeMessage}
             {suggestions && suggestions.length > 0 && (
-              <div className="mt-12">
-                <p className="text-base text-muted-foreground mb-6">Try asking:</p>
-                <div className="flex flex-wrap gap-4">
+              <div className="mt-16">
+                <p className="text-lg text-muted-foreground mb-8">Try asking:</p>
+                <FlexLayout direction="row" wrap gap="md">
                   {suggestions.map((suggestion, index) => (
                     <Button
                       key={index}
                       variant="outline"
                       onClick={() => onSuggestionClick?.(suggestion)}
-                      className="rounded-xl text-base"
+                      className="rounded-2xl text-lg h-16 px-8"
                     >
                       {suggestion}
                     </Button>
                   ))}
-                </div>
+                </FlexLayout>
               </div>
             )}
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto space-y-8">
+          <FlexLayout direction="column" gap="xl" className="max-w-3xl mx-auto">
             {messages.map((message, index) => (
               <ChatMessage
                 key={message.id}
@@ -145,26 +146,26 @@ export const ChatbotLayout = ({
               />
             ))}
             {isLoading && (
-              <div className="flex items-start space-x-4">
-                <Avatar size="sm" className="bg-primary/10">
-                  <Bot className="h-6 w-6 text-primary" />
+              <FlexLayout direction="row" align="start" gap="md">
+                <Avatar size="md" className="bg-primary/10">
+                  <Bot className="h-8 w-8 text-primary" />
                 </Avatar>
-                <div className="bg-muted rounded-xl px-6 py-4">
-                  <div className="flex items-center space-x-4">
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span className="text-base text-muted-foreground">Thinking...</span>
-                  </div>
+                <div className="bg-muted rounded-2xl px-8 py-6">
+                  <FlexLayout direction="row" align="center" gap="md">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                    <span className="text-lg text-muted-foreground">Thinking...</span>
+                  </FlexLayout>
                 </div>
-              </div>
+              </FlexLayout>
             )}
             <div ref={messagesEndRef} />
-          </div>
+          </FlexLayout>
         )}
-      </div>
+      </Container>
 
       {/* Input Area */}
       <div className="border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="max-w-3xl mx-auto p-6">
+        <Container size="lg" className="py-8">
           <ChatInput
             onSend={onSendMessage}
             placeholder={placeholder}
@@ -172,9 +173,9 @@ export const ChatbotLayout = ({
             attachmentsEnabled
             voiceEnabled
           />
-        </div>
+        </Container>
       </div>
-    </div>
+    </FlexLayout>
   );
 };
 
@@ -190,29 +191,32 @@ const ChatHeader = ({
   className,
 }: ChatHeaderProps): JSX.Element => {
   return (
-    <div
+    <FlexLayout
+      direction="row"
+      align="center"
+      justify="between"
       className={cn(
-        'flex items-center justify-between px-8 py-6 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
+        'px-12 py-8 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         className
       )}
     >
-      <div className="flex items-center space-x-6">
-        <Avatar size="md" className="bg-primary/10">
-          <Bot className="h-8 w-8 text-primary" />
+      <FlexLayout direction="row" align="center" gap="lg">
+        <Avatar size="lg" className="bg-primary/10">
+          <Bot className="h-10 w-10 text-primary" />
         </Avatar>
         <div>
-          <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+          <h2 className="text-xl font-semibold text-foreground">{title}</h2>
           {subtitle && (
-            <p className="text-base text-muted-foreground">{subtitle}</p>
+            <p className="text-lg text-muted-foreground">{subtitle}</p>
           )}
         </div>
-      </div>
-      <div className="flex items-center space-x-4">
+      </FlexLayout>
+      <FlexLayout direction="row" align="center" gap="md">
         <Button
           variant="ghost"
           size="icon"
           onClick={() => onAction?.('refresh')}
-          className="rounded-xl"
+          className="rounded-2xl h-12 w-12"
           aria-label="Refresh conversation"
         >
           <RefreshCw className="h-5 w-5" />
@@ -222,7 +226,7 @@ const ChatHeader = ({
             variant="ghost"
             size="icon"
             onClick={onToggleFullscreen}
-            className="rounded-xl"
+            className="rounded-2xl h-12 w-12"
             aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
           >
             {isFullscreen ? (
@@ -236,13 +240,13 @@ const ChatHeader = ({
           variant="ghost"
           size="icon"
           onClick={() => onAction?.('menu')}
-          className="rounded-xl"
+          className="rounded-2xl h-12 w-12"
           aria-label="More options"
         >
           <MoreVertical className="h-5 w-5" />
         </Button>
-      </div>
-    </div>
+      </FlexLayout>
+    </FlexLayout>
   );
 };
 
@@ -253,59 +257,66 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
   const isUser = message.role === 'user';
 
   return (
-    <div
+    <FlexLayout
+      direction="row"
+      align="start"
+      gap="md"
       className={cn(
-        'flex items-start space-x-4',
-        isUser && 'flex-row-reverse space-x-reverse'
+        isUser && 'flex-row-reverse'
       )}
     >
-      <Avatar size="sm" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
+      <Avatar size="md" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
         {isUser ? (
-          <User className="h-6 w-6 text-primary-foreground" />
+          <User className="h-8 w-8 text-primary-foreground" />
         ) : (
-          <Bot className="h-6 w-6 text-primary" />
+          <Bot className="h-8 w-8 text-primary" />
         )}
       </Avatar>
-      <div
+      <FlexLayout
+        direction="column"
+        gap="md"
         className={cn(
-          'flex flex-col space-y-4 max-w-[70%]',
+          'max-w-[70%]',
           isUser && 'items-end'
         )}
       >
         <div
           className={cn(
-            'rounded-xl px-6 py-4',
+            'rounded-2xl px-8 py-6',
             isUser
               ? 'bg-primary text-primary-foreground'
               : 'bg-muted text-foreground'
           )}
         >
-          <p className="text-base whitespace-pre-wrap">{message.content}</p>
+          <p className="text-lg whitespace-pre-wrap">{message.content}</p>
           {message.attachments && message.attachments.length > 0 && (
-            <div className="mt-4 space-y-4">
+            <FlexLayout direction="column" gap="md" className="mt-6">
               {message.attachments.map((attachment) => (
-                <div
+                <FlexLayout
                   key={attachment.id}
+                  direction="row"
+                  align="center"
+                  gap="md"
                   className={cn(
-                    'flex items-center space-x-4 p-4 rounded-xl',
+                    'p-6 rounded-2xl',
                     isUser ? 'bg-primary-foreground/10' : 'bg-background/50'
                   )}
                 >
                   {attachment.type === 'image' ? (
-                    <ImageIcon className="h-5 w-5" />
+                    <ImageIcon className="h-6 w-6" />
                   ) : (
-                    <FileText className="h-5 w-5" />
+                    <FileText className="h-6 w-6" />
                   )}
-                  <span className="text-base truncate">{attachment.name}</span>
-                  <span className="text-base opacity-70">
+                  <span className="text-lg truncate">{attachment.name}</span>
+                  <span className="text-lg opacity-70">
                     ({(attachment.size / 1024).toFixed(1)}KB)
                   </span>
-                </div>
+                </FlexLayout>
               ))}
-            </div>
+            </FlexLayout>
           )}
         </div>
-        <p className="text-base text-muted-foreground">
+        <p className="text-lg text-muted-foreground">
           {message.timestamp.toLocaleTimeString([], { 
             hour: '2-digit', 
             minute: '2-digit' 
@@ -313,8 +324,8 @@ const ChatMessage = ({ message, isLast }: ChatMessageProps): JSX.Element => {
           {message.status === 'sending' && ' • Sending...'}
           {message.status === 'error' && ' • Failed to send'}
         </p>
-      </div>
-    </div>
+      </FlexLayout>
+    </FlexLayout>
   );
 };
 
@@ -364,35 +375,38 @@ const ChatInput = ({
   };
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <FlexLayout direction="column" gap="lg" className={cn(className)}>
       {attachments.length > 0 && (
-        <div className="flex flex-wrap gap-4">
+        <FlexLayout direction="row" wrap gap="md">
           {attachments.map((attachment) => (
-            <div
+            <FlexLayout
               key={attachment.id}
-              className="flex items-center space-x-4 bg-muted rounded-xl px-4 py-3"
+              direction="row"
+              align="center"
+              gap="md"
+              className="bg-muted rounded-2xl px-6 py-4"
             >
               {attachment.type === 'image' ? (
-                <ImageIcon className="h-5 w-5" />
+                <ImageIcon className="h-6 w-6" />
               ) : (
-                <FileText className="h-5 w-5" />
+                <FileText className="h-6 w-6" />
               )}
-              <span className="text-base truncate max-w-[150px]">
+              <span className="text-lg truncate max-w-[150px]">
                 {attachment.name}
               </span>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => removeAttachment(attachment.id)}
-                className="h-8 w-8 rounded-xl"
+                className="h-12 w-12 rounded-2xl"
               >
-                <X className="h-4 w-4" />
+                <X className="h-5 w-5" />
               </Button>
-            </div>
+            </FlexLayout>
           ))}
-        </div>
+        </FlexLayout>
       )}
-      <div className="flex items-end space-x-4">
+      <FlexLayout direction="row" align="end" gap="md">
         {attachmentsEnabled && (
           <>
             <input
@@ -407,10 +421,10 @@ const ChatInput = ({
               size="icon"
               onClick={() => fileInputRef.current?.click()}
               disabled={disabled}
-              className="rounded-xl"
+              className="rounded-2xl h-12 w-12"
               aria-label="Attach file"
             >
-              <Paperclip className="h-5 w-5" />
+              <Paperclip className="h-6 w-6" />
             </Button>
           </>
         )}
@@ -421,7 +435,7 @@ const ChatInput = ({
             onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
-            className="pr-16 rounded-xl min-h-[64px]"
+            className="pr-20 rounded-2xl h-20 text-lg"
             autoComplete="off"
           />
           {voiceEnabled && (
@@ -429,22 +443,22 @@ const ChatInput = ({
               variant="ghost"
               size="icon"
               disabled={disabled}
-              className="absolute right-2 top-2 rounded-xl"
+              className="absolute right-4 top-1/2 -translate-y-1/2 rounded-2xl h-16 w-16"
               aria-label="Voice input"
             >
-              <Mic className="h-5 w-5" />
+              <Mic className="h-6 w-6" />
             </Button>
           )}
         </div>
         <Button
           onClick={handleSend}
           disabled={disabled || (!input.trim() && attachments.length === 0)}
-          className="rounded-xl h-16 px-8 shadow-lg"
+          className="rounded-2xl h-20 px-12 shadow-xl"
         >
-          <Send className="h-6 w-6" />
+          <Send className="h-8 w-8" />
         </Button>
-      </div>
-    </div>
+      </FlexLayout>
+    </FlexLayout>
   );
 };
 

@@ -10,8 +10,7 @@ import {
   Search,
   Filter as FilterIcon
 } from 'lucide-react';
-import { Button, Input, Card } from '../ui';
-import { FlexLayout } from './';
+import { Button, Input, Card, FlexLayout } from '@/components';
 import { cn } from '@/utils';
 
 export interface MapMarker<T> {
@@ -116,14 +115,13 @@ export function MapView<T>({
     return (
       <div 
         className={cn('bg-muted rounded-xl', className)}
-      >
-        <FlexLayout direction="row" align="center" justify="center"
         style={{ height }}
       >
-        <div className="text-center">
-          <MapIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
-          <p className="text-sm text-muted-foreground">Loading map...</p>
-        </div>
+        <FlexLayout direction="row" align="center" justify="center" className="h-full">
+          <div className="text-center">
+            <MapIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
+            <p className="text-sm text-muted-foreground">Loading map...</p>
+          </div>
         </FlexLayout>
       </div>
     );

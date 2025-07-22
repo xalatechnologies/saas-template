@@ -1,0 +1,10 @@
+{
+  "projectName": "Task Management Application",
+  "version": "1.0.0",
+  "enforceRules": true,
+  "smartAgent": {
+    "enabled": true,
+    "autoEnrich": true,
+    "validateOnSave": true
+  }
+}

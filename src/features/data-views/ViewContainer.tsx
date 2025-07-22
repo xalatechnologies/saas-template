@@ -12,7 +12,7 @@ import {
   RefreshCw,
   Settings2
 } from 'lucide-react';
-import { Button, Select, Badge } from '../ui';
+import { Button, Select, Badge } from '@/components';
 import { cn } from '@/utils';
 
 export type ViewType = 'table' | 'grid' | 'list' | 'map' | 'calendar';

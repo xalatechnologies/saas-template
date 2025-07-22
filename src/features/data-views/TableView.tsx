@@ -14,7 +14,7 @@ import {
   Square,
   Filter
 } from 'lucide-react';
-import { Button, Checkbox, Input, Badge } from '../ui';
+import { Button, Checkbox, Input, Badge } from '@/components';
 import { cn } from '@/utils';
 
 export interface Column<T> {
@@ -201,7 +201,6 @@ export function TableView<T extends Record<string, any>>({
                 <th className="w-16 px-6 py-4">
                   <Checkbox
                     checked={selectedRowIds.size === data.length && data.length > 0}
-                    indeterminate={selectedRowIds.size > 0 && selectedRowIds.size < data.length}
                     onCheckedChange={handleSelectAll}
                     aria-label="Select all"
                   />

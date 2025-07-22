@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { ChevronRight, MoreHorizontal, Grip, List } from 'lucide-react';
-import { Button, Checkbox } from '../ui';
+import { Button, Checkbox } from '@/components';
 import { cn } from '@/utils';
 
 export interface ListViewProps<T> {

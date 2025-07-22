@@ -29,7 +29,9 @@
     "validate:localization": "node scripts/validate-localization-completeness.js",
     "validate:all": "pnpm run validate:design-tokens && pnpm run validate:file-size && pnpm run validate:component-purity && pnpm run validate:architecture && pnpm run validate:component-structure && pnpm run validate:build-syntax && pnpm run validate:localization",
     "prebuild": "pnpm run validate:build-syntax",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "smart-agent": "npx tsx src/packages/smart-agent/cli/smart-agent-cli.ts",
+    "smart-agent:setup": "npx tsx src/packages/smart-agent/cli/smart-agent-cli.ts setup"
   },
   "dependencies": {
     "@digdir/design-system-tokens": "^0.13.0",

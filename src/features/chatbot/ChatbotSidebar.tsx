@@ -11,8 +11,7 @@ import {
   RotateCcw,
   ChevronDown
 } from 'lucide-react';
-import { Button, Input, Avatar, Badge } from '../ui';
-import { FlexLayout } from './';
+import { Button, Input, Avatar, Badge, FlexLayout, Container } from '@/components';
 import { cn } from '@/utils';
 import type { Message } from './ChatbotLayout';
 
@@ -107,28 +106,29 @@ export const ChatbotSidebar = ({
   }
 
   return (
-    <div
+    <FlexLayout
+      direction="column"
       className={cn(
-        'fixed bottom-4 z-50 w-96 h-[600px] bg-background rounded-xl shadow-2xl border border-border flex flex-col overflow-hidden',
+        'fixed bottom-4 z-50 w-96 h-[600px] bg-background rounded-2xl shadow-2xl border border-border overflow-hidden',
         position === 'right' ? 'right-4' : 'left-4',
         className
       )}
     >
       {/* Header */}
-      <div className="p-8 border-b border-border bg-card">
+      <Container className="p-12 border-b border-border bg-card">
         <FlexLayout direction="row" align="center" justify="between">
           <FlexLayout direction="row" align="center" gap="lg">
-          <Avatar size="sm" className="bg-primary/10">
-            <Bot className="h-5 w-5 text-primary" />
+          <Avatar size="md" className="bg-primary/10">
+            <Bot className="h-8 w-8 text-primary" />
           </Avatar>
           <div>
-            <h3 className="font-semibold text-foreground">{title}</h3>
+            <h3 className="text-lg font-semibold text-foreground">{title}</h3>
             {subtitle && (
-              <p className="text-xs text-muted-foreground">{subtitle}</p>
+              <p className="text-base text-muted-foreground">{subtitle}</p>
             )}
           </div>
           {showBadge && (
-            <Badge variant="success" className="text-xs">
+            <Badge variant="success" className="text-base">
               Online
             </Badge>
           )}
@@ -141,42 +141,43 @@ export const ChatbotSidebar = ({
               // Clear messages logic here
               console.log('Clear chat');
             }}
-            className="h-8 w-8 rounded-lg"
+            className="h-12 w-12 rounded-2xl"
             aria-label="Clear chat"
           >
-            <RotateCcw className="h-4 w-4" />
+            <RotateCcw className="h-6 w-6" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsMinimized(true)}
-            className="h-8 w-8 rounded-lg"
+            className="h-12 w-12 rounded-2xl"
             aria-label="Minimize chat"
           >
-            <Minimize2 className="h-4 w-4" />
+            <Minimize2 className="h-6 w-6" />
           </Button>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setIsOpen(false)}
-            className="h-8 w-8 rounded-lg"
+            className="h-12 w-12 rounded-2xl"
             aria-label="Close chat"
           >
-            <X className="h-4 w-4" />
+            <X className="h-6 w-6" />
           </Button>
           </FlexLayout>
         </FlexLayout>
-      </div>
+      </Container>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-8 space-y-8">
+      <Container className="flex-1 overflow-y-auto py-12">
+        <FlexLayout direction="column" gap="xl">
         {messages.length === 0 ? (
-          <div className="text-center py-8">
-            <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <p className="text-sm text-muted-foreground">
+          <FlexLayout direction="column" align="center" justify="center" className="py-12">
+            <Bot className="h-16 w-16 text-muted-foreground mb-6" />
+            <p className="text-lg text-muted-foreground text-center">
               Start a conversation by typing a message below
             </p>
-          </div>
+          </FlexLayout>
         ) : (
           <>
             {messages.map((message) => (
@@ -184,22 +185,23 @@ export const ChatbotSidebar = ({
             ))}
             {isLoading && (
               <FlexLayout direction="row" align="start" gap="sm">
-                <Avatar size="xs" className="bg-primary/10">
-                  <Bot className="h-4 w-4 text-primary" />
+                <Avatar size="md" className="bg-primary/10">
+                  <Bot className="h-6 w-6 text-primary" />
                 </Avatar>
-                <div className="bg-muted rounded-xl rounded-bl-none px-3 py-2">
-                  <div className="flex items-center space-x-1">
-                    <div className="h-2 w-2 bg-primary rounded-full animate-bounce" />
-                    <div className="h-2 w-2 bg-primary rounded-full animate-bounce delay-100" />
-                    <div className="h-2 w-2 bg-primary rounded-full animate-bounce delay-200" />
-                  </div>
+                <div className="bg-muted rounded-2xl rounded-bl-none px-6 py-4">
+                  <FlexLayout direction="row" align="center" gap="xs">
+                    <div className="h-3 w-3 bg-primary rounded-full animate-bounce" />
+                    <div className="h-3 w-3 bg-primary rounded-full animate-bounce delay-100" />
+                    <div className="h-3 w-3 bg-primary rounded-full animate-bounce delay-200" />
+                  </FlexLayout>
                 </div>
               </FlexLayout>
             )}
             <div ref={messagesEndRef} />
           </>
         )}
-      </div>
+        </FlexLayout>
+      </Container>
 
       {/* Input */}
       <ChatQuickInput
@@ -207,7 +209,7 @@ export const ChatbotSidebar = ({
         placeholder={placeholder}
         disabled={isLoading}
       />
-    </div>
+    </FlexLayout>
   );
 };
 
@@ -224,15 +226,15 @@ const FloatingChatButton = ({
     <Button
       onClick={onClick}
       className={cn(
-        'fixed bottom-4 z-50 h-14 w-14 rounded-full shadow-2xl hover:scale-110 transition-transform',
+        'fixed bottom-4 z-50 h-20 w-20 rounded-full shadow-2xl hover:scale-110 transition-transform',
         position === 'bottom-right' ? 'right-4' : 'left-4',
         className
       )}
       aria-label="Open chat"
     >
-      <MessageSquare className="h-6 w-6" />
+      <MessageSquare className="h-10 w-10" />
       {unreadCount > 0 && (
-        <span className="absolute -top-1 -right-1 h-5 w-5 bg-destructive text-destructive-foreground text-xs rounded-full flex items-center justify-center">
+        <span className="absolute -top-2 -right-2 h-8 w-8 bg-destructive text-destructive-foreground text-base rounded-full flex items-center justify-center">
           {unreadCount > 9 ? '9+' : unreadCount}
         </span>
       )}
@@ -254,28 +256,28 @@ const MinimizedChat = ({
     <button
       onClick={onClick}
       className={cn(
-        'bg-card border border-border rounded-xl shadow-lg p-4 w-80 text-left hover:shadow-xl transition-shadow',
+        'bg-card border border-border rounded-2xl shadow-xl p-8 w-96 text-left hover:shadow-2xl transition-shadow',
         className
       )}
     >
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center space-x-2">
-          <Avatar size="xs" className="bg-primary/10">
-            <Bot className="h-4 w-4 text-primary" />
+      <FlexLayout direction="row" align="center" justify="between" className="mb-4">
+        <FlexLayout direction="row" align="center" gap="md">
+          <Avatar size="md" className="bg-primary/10">
+            <Bot className="h-6 w-6 text-primary" />
           </Avatar>
-          <span className="font-semibold text-sm">{title}</span>
-        </div>
-        <div className="flex items-center space-x-2">
+          <span className="font-semibold text-lg">{title}</span>
+        </FlexLayout>
+        <FlexLayout direction="row" align="center" gap="md">
           {unreadCount > 0 && (
-            <Badge variant="destructive" className="text-xs">
+            <Badge variant="destructive" className="text-base">
               {unreadCount}
             </Badge>
           )}
-          <ChevronDown className="h-4 w-4 text-muted-foreground" />
-        </div>
-      </div>
+          <ChevronDown className="h-6 w-6 text-muted-foreground" />
+        </FlexLayout>
+      </FlexLayout>
       {lastMessage && (
-        <p className="text-xs text-muted-foreground truncate">{lastMessage}</p>
+        <p className="text-base text-muted-foreground truncate">{lastMessage}</p>
       )}
     </button>
   );
@@ -292,31 +294,33 @@ const ChatBubble = ({ message }: ChatBubbleProps): JSX.Element => {
   const isUser = message.role === 'user';
 
   return (
-    <div
+    <FlexLayout
+      direction="row"
+      align="end"
+      gap="md"
       className={cn(
-        'flex items-end space-x-2',
-        isUser && 'flex-row-reverse space-x-reverse'
+        isUser && 'flex-row-reverse'
       )}
     >
-      <Avatar size="xs" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
+      <Avatar size="md" className={cn(isUser ? 'bg-primary' : 'bg-primary/10')}>
         {isUser ? (
-          <User className="h-4 w-4 text-primary-foreground" />
+          <User className="h-6 w-6 text-primary-foreground" />
         ) : (
-          <Bot className="h-4 w-4 text-primary" />
+          <Bot className="h-6 w-6 text-primary" />
         )}
       </Avatar>
       <div
         className={cn(
-          'max-w-[80%] rounded-xl px-3 py-2',
+          'max-w-[80%] rounded-2xl px-6 py-4',
           isUser
             ? 'bg-primary text-primary-foreground rounded-br-none'
             : 'bg-muted text-foreground rounded-bl-none'
         )}
       >
-        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+        <p className="text-lg whitespace-pre-wrap">{message.content}</p>
         <p
           className={cn(
-            'text-xs mt-1',
+            'text-base mt-2',
             isUser ? 'text-primary-foreground/70' : 'text-muted-foreground'
           )}
         >
@@ -326,7 +330,7 @@ const ChatBubble = ({ message }: ChatBubbleProps): JSX.Element => {
           })}
         </p>
       </div>
-    </div>
+    </FlexLayout>
   );
 };
 
@@ -361,27 +365,27 @@ const ChatQuickInput = ({
   };
 
   return (
-    <div className="p-4 border-t border-border bg-card">
-      <div className="flex items-center space-x-2">
+    <Container className="p-8 border-t border-border bg-card">
+      <FlexLayout direction="row" align="center" gap="md">
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={disabled}
-          className="flex-1 rounded-xl"
+          className="flex-1 rounded-2xl h-16 text-lg"
           autoComplete="off"
         />
         <Button
           onClick={handleSend}
           disabled={disabled || !input.trim()}
           size="icon"
-          className="rounded-xl"
+          className="rounded-2xl h-16 w-16"
         >
-          <Send className="h-4 w-4" />
+          <Send className="h-6 w-6" />
         </Button>
-      </div>
-    </div>
+      </FlexLayout>
+    </Container>
   );
 };
 
