@@ -36,10 +36,10 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps): JSX.Element
             <Button
               variant="outline"
               onClick={() => setDrawerOpen(true)}
-              className="rounded-xl"
+              className="rounded-[var(--radius-xl)]"
               aria-label={t('ui.openAssistant')}
             >
-              <MessageSquare className="h-6 w-6 lg:mr-4" />
+              <MessageSquare className="h-[var(--size-md)] w-[var(--size-md)] lg:mr-[var(--spacing-md)]" />
               <span className="hidden lg:inline">{t('ui.assistant')}</span>
             </Button>
           </FlexLayout>
@@ -56,7 +56,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps): JSX.Element
       }
     >
       <MainContent variant="dashboard" className="bg-background">
-        <Container size="full" className="px-8 lg:px-12 py-8 lg:py-12">
+        <Container size="full" className="px-[var(--spacing-2xl)] lg:px-[var(--spacing-3xl)] py-[var(--spacing-2xl)] lg:py-[var(--spacing-3xl)]">
           {children}
         </Container>
       </MainContent>

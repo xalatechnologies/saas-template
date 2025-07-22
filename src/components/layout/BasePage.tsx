@@ -28,13 +28,16 @@ export const BasePage = ({
   className = '',
 }: BasePageProps): React.ReactElement => {
   return (
-    <div className={`space-y-12 ${className}`}>
+    <div className={`space-y-[var(--spacing-3xl)] ${className}`}>
       {/* Page Header */}
       {(title || subtitle || actions) && (
-        <div className="flex items-start justify-between mb-8">
-          <div className="space-y-3">
+        <div className="flex items-start justify-between mb-[var(--spacing-2xl)]">
+          <div className="space-y-[var(--spacing-md)]">
             {title && (
-              <Heading level={1} className="text-foreground">
+              <Heading 
+                level={1} 
+                variant="default"
+              >
                 {title}
               </Heading>
             )}
@@ -44,12 +47,12 @@ export const BasePage = ({
               </AppText>
             )}
           </div>
-          {actions && <div className="flex items-center space-x-4">{actions}</div>}
+          {actions && <div className="flex items-center space-x-[var(--spacing-md)]">{actions}</div>}
         </div>
       )}
 
       {/* Page Content */}
-      <div className="space-y-8">{children}</div>
+      <div className="space-y-[var(--spacing-2xl)]">{children}</div>
     </div>
   );
 };

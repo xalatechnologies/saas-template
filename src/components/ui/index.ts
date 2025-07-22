@@ -9,7 +9,10 @@ export * from './card';
 export * from './input';
 export * from './label';
 export * from './separator';
-export { Heading, AppText, type HeadingProps, type AppTextProps } from './typography';
+export { Heading as TypographyHeading, AppText, type HeadingProps as TypographyHeadingProps, type AppTextProps } from './typography';
+export * from './text';
+export * from './heading';
+export * from './icon-wrapper';
 export * from './LanguageSelector';
 
 // Animation Components (Airbnb-style)
@@ -36,3 +39,4 @@ export { FilterBar, ActiveFilters } from './FilterBar';
 export * from './textarea';
 export * from './toast';
 export * from './tooltip';
+

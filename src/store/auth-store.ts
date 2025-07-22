@@ -23,17 +23,22 @@ interface AuthStore extends AuthState {
 export const useAuthStore = create<AuthStore>()(
   immer((set, get) => ({
     user: null,
-    isLoading: false,
+    isLoading: true, // Start as true since we need to check auth on load
     error: null,
 
     initializeAuth: (): void => {
       // Initialize auth state from stored data on app load
+      console.log('🔍 AuthStore: Starting initializeAuth...');
       const storedUser = getStoredUser();
-      if (storedUser) {
-        set((state) => {
+      console.log('🔍 AuthStore: Stored user found:', !!storedUser);
+      set((state) => {
+        if (storedUser) {
           state.user = storedUser;
-        });
-      }
+          console.log('🔍 AuthStore: User set from storage');
+        }
+        state.isLoading = false;
+        console.log('🔍 AuthStore: Loading set to false');
+      });
     },
 
     login: async (credentials: LoginCredentials): Promise<void> => {

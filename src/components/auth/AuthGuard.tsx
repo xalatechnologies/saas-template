@@ -1,54 +1,62 @@
 'use client';
 
-import React, { useEffect, ReactNode } from 'react';
+// 1. React and Next.js
+import React, { useEffect, ReactNode, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/store';
+import { useTranslation } from 'react-i18next';
+
+// 2. Internal packages (relative path format since they're within the project)
+import { useAuthStore } from '../../store/auth-store';
+
+// 3. Layout system components
+import { FlexLayout } from '../layout';
 
 interface AuthGuardProps {
-  children: ReactNode;
-  fallback?: JSX.Element;
+  readonly children: ReactNode;
+  readonly fallback?: React.ReactElement;
 }
 
 /**
- * Auth guard component that protects routes requiring authentication
- * Redirects unauthenticated users to login page
+ * AuthGuard - Protects routes from unauthenticated access
+ * Ensures user authentication before displaying protected content
+ * @param props - Component properties
+ * @returns React.ReactElement - Protected content or loading/redirect state
  */
-export const AuthGuard = ({ children, fallback }: AuthGuardProps): JSX.Element => {
+export const AuthGuard = ({ children, fallback }: AuthGuardProps): React.ReactElement => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { user, isLoading, initializeAuth } = useAuthStore();
-
+  const [isClient, setIsClient] = useState<boolean>(false);
+  
+  // Initialize authentication state
   useEffect(() => {
-    // Initialize auth state from stored data
     initializeAuth();
+    setIsClient(true);
   }, [initializeAuth]);
-
+  
+  // Redirect if not authenticated after loading
   useEffect(() => {
-    // Redirect to login if not authenticated (after loading is complete)
-    if (!isLoading && !user) {
+    if (isClient && !isLoading && !user) {
       const currentPath = window.location.pathname;
-      router.push(`/login?redirect=${encodeURIComponent(currentPath)}` as any);
+      router.push(`/login?redirect=${encodeURIComponent(currentPath)}`);
     }
-  }, [user, isLoading, router]);
+  }, [user, isLoading, isClient, router]);
 
-  // Show loading state while checking authentication
-  if (isLoading) {
-    return (fallback as JSX.Element) || (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
+  // Show fallback or loading state while checking auth
+  if (isLoading || !user) {
+    return fallback || (
+      <FlexLayout 
+        direction="column" 
+        align="center" 
+        justify="center" 
+        className="min-h-screen p-8"
+      >
+        <div className="text-primary text-xl">{t('auth.checkingAuth')}</div>
+      </FlexLayout>
     );
   }
-
-  // Show loading state while redirecting
-  if (!user) {
-    return (fallback as JSX.Element) || (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
-
-  // User is authenticated, render children
+  
+  // User is authenticated, show protected content
   return <>{children}</>;
 };
 
