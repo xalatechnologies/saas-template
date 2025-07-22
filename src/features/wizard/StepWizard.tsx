@@ -3,6 +3,7 @@
 import React, { useState, createContext, useContext } from 'react';
 import { Check, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Button, Progress } from '@/components';
+import { Container, FlexLayout } from '@/components/layout';
 import { cn } from '@/utils';
 
 interface Step {
@@ -119,80 +120,84 @@ export const StepWizard = ({
 
   return (
     <StepWizardContext.Provider value={contextValue}>
-      <div className={cn('w-full space-y-8', className)}>
-        {/* Progress Bar */}
-        {showProgressBar && (
-          <div className="space-y-4">
-            <Progress value={progress} className="h-4" />
-            <p className="text-base text-muted-foreground text-center">
-              Step {currentStep + 1} of {steps.length}
-            </p>
-          </div>
-        )}
+      <Container size="lg" className={className}>
+        <FlexLayout direction="column" gap="xl">
+          {/* Progress Bar */}
+          {showProgressBar && (
+            <FlexLayout direction="column" gap="md">
+              <Progress value={progress} className="h-6" />
+              <p className="text-base text-muted-foreground text-center">
+                Step {currentStep + 1} of {steps.length}
+              </p>
+            </FlexLayout>
+          )}
 
-        {/* Step Indicators */}
-        <div className="flex items-center justify-between">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            const isActive = index === currentStep;
-            const isCompleted = completedSteps.has(index);
-            const isClickable = allowNavigation || (allowSkip && index > currentStep);
+          {/* Step Indicators */}
+          <FlexLayout direction="row" align="center" justify="between">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const isActive = index === currentStep;
+              const isCompleted = completedSteps.has(index);
+              const isClickable = allowNavigation || (allowSkip && index > currentStep);
 
-            return (
-              <React.Fragment key={step.id}>
-                <button
-                  onClick={() => isClickable && goToStep(index)}
-                  disabled={!isClickable}
-                  className={cn(
-                    'flex flex-col items-center space-y-4 p-6 rounded-xl transition-all duration-200',
-                    isClickable && 'cursor-pointer hover:bg-accent',
-                    !isClickable && 'cursor-not-allowed opacity-50',
-                    isActive && 'bg-primary/10'
-                  )}
-                >
-                  <div
+              return (
+                <React.Fragment key={step.id}>
+                  <button
+                    onClick={() => isClickable && goToStep(index)}
+                    disabled={!isClickable}
                     className={cn(
-                      'h-16 w-16 rounded-full flex items-center justify-center text-base font-semibold transition-all duration-200 shadow-lg',
-                      isCompleted && 'bg-primary text-primary-foreground',
-                      isActive && !isCompleted && 'bg-primary/20 text-primary border-2 border-primary',
-                      !isActive && !isCompleted && 'bg-muted text-muted-foreground'
+                      'p-8 rounded-2xl transition-all duration-200',
+                      isClickable && 'cursor-pointer hover:bg-accent',
+                      !isClickable && 'cursor-not-allowed opacity-50',
+                      isActive && 'bg-primary/10'
                     )}
                   >
-                    {isCompleted ? (
-                      <Check className="h-6 w-6" />
-                    ) : Icon ? (
-                      <Icon className="h-6 w-6" />
-                    ) : (
-                      index + 1
-                    )}
-                  </div>
-                  <div className="text-center">
-                    <p
-                      className={cn(
-                        'text-base font-semibold',
-                        isActive ? 'text-foreground' : 'text-muted-foreground'
-                      )}
-                    >
-                      {step.title}
-                    </p>
-                    {step.description && (
-                      <p className="text-base text-muted-foreground mt-2 max-w-[200px]">
-                        {step.description}
-                      </p>
-                    )}
-                  </div>
-                </button>
+                    <FlexLayout direction="column" align="center" gap="md">
+                      <div
+                        className={cn(
+                          'h-16 w-16 rounded-2xl flex items-center justify-center text-base font-semibold transition-all duration-200 shadow-xl',
+                          isCompleted && 'bg-primary text-primary-foreground',
+                          isActive && !isCompleted && 'bg-primary/20 text-primary border-2 border-primary',
+                          !isActive && !isCompleted && 'bg-muted text-muted-foreground'
+                        )}
+                      >
+                        {isCompleted ? (
+                          <Check className="h-6 w-6" />
+                        ) : Icon ? (
+                          <Icon className="h-6 w-6" />
+                        ) : (
+                          index + 1
+                        )}
+                      </div>
+                      <FlexLayout direction="column" align="center" gap="sm">
+                        <p
+                          className={cn(
+                            'text-base font-semibold text-center',
+                            isActive ? 'text-foreground' : 'text-muted-foreground'
+                          )}
+                        >
+                          {step.title}
+                        </p>
+                        {step.description && (
+                          <p className="text-base text-muted-foreground text-center max-w-[200px]">
+                            {step.description}
+                          </p>
+                        )}
+                      </FlexLayout>
+                    </FlexLayout>
+                  </button>
                 {index < steps.length - 1 && (
                   <ChevronRight className="h-6 w-6 text-muted-foreground flex-shrink-0" />
                 )}
               </React.Fragment>
             );
           })}
-        </div>
+          </FlexLayout>
 
-        {/* Step Content */}
-        <div className="min-h-[600px]">{children}</div>
-      </div>
+          {/* Step Content */}
+          <div className="min-h-[800px]">{children}</div>
+        </FlexLayout>
+      </Container>
     </StepWizardContext.Provider>
   );
 };
@@ -209,7 +214,7 @@ export const StepContent = ({ children, stepId }: StepContentProps): JSX.Element
     return null;
   }
 
-  return <div className="animate-in fade-in-0 slide-in-from-right-4">{children}</div>;
+  return <Container className="animate-in fade-in-0 slide-in-from-right-4">{children}</Container>;
 };
 
 /**
@@ -246,12 +251,12 @@ export const WizardActions = ({
   };
 
   return (
-    <div className={cn('flex items-center justify-between pt-12', className)}>
+    <FlexLayout direction="row" align="center" justify="between" className={cn('pt-16', className)}>
       <Button
         variant="outline"
         onClick={handlePrev}
         disabled={isFirstStep}
-        className="rounded-xl"
+        className="h-16 px-8 rounded-2xl"
       >
         <ChevronLeft className="h-5 w-5 mr-4" />
         {prevLabel}
@@ -261,12 +266,12 @@ export const WizardActions = ({
 
       <Button
         onClick={handleNext}
-        className="rounded-xl shadow-lg"
+        className="h-16 px-8 rounded-2xl shadow-xl"
       >
         {isLastStep ? completeLabel : nextLabel}
         {!isLastStep && <ChevronRight className="h-5 w-5 ml-4" />}
       </Button>
-    </div>
+    </FlexLayout>
   );
 };
 

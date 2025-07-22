@@ -10,7 +10,7 @@ import {
   Search,
   Filter as FilterIcon
 } from 'lucide-react';
-import { Button, Input, Card, FlexLayout } from '@/components';
+import { Button, Input, Card, FlexLayout, Container } from '@/components';
 import { cn } from '@/utils';
 
 export interface MapMarker<T> {
@@ -114,21 +114,21 @@ export function MapView<T>({
   if (loading) {
     return (
       <div 
-        className={cn('bg-muted rounded-xl', className)}
+        className={cn('bg-muted rounded-2xl', className)}
         style={{ height }}
       >
         <FlexLayout direction="row" align="center" justify="center" className="h-full">
-          <div className="text-center">
-            <MapIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
+          <FlexLayout direction="column" align="center" gap="lg">
+            <MapIcon className="h-16 w-16 text-muted-foreground animate-pulse" />
             <p className="text-sm text-muted-foreground">Loading map...</p>
-          </div>
+          </FlexLayout>
         </FlexLayout>
       </div>
     );
   }
 
   return (
-    <div className={cn('relative rounded-xl overflow-hidden', className)} style={{ height }}>
+    <div className={cn('relative rounded-2xl overflow-hidden', className)} style={{ height }}>
       {/* Map Container */}
       <div 
         ref={mapRef}
@@ -146,15 +146,17 @@ export function MapView<T>({
         {/* Placeholder map visualization */}
         <div className="absolute inset-0">
           <FlexLayout direction="row" align="center" justify="center" className="h-full">
-          <div className="text-center">
-            <MapIcon className="h-24 w-24 text-muted-foreground/30" />
-            <p className="text-muted-foreground mt-4">
-              Map Provider: {mapProvider}
-            </p>
-            <p className="text-sm text-muted-foreground mt-2">
-              {markers.length} markers loaded
-            </p>
-          </div>
+            <FlexLayout direction="column" align="center" gap="lg">
+              <MapIcon className="h-32 w-32 text-muted-foreground/30" />
+              <FlexLayout direction="column" align="center" gap="sm">
+                <p className="text-muted-foreground">
+                  Map Provider: {mapProvider}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  {markers.length} markers loaded
+                </p>
+              </FlexLayout>
+            </FlexLayout>
           </FlexLayout>
         </div>
 
@@ -175,12 +177,16 @@ export function MapView<T>({
                 handleMarkerClick(marker);
               }}
             >
-              <div className={cn(
-                'h-8 w-8 rounded-full flex items-center justify-center shadow-lg',
-                marker.color ? `bg-${marker.color}-500` : 'bg-primary'
-              )}>
-                <Icon className="h-4 w-4 text-white" />
-              </div>
+              <FlexLayout
+                align="center"
+                justify="center"
+                className={cn(
+                  'h-12 w-12 rounded-full shadow-lg',
+                  marker.color ? `bg-${marker.color}-500` : 'bg-primary'
+                )}
+              >
+                <Icon className="h-6 w-6 text-white" />
+              </FlexLayout>
             </div>
           );
         })}
@@ -188,21 +194,21 @@ export function MapView<T>({
 
       {/* Search Bar */}
       {showSearch && (
-        <div className="absolute top-4 left-4 right-4 md:right-auto md:w-80 z-10">
+        <div className="absolute top-6 left-6 right-6 md:right-auto md:w-96 z-10">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search location..."
-              className="pl-10 pr-10 bg-background/95 backdrop-blur-sm rounded-xl shadow-lg"
+              className="h-16 pl-12 pr-12 bg-background/95 backdrop-blur-sm rounded-2xl shadow-lg"
             />
             <Button
               variant="ghost"
               size="icon"
-              className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg"
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-12 w-12 rounded-xl"
             >
-              <FilterIcon className="h-4 w-4" />
+              <FilterIcon className="h-5 w-5" />
             </Button>
           </div>
         </div>
@@ -210,60 +216,61 @@ export function MapView<T>({
 
       {/* Map Controls */}
       {showControls && (
-        <div className="absolute bottom-4 right-4 z-10">
-          <FlexLayout direction="column" gap="sm">
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={handleZoomIn}
-            className="rounded-xl shadow-lg bg-background/95 backdrop-blur-sm"
-            aria-label="Zoom in"
-          >
-            <ZoomIn className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={handleZoomOut}
-            className="rounded-xl shadow-lg bg-background/95 backdrop-blur-sm"
-            aria-label="Zoom out"
-          >
-            <ZoomOut className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={handleLocateMe}
-            className="rounded-xl shadow-lg bg-background/95 backdrop-blur-sm"
-            aria-label="Find my location"
-          >
-            <Locate className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            onClick={() => {
-              const styles: Array<'streets' | 'satellite' | 'terrain'> = ['streets', 'satellite', 'terrain'];
-              const currentIndex = styles.indexOf(mapStyle);
-              const nextIndex = (currentIndex + 1) % styles.length;
-              setMapStyle(styles[nextIndex]);
-            }}
-            className="rounded-xl shadow-lg bg-background/95 backdrop-blur-sm"
-            aria-label="Change map style"
-          >
-            <Layers className="h-4 w-4" />
-          </Button>
+        <div className="absolute bottom-6 right-6 z-10">
+          <FlexLayout direction="column" gap="md">
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={handleZoomIn}
+              className="h-14 w-14 rounded-2xl shadow-lg bg-background/95 backdrop-blur-sm"
+              aria-label="Zoom in"
+            >
+              <ZoomIn className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={handleZoomOut}
+              className="h-14 w-14 rounded-2xl shadow-lg bg-background/95 backdrop-blur-sm"
+              aria-label="Zoom out"
+            >
+              <ZoomOut className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={handleLocateMe}
+              className="h-14 w-14 rounded-2xl shadow-lg bg-background/95 backdrop-blur-sm"
+              aria-label="Find my location"
+            >
+              <Locate className="h-6 w-6" />
+            </Button>
+            <Button
+              variant="secondary"
+              size="icon"
+              onClick={() => {
+                const styles: Array<'streets' | 'satellite' | 'terrain'> = ['streets', 'satellite', 'terrain'];
+                const currentIndex = styles.indexOf(mapStyle);
+                const nextIndex = (currentIndex + 1) % styles.length;
+                setMapStyle(styles[nextIndex]);
+              }}
+              className="h-14 w-14 rounded-2xl shadow-lg bg-background/95 backdrop-blur-sm"
+              aria-label="Change map style"
+            >
+              <Layers className="h-6 w-6" />
+            </Button>
           </FlexLayout>
         </div>
       )}
 
       {/* Marker Popup */}
       {selectedMarker && renderPopup && (
-        <div className="absolute bottom-20 left-4 right-4 md:left-auto md:right-4 md:w-80 z-20">
-          <Card className="p-8 shadow-xl">
+        <div className="absolute bottom-24 left-6 right-6 md:left-auto md:right-6 md:w-96 z-20">
+          <Card className="p-12 shadow-xl rounded-2xl">
             <button
               onClick={() => setSelectedMarker(null)}
-              className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"
+              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground text-2xl font-light"
+              aria-label="Close popup"
             >
               ×
             </button>
@@ -273,7 +280,7 @@ export function MapView<T>({
       )}
 
       {/* Map Attribution */}
-      <div className="absolute bottom-4 left-4 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-2 py-1 rounded">
+      <div className="absolute bottom-6 left-6 text-xs text-muted-foreground bg-background/80 backdrop-blur-sm px-4 py-2 rounded-xl">
         © Map Provider
       </div>
     </div>
@@ -292,9 +299,12 @@ export const MapCluster = ({ count, onClick }: MapClusterProps): JSX.Element => 
   return (
     <button
       onClick={onClick}
-      className="h-12 w-12 rounded-full bg-primary text-primary-foreground font-semibold shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+      className="h-16 w-16 rounded-full bg-primary text-primary-foreground font-semibold shadow-lg hover:scale-110 transition-transform"
+      aria-label={`View ${count} clustered markers`}
     >
-      {count}
+      <FlexLayout align="center" justify="center" className="h-full">
+        {count}
+      </FlexLayout>
     </button>
   );
 };

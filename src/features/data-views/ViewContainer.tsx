@@ -13,6 +13,7 @@ import {
   Settings2
 } from 'lucide-react';
 import { Button, Select, Badge } from '@/components';
+import { FlexLayout, Container } from '@/components/layout';
 import { cn } from '@/utils';
 
 export type ViewType = 'table' | 'grid' | 'list' | 'map' | 'calendar';
@@ -98,10 +99,17 @@ export const ViewContainer = ({
 
   return (
     <ViewContainerContext.Provider value={contextValue}>
-      <div className={cn('flex flex-col space-y-6', className)}>
+      <FlexLayout direction="column" gap="lg" className={className}>
         {/* Header Bar */}
-        <div className="flex items-center justify-between flex-wrap gap-6 pb-6 border-b border-border">
-          <div className="flex items-center space-x-6">
+        <FlexLayout 
+          direction="row" 
+          align="center" 
+          justify="between" 
+          wrap
+          gap="lg"
+          className="pb-6 border-b border-border"
+        >
+          <FlexLayout direction="row" align="center" gap="lg">
             {/* View Switcher */}
             {showViewSwitcher && availableViewOptions.length > 1 && (
               <ViewSwitcher
@@ -113,28 +121,28 @@ export const ViewContainer = ({
 
             {/* Item Count */}
             {showItemCount && (
-              <div className="flex items-center space-x-4 text-base text-muted-foreground">
+              <FlexLayout direction="row" align="center" gap="md" className="text-base text-muted-foreground">
                 {selectedItems > 0 && (
                   <>
-                    <Badge variant="secondary" className="rounded-xl">
+                    <Badge variant="secondary" className="rounded-2xl">
                       {selectedItems} selected
                     </Badge>
                     <span>of</span>
                   </>
                 )}
                 <span>{totalItems} items</span>
-              </div>
+              </FlexLayout>
             )}
-          </div>
+          </FlexLayout>
 
           {/* Actions */}
-          <div className="flex items-center space-x-4">
+          <FlexLayout direction="row" align="center" gap="md">
             {onRefresh && (
               <Button
                 variant="outline"
                 size="icon"
                 onClick={onRefresh}
-                className="rounded-xl"
+                className="rounded-2xl h-12 w-12"
                 aria-label="Refresh"
               >
                 <RefreshCw className="h-5 w-5" />
@@ -145,20 +153,20 @@ export const ViewContainer = ({
                 variant="outline"
                 size="icon"
                 onClick={onExport}
-                className="rounded-xl"
+                className="rounded-2xl h-12 w-12"
                 aria-label="Export"
               >
                 <Download className="h-5 w-5" />
               </Button>
             )}
-          </div>
-        </div>
+          </FlexLayout>
+        </FlexLayout>
 
         {/* View Content */}
         <div className="flex-1">
           {children}
         </div>
-      </div>
+      </FlexLayout>
     </ViewContainerContext.Provider>
   );
 };
@@ -174,7 +182,12 @@ interface ViewSwitcherProps {
 
 const ViewSwitcher = ({ views, currentView, onChange }: ViewSwitcherProps): JSX.Element => {
   return (
-    <div className="flex items-center rounded-xl border border-border p-2">
+    <FlexLayout 
+      direction="row" 
+      align="center" 
+      gap="xs"
+      className="rounded-2xl border border-border p-4"
+    >
       {views.map((view) => {
         const Icon = view.icon;
         const isActive = currentView === view.id;
@@ -187,7 +200,7 @@ const ViewSwitcher = ({ views, currentView, onChange }: ViewSwitcherProps): JSX.
             onClick={() => onChange(view.id)}
             disabled={view.disabled}
             className={cn(
-              'rounded-xl px-6',
+              'rounded-2xl px-6 h-12',
               isActive && 'shadow-lg'
             )}
             aria-label={`Switch to ${view.label} view`}
@@ -197,7 +210,7 @@ const ViewSwitcher = ({ views, currentView, onChange }: ViewSwitcherProps): JSX.
           </Button>
         );
       })}
-    </div>
+    </FlexLayout>
   );
 };
 

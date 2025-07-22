@@ -4,7 +4,9 @@
       "Bash(grep:*)",
       "Bash(npx tsc:*)",
       "Bash(pnpm run lint:*)",
-      "Bash(pnpm run type-check:*)"
+      "Bash(pnpm run type-check:*)",
+      "Bash(grep:*)",
+      "Bash(mkdir:*)"
     ],
     "deny": []
   }

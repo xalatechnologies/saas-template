@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { ChevronRight, MoreHorizontal, Grip, List } from 'lucide-react';
 import { Button, Checkbox } from '@/components';
+import { FlexLayout, Container } from '@/components/layout';
 import { cn } from '@/utils';
 
 export interface ListViewProps<T> {
@@ -118,30 +119,34 @@ export function ListView<T>({
   };
 
   const padding = {
-    default: 'p-4',
-    compact: 'p-3',
-    comfortable: 'p-6',
+    default: 'p-6',
+    compact: 'p-4',
+    comfortable: 'p-8',
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-          <p className="mt-4 text-sm text-muted-foreground">Loading items...</p>
-        </div>
-      </div>
+      <Container size="lg" centered>
+        <FlexLayout direction="column" align="center" justify="center" className="py-24">
+          <FlexLayout direction="column" align="center" gap="lg">
+            <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <p className="text-sm text-muted-foreground">Loading items...</p>
+          </FlexLayout>
+        </FlexLayout>
+      </Container>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <List className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <p className="text-muted-foreground">{emptyMessage}</p>
-        </div>
-      </div>
+      <Container size="lg" centered>
+        <FlexLayout direction="column" align="center" justify="center" className="py-24">
+          <FlexLayout direction="column" align="center" gap="lg">
+            <List className="h-16 w-16 text-muted-foreground" />
+            <p className="text-muted-foreground">{emptyMessage}</p>
+          </FlexLayout>
+        </FlexLayout>
+      </Container>
     );
   }
 
@@ -171,26 +176,26 @@ export function ListView<T>({
   };
 
   return (
-    <div className={cn('w-full', className)}>
+    <Container className={cn('w-full', className)}>
       {groupedData ? (
         // Grouped list
         groupedData.map(([groupName, { items, indexes }]) => (
-          <div key={groupName} className="mb-6">
-            <h3 className="text-sm font-semibold text-muted-foreground mb-2 px-4">
+          <FlexLayout key={groupName} direction="column" gap="md" className="mb-12">
+            <h3 className="text-sm font-semibold text-muted-foreground px-6">
               {groupName}
             </h3>
-            <div className="space-y-1">
+            <FlexLayout direction="column" gap="xs">
               {items.map((item, i) => renderListItem(item, indexes[i]))}
-            </div>
-          </div>
+            </FlexLayout>
+          </FlexLayout>
         ))
       ) : (
         // Simple list
-        <div className="space-y-1">
+        <FlexLayout direction="column" gap="xs">
           {data.map((item, index) => renderListItem(item, index))}
-        </div>
+        </FlexLayout>
       )}
-    </div>
+    </Container>
   );
 }
 
@@ -233,9 +238,11 @@ function ListItem<T>({
   const [showActions, setShowActions] = useState(false);
 
   return (
-    <div
+    <FlexLayout
+      direction="row"
+      align="center"
       className={cn(
-        'group flex items-center bg-card border border-border rounded-xl transition-all duration-200',
+        'group bg-card border border-border rounded-2xl transition-all duration-200',
         onClick && 'cursor-pointer hover:border-primary hover:shadow-md',
         isSelected && 'border-primary bg-accent',
         isDragging && 'opacity-50',
@@ -251,34 +258,34 @@ function ListItem<T>({
     >
       {/* Drag Handle */}
       {sortable && (
-        <div className="px-2 cursor-move">
-          <Grip className="h-4 w-4 text-muted-foreground" />
-        </div>
+        <FlexLayout className="px-4 cursor-move">
+          <Grip className="h-6 w-6 text-muted-foreground" />
+        </FlexLayout>
       )}
 
       {/* Selection */}
       {hasSelection && (
-        <div className="px-2">
+        <FlexLayout className="px-4">
           <Checkbox
             checked={isSelected}
             onCheckedChange={onSelect}
             onClick={(e) => e.stopPropagation()}
             aria-label={`Select item ${index + 1}`}
           />
-        </div>
+        </FlexLayout>
       )}
 
       {/* Avatar */}
       {data.avatar && (
-        <div className="flex-shrink-0 px-2">
+        <FlexLayout className="flex-shrink-0 px-4">
           {data.avatar}
-        </div>
+        </FlexLayout>
       )}
 
       {/* Content */}
-      <div className="flex-1 min-w-0">
-        <div className="flex items-start justify-between">
-          <div className="flex-1 min-w-0">
+      <FlexLayout direction="column" className="flex-1 min-w-0">
+        <FlexLayout direction="row" justify="between" align="start">
+          <FlexLayout direction="column" className="flex-1 min-w-0">
             <h4 className="font-medium text-foreground truncate">
               {data.title}
             </h4>
@@ -288,42 +295,42 @@ function ListItem<T>({
               </p>
             )}
             {data.description && (
-              <p className="text-sm text-muted-foreground mt-1 line-clamp-2">
+              <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
                 {data.description}
               </p>
             )}
             {data.badges && data.badges.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-2">
+              <FlexLayout wrap gap="sm" className="mt-4">
                 {data.badges}
-              </div>
+              </FlexLayout>
             )}
-          </div>
+          </FlexLayout>
 
           {/* Metadata */}
           {data.metadata && (
-            <div className="flex-shrink-0 ml-4">
+            <FlexLayout className="flex-shrink-0 ml-6">
               {data.metadata}
-            </div>
+            </FlexLayout>
           )}
-        </div>
-      </div>
+        </FlexLayout>
+      </FlexLayout>
 
       {/* Actions */}
-      <div className="flex items-center px-2 space-x-2">
+      <FlexLayout align="center" gap="sm" className="px-4">
         {actions && actions.length > 0 && (
-          <div className={cn(
+          <FlexLayout className={cn(
             'transition-opacity',
             showActions || isSelected ? 'opacity-100' : 'opacity-0'
           )}>
             <ListItemActions actions={actions} item={item} />
-          </div>
+          </FlexLayout>
         )}
         
         {onClick && (
-          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <ChevronRight className="h-6 w-6 text-muted-foreground" />
         )}
-      </div>
-    </div>
+      </FlexLayout>
+    </FlexLayout>
   );
 }
 
@@ -339,7 +346,7 @@ function ListItemActions<T>({ actions, item }: ListItemActionsProps<T>): JSX.Ele
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <FlexLayout className="relative">
       <Button
         variant="ghost"
         size="icon"
@@ -347,21 +354,24 @@ function ListItemActions<T>({ actions, item }: ListItemActionsProps<T>): JSX.Ele
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className="h-8 w-8 rounded-lg"
+        className="h-12 w-12 rounded-xl"
       >
-        <MoreHorizontal className="h-4 w-4" />
+        <MoreHorizontal className="h-6 w-6" />
       </Button>
 
       {isOpen && (
         <>
-          <div
+          <FlexLayout
             className="fixed inset-0 z-40"
             onClick={(e) => {
               e.stopPropagation();
               setIsOpen(false);
             }}
           />
-          <div className="absolute right-0 top-full mt-1 w-48 bg-background border border-border rounded-lg shadow-xl z-50">
+          <FlexLayout 
+            direction="column" 
+            className="absolute right-0 top-full mt-2 w-56 bg-background border border-border rounded-2xl shadow-xl z-50 overflow-hidden"
+          >
             {actions.map((action) => {
               const Icon = action.icon;
               return (
@@ -373,19 +383,21 @@ function ListItemActions<T>({ actions, item }: ListItemActionsProps<T>): JSX.Ele
                     setIsOpen(false);
                   }}
                   className={cn(
-                    'w-full px-4 py-2 text-sm text-left hover:bg-accent flex items-center space-x-2',
+                    'w-full px-6 py-4 text-sm text-left hover:bg-accent transition-colors',
                     action.variant === 'destructive' && 'text-destructive hover:bg-destructive/10'
                   )}
                 >
-                  {Icon && <Icon className="h-4 w-4" />}
-                  <span>{action.label}</span>
+                  <FlexLayout direction="row" align="center" gap="sm">
+                    {Icon && <Icon className="h-5 w-5" />}
+                    <span>{action.label}</span>
+                  </FlexLayout>
                 </button>
               );
             })}
-          </div>
+          </FlexLayout>
         </>
       )}
-    </div>
+    </FlexLayout>
   );
 }
 

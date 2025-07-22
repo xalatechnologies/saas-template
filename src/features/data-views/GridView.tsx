@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { MoreVertical, Grid2x2, Grid3x3, Square } from 'lucide-react';
-import { Button, Checkbox, GridLayout, FlexLayout } from '@/components';
+import { Button, Checkbox, GridLayout, FlexLayout, Container } from '@/components';
 import { cn } from '@/utils';
 
 export interface GridViewProps<T> {
@@ -72,82 +72,69 @@ export function GridView<T>({
     }
   };
 
-  const gaps = {
-    sm: 'gap-4',
-    md: 'gap-6',
-    lg: 'gap-8',
-  };
-
-  const getGridClass = () => {
-    const cols = [];
-    if (columns.mobile) cols.push(`grid-cols-${columns.mobile}`);
-    if (columns.tablet) cols.push(`sm:grid-cols-${columns.tablet}`);
-    if (columns.desktop) cols.push(`lg:grid-cols-${columns.desktop}`);
-    return cols.join(' ');
-  };
 
   const densityPadding = {
-    compact: 'p-4',
-    normal: 'p-6',
-    comfortable: 'p-8',
+    compact: 'p-8',
+    normal: 'p-12',
+    comfortable: 'p-16',
   };
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto" />
-          <p className="mt-4 text-sm text-muted-foreground">Loading items...</p>
-        </div>
-      </div>
+      <Container size="sm" centered>
+        <FlexLayout direction="column" align="center" justify="center" gap="lg" className="py-24">
+          <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <p className="text-sm text-muted-foreground">Loading items...</p>
+        </FlexLayout>
+      </Container>
     );
   }
 
   if (data.length === 0) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="text-center">
-          <Grid3x3 className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+      <Container size="sm" centered>
+        <FlexLayout direction="column" align="center" justify="center" gap="lg" className="py-24">
+          <Grid3x3 className="h-16 w-16 text-muted-foreground" />
           <p className="text-muted-foreground">{emptyMessage}</p>
-        </div>
-      </div>
+        </FlexLayout>
+      </Container>
     );
   }
 
   return (
-    <div className={cn('w-full', className)}>
+    <FlexLayout direction="column" gap="lg" className={cn('w-full', className)}>
       {/* Density Control */}
       {showDensityControl && (
-        <div className="mb-4 flex justify-end">
-          <div className="bg-muted rounded-lg p-1">
-            <FlexLayout direction="row" align="center" gap="xs">
-            <Button
-              variant={density === 'compact' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setDensity('compact')}
-              className="rounded px-3"
-            >
-              <Grid3x3 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={density === 'normal' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setDensity('normal')}
-              className="rounded px-3"
-            >
-              <Grid2x2 className="h-4 w-4" />
-            </Button>
-            <Button
-              variant={density === 'comfortable' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => setDensity('comfortable')}
-              className="rounded px-3"
-            >
-              <Square className="h-4 w-4" />
-            </Button>
+        <FlexLayout direction="row" justify="end">
+          <div className="bg-muted rounded-2xl p-2">
+            <FlexLayout direction="row" align="center" gap="sm">
+              <Button
+                variant={density === 'compact' ? 'default' : 'ghost'}
+                size="md"
+                onClick={() => setDensity('compact')}
+                className="h-12 px-6 rounded-xl"
+              >
+                <Grid3x3 className="h-5 w-5" />
+              </Button>
+              <Button
+                variant={density === 'normal' ? 'default' : 'ghost'}
+                size="md"
+                onClick={() => setDensity('normal')}
+                className="h-12 px-6 rounded-xl"
+              >
+                <Grid2x2 className="h-5 w-5" />
+              </Button>
+              <Button
+                variant={density === 'comfortable' ? 'default' : 'ghost'}
+                size="md"
+                onClick={() => setDensity('comfortable')}
+                className="h-12 px-6 rounded-xl"
+              >
+                <Square className="h-5 w-5" />
+              </Button>
             </FlexLayout>
           </div>
-        </div>
+        </FlexLayout>
       )}
 
       {/* Grid */}
@@ -179,7 +166,7 @@ export function GridView<T>({
           );
         })}
       </GridLayout>
-    </div>
+    </FlexLayout>
   );
 }
 
@@ -214,8 +201,8 @@ function GridItem<T>({
   return (
     <div
       className={cn(
-        'relative group bg-card border border-border rounded-xl overflow-hidden transition-all duration-200',
-        onClick && 'cursor-pointer hover:border-primary hover:shadow-lg',
+        'relative group bg-card border border-border rounded-2xl overflow-hidden transition-all duration-200',
+        onClick && 'cursor-pointer hover:border-primary hover:shadow-xl',
         isSelected && 'ring-2 ring-primary border-primary',
         className
       )}
@@ -274,9 +261,9 @@ function GridItemActions<T>({ actions, item }: GridItemActionsProps<T>): JSX.Ele
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className="h-8 w-8 rounded-lg bg-background/80 backdrop-blur-sm"
+        className="h-12 w-12 rounded-2xl bg-background/80 backdrop-blur-sm"
       >
-        <MoreVertical className="h-4 w-4" />
+        <MoreVertical className="h-5 w-5" />
       </Button>
 
       {isOpen && (
@@ -288,27 +275,31 @@ function GridItemActions<T>({ actions, item }: GridItemActionsProps<T>): JSX.Ele
               setIsOpen(false);
             }}
           />
-          <div className="absolute right-0 top-full mt-1 w-48 bg-background border border-border rounded-lg shadow-xl z-50">
-            {actions.map((action) => {
-              const Icon = action.icon;
-              return (
-                <button
-                  key={action.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    action.onClick(item);
-                    setIsOpen(false);
-                  }}
-                  className={cn(
-                    'w-full px-4 py-2 text-sm text-left hover:bg-accent flex items-center space-x-2',
-                    action.variant === 'destructive' && 'text-destructive hover:bg-destructive/10'
-                  )}
-                >
-                  {Icon && <Icon className="h-4 w-4" />}
-                  <span>{action.label}</span>
-                </button>
-              );
-            })}
+          <div className="absolute right-0 top-full mt-2 w-56 bg-background border border-border rounded-2xl shadow-2xl z-50 overflow-hidden">
+            <FlexLayout direction="column" gap="none">
+              {actions.map((action) => {
+                const Icon = action.icon;
+                return (
+                  <button
+                    key={action.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      action.onClick(item);
+                      setIsOpen(false);
+                    }}
+                    className={cn(
+                      'w-full px-6 py-4 text-sm text-left hover:bg-accent transition-colors',
+                      action.variant === 'destructive' && 'text-destructive hover:bg-destructive/10'
+                    )}
+                  >
+                    <FlexLayout direction="row" align="center" gap="md">
+                      {Icon && <Icon className="h-5 w-5" />}
+                      <span>{action.label}</span>
+                    </FlexLayout>
+                  </button>
+                );
+              })}
+            </FlexLayout>
           </div>
         </>
       )}

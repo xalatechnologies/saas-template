@@ -15,6 +15,7 @@ import {
   Filter
 } from 'lucide-react';
 import { Button, Checkbox, Input, Badge } from '@/components';
+import { FlexLayout, Container } from '@/components/layout';
 import { cn } from '@/utils';
 
 export interface Column<T> {
@@ -160,11 +161,12 @@ export function TableView<T extends Record<string, any>>({
     <div className={cn('w-full', className)}>
       {/* Bulk Actions Bar */}
       {bulkActions && selectedRowIds.size > 0 && (
-        <div className="mb-6 p-6 bg-accent rounded-xl flex items-center justify-between">
-          <span className="text-base font-medium">
-            {selectedRowIds.size} item{selectedRowIds.size !== 1 ? 's' : ''} selected
-          </span>
-          <div className="flex items-center space-x-4">
+        <div className="mb-6 p-6 bg-accent rounded-2xl">
+          <FlexLayout direction="row" align="center" justify="between">
+            <span className="text-base font-medium">
+              {selectedRowIds.size} item{selectedRowIds.size !== 1 ? 's' : ''} selected
+            </span>
+            <FlexLayout direction="row" align="center" gap="md">
             {bulkActions.map((action) => {
               const Icon = action.icon;
               return (
@@ -176,19 +178,20 @@ export function TableView<T extends Record<string, any>>({
                     const selectedItems = data.filter((_, i) => selectedRowIds.has(i));
                     action.onClick(selectedItems);
                   }}
-                  className="rounded-xl"
+                  className="rounded-xl h-12"
                 >
                   {Icon && <Icon className="h-5 w-5 mr-4" />}
                   {action.label}
                 </Button>
               );
             })}
-          </div>
+            </FlexLayout>
+          </FlexLayout>
         </div>
       )}
 
       {/* Table Container */}
-      <div className="overflow-x-auto rounded-xl border border-border">
+      <div className="overflow-x-auto rounded-2xl border border-border">
         <table className="w-full">
           {/* Header */}
           <thead className={cn(
@@ -225,7 +228,7 @@ export function TableView<T extends Record<string, any>>({
                     maxWidth: column.maxWidth,
                   }}
                 >
-                  <div className="flex items-center space-x-4">
+                  <FlexLayout direction="row" align="center" gap="md">
                     <span>{column.header}</span>
                     
                     {/* Sort Indicator */}
@@ -234,7 +237,7 @@ export function TableView<T extends Record<string, any>>({
                         variant="ghost"
                         size="icon"
                         onClick={() => handleSort(column.id)}
-                        className="h-8 w-8 rounded-xl"
+                        className="h-12 w-12 rounded-xl"
                       >
                         {sortColumn === column.id ? (
                           sortDirection === 'asc' ? (
@@ -247,7 +250,7 @@ export function TableView<T extends Record<string, any>>({
                         )}
                       </Button>
                     )}
-                  </div>
+                  </FlexLayout>
 
                   {/* Column Filter */}
                   {column.filterable && onFilter && (
@@ -256,7 +259,7 @@ export function TableView<T extends Record<string, any>>({
                         value={columnFilters[column.id] || ''}
                         onChange={(e) => handleFilter(column.id, e.target.value)}
                         placeholder="Filter..."
-                        className="h-12 text-base rounded-xl"
+                        className="h-16 text-base rounded-xl"
                         onClick={(e) => e.stopPropagation()}
                       />
                     </div>
@@ -281,10 +284,10 @@ export function TableView<T extends Record<string, any>>({
                   colSpan={columns.length + (hasSelection ? 1 : 0) + (hasActions ? 1 : 0)}
                   className="px-8 py-16 text-center"
                 >
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-                    <p className="mt-6 text-base text-muted-foreground">Loading...</p>
-                  </div>
+                  <FlexLayout direction="column" align="center" justify="center" gap="lg">
+                    <div className="h-16 w-16 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+                    <p className="text-base text-muted-foreground">Loading...</p>
+                  </FlexLayout>
                 </td>
               </tr>
             ) : data.length === 0 ? (
@@ -387,7 +390,7 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
           e.stopPropagation();
           setIsOpen(!isOpen);
         }}
-        className="h-10 w-10 rounded-xl"
+        className="h-12 w-12 rounded-xl"
       >
         <MoreHorizontal className="h-5 w-5" />
       </Button>
@@ -398,7 +401,7 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
             className="fixed inset-0 z-40"
             onClick={() => setIsOpen(false)}
           />
-          <div className="absolute right-0 top-full mt-2 w-56 bg-background border border-border rounded-xl shadow-xl z-50">
+          <div className="absolute right-0 top-full mt-2 w-56 bg-background border border-border rounded-2xl shadow-xl z-50">
             {actions.map((action) => {
               const Icon = action.icon;
               return (
@@ -410,7 +413,7 @@ function RowActions<T>({ actions, item }: RowActionsProps<T>): JSX.Element {
                     setIsOpen(false);
                   }}
                   className={cn(
-                    'w-full px-6 py-3 text-base text-left hover:bg-accent flex items-center space-x-4',
+                    'w-full px-6 py-4 text-base text-left hover:bg-accent flex items-center gap-4',
                     action.variant === 'destructive' && 'text-destructive hover:bg-destructive/10'
                   )}
                 >
