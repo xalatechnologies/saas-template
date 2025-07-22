@@ -410,9 +410,9 @@ function CalendarEventItem<T>({
     <div
       onClick={onClick}
       className={cn(
-        'rounded px-2 py-1 text-xs truncate cursor-pointer hover:opacity-80',
+        'rounded-xl px-4 py-2 text-base truncate cursor-pointer hover:opacity-80',
         event.color ? `bg-${event.color}-500 text-white` : 'bg-primary text-primary-foreground',
-        compact && 'py-0.5'
+        compact && 'py-1'
       )}
     >
       {!event.allDay && (
@@ -432,27 +432,27 @@ function CalendarEventItem<T>({
 // Placeholder implementations for other views
 function WeekView<T>(props: any): JSX.Element {
   return (
-    <div className="p-8 text-center text-muted-foreground">
-      <CalendarIcon className="h-12 w-12 mx-auto mb-4" />
-      <p>Week view coming soon</p>
-    </div>
+    <FlexLayout direction="column" align="center" justify="center" className="p-12">
+      <CalendarIcon className="h-16 w-16 mb-6" />
+      <p className="text-lg text-muted-foreground">Week view coming soon</p>
+    </FlexLayout>
   );
 }
 
 function DayView<T>(props: any): JSX.Element {
   return (
-    <div className="p-8 text-center text-muted-foreground">
-      <CalendarIcon className="h-12 w-12 mx-auto mb-4" />
-      <p>Day view coming soon</p>
-    </div>
+    <FlexLayout direction="column" align="center" justify="center" className="p-12">
+      <CalendarIcon className="h-16 w-16 mb-6" />
+      <p className="text-lg text-muted-foreground">Day view coming soon</p>
+    </FlexLayout>
   );
 }
 
 function AgendaView<T>(props: any): JSX.Element {
   return (
-    <div className="p-8 text-center text-muted-foreground">
-      <CalendarIcon className="h-12 w-12 mx-auto mb-4" />
-      <p>Agenda view coming soon</p>
-    </div>
+    <FlexLayout direction="column" align="center" justify="center" className="p-12">
+      <CalendarIcon className="h-16 w-16 mb-6" />
+      <p className="text-lg text-muted-foreground">Agenda view coming soon</p>
+    </FlexLayout>
   );
 }
