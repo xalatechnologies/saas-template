@@ -45,6 +45,50 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
 
+    /* Spacing Design Tokens */
+    --spacing-xs: 0.5rem;    /* 8px */
+    --spacing-sm: 1rem;      /* 16px */
+    --spacing-md: 1.5rem;    /* 24px */
+    --spacing-lg: 2rem;      /* 32px */
+    --spacing-xl: 3rem;      /* 48px */
+    --spacing-2xl: 4rem;     /* 64px */
+    --spacing-3xl: 6rem;     /* 96px */
+
+    /* Icon Size Design Tokens */
+    --icon-xs: 1rem;           /* 16px */
+    --icon-sm: 1.25rem;        /* 20px */
+    --icon-md: 1.5rem;         /* 24px */
+    --icon-lg: 2rem;           /* 32px */
+    --icon-xl: 2.5rem;         /* 40px */
+    
+    /* Alternative icon-size format for compatibility */
+    --icon-size-xs: 1rem;      /* 16px */
+    --icon-size-sm: 1.25rem;   /* 20px */
+    --icon-size-md: 1.5rem;    /* 24px */
+    --icon-size-lg: 2rem;      /* 32px */
+    --icon-size-xl: 2.5rem;    /* 40px */
+
+    /* Icon Container Sizes */
+    --icon-container-lg: 3rem;   /* 48px */
+    --icon-container-xl: 4rem;   /* 64px */
+
+    /* Button/Input Size Design Tokens */
+    --button-sm: 2rem;       /* 32px */
+    --button-md: 2.5rem;     /* 40px */
+    --button-lg: 3rem;       /* 48px */
+    --button-xl: 4rem;       /* 64px */
+    --input-lg: 3rem;        /* 48px */
+
+    /* Size Design Tokens (for general component sizing) */
+    --size-xs: 1.5rem;       /* 24px */
+    --size-sm: 2rem;         /* 32px */
+    --size-md: 3rem;         /* 48px */
+    --size-lg: 4rem;         /* 64px */
+    --size-xl: 5rem;         /* 80px */
+
+    /* Width Design Tokens */
+    --width-md: 24rem;       /* 384px */
+
     /* Default font family */
     --font-family-sans:
       Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

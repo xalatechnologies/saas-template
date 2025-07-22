@@ -238,7 +238,7 @@ export const GlobalSearch = ({
               setQuery('');
               setResults([]);
             }}
-            className="absolute top-1/2 -translate-y-1/2 rounded-2xl" style={{ right: 'var(--spacing-xs)', height: 'var(--button-md)', width: 'var(--button-md)' }}"
+            className="absolute top-1/2 -translate-y-1/2 rounded-2xl" style={{ right: 'var(--spacing-xs)', height: 'var(--button-md)', width: 'var(--button-md)' }}
           >
             <X style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
           </Button>

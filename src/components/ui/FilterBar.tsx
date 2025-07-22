@@ -331,7 +331,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
                 <label
                   key={option.value}
                   className="cursor-pointer"
-                  style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}"
+                  style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}
                 >
                   <Checkbox
                     checked={isChecked}
@@ -363,7 +363,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
               type="date"
               value={value || ''}
               onChange={(e) => onChange(e.target.value)}
-              className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-3xl)' }}"
+              className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-3xl)' }}
             />
           </div>
         </div>
@@ -391,7 +391,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
               onChange={(e) => onChange(e.target.value)}
               placeholder={filter.placeholder}
               className={cn('rounded-2xl')}
-              style={Icon ? { paddingLeft: 'var(--spacing-3xl)' } : {}}"
+              style={Icon ? { paddingLeft: 'var(--spacing-3xl)' } : {}}
             />
           </div>
         </div>
@@ -429,7 +429,7 @@ export const ActiveFilters = ({
           <Badge
             key={filter.id}
             variant="secondary"
-            className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-xs)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}"
+            className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-xs)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}
           >
             <span className="text-base">
               {filter.label}: {displayValue}
@@ -442,7 +442,7 @@ export const ActiveFilters = ({
                 delete newValues[filter.id];
                 onChange(newValues);
               }}
-              className="rounded-2xl" style={{ height: 'var(--button-sm)', width: 'var(--button-sm)', marginLeft: 'var(--spacing-xs)' }}"
+              className="rounded-2xl" style={{ height: 'var(--button-sm)', width: 'var(--button-sm)', marginLeft: 'var(--spacing-xs)' }}
             >
               <X style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)' }} />
             </Button>

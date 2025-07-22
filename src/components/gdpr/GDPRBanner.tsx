@@ -252,8 +252,8 @@ const GDPRPreferences = (): React.ReactElement => {
                             Påkrevd
                           </span>
                         )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">{category.description}</p>
+                        </FlexLayout>
+                        <p className="text-sm text-muted-foreground">{category.description}</p>
                         <p className="text-xs text-muted-foreground">
                           <strong>Eksempler:</strong> {category.examples}
                         </p>
