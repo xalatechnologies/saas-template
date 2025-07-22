@@ -26,7 +26,10 @@ export class ContextEngine {
    * Initialize context engine with project context
    */
   public async initialize(projectContext: ProjectContext): Promise<void> {
-    this.contextLayers.project = projectContext;
+    this.contextLayers = {
+      ...this.contextLayers,
+      project: projectContext
+    };
   }
 
   /**
@@ -264,8 +267,8 @@ export class ContextEngine {
     }
 
     // Include suggested patterns
-    const topPatterns = semantic.suggestedPatterns
-      .sort((a, b) => b.successRate - a.successRate)
+    const topPatterns = (semantic.suggestedPatterns as any)
+      .sort((a: any, b: any) => b.successRate - a.successRate)
       .slice(0, 3);
 
     if (topPatterns.length > 0) {
@@ -373,8 +376,8 @@ export class ContextEngine {
       }
     }
 
-    window.items = includedItems;
-    window.currentTokens = currentTokens;
+    (window as any).items = includedItems;
+    (window as any).currentTokens = currentTokens;
 
     return window;
   }

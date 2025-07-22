@@ -192,12 +192,12 @@ export const GlobalSearch = ({
         <Button
           variant="outline"
           onClick={() => setIsOpen(true)}
-          className={cn('rounded-xl', className)}
+          className={cn('rounded-2xl', className)}
         >
-          <Search className="h-5 w-5 mr-4" />
+          <Search style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginRight: 'var(--spacing-sm)' }} />
           Search
           {showShortcut && (
-            <kbd className="ml-4 text-base bg-muted px-4 py-2 rounded-xl">⌘K</kbd>
+            <kbd className="text-base bg-muted rounded-2xl" style={{ marginLeft: 'var(--spacing-sm)', paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-sm)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}>⌘K</kbd>
           )}
         </Button>
         <SearchModal
@@ -216,7 +216,7 @@ export const GlobalSearch = ({
     <div ref={searchRef} className={cn('relative', className)}>
       {/* Search Input */}
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+        <Search className="absolute top-1/2 -translate-y-1/2 text-muted-foreground" style={{ left: 'var(--spacing-sm)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
         <Input
           ref={inputRef}
           value={query}
@@ -225,9 +225,10 @@ export const GlobalSearch = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder || t('search.placeholder')}
           className={cn(
-            'pl-12 pr-12 h-12 border-border',
+            'border-border',
             variant === 'dropdown' ? 'w-full' : 'w-full'
           )}
+          style={{ paddingLeft: 'var(--spacing-3xl)', paddingRight: 'var(--spacing-3xl)', height: 'var(--input-lg)' }}
         />
         {query && (
           <Button
@@ -237,13 +238,13 @@ export const GlobalSearch = ({
               setQuery('');
               setResults([]);
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl"
+            className="absolute top-1/2 -translate-y-1/2 rounded-2xl" style={{ right: 'var(--spacing-xs)', height: 'var(--button-md)', width: 'var(--button-md)' }}"
           >
-            <X className="h-5 w-5" />
+            <X style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
           </Button>
         )}
         {showShortcut && !query && (
-          <kbd className="absolute right-4 top-1/2 -translate-y-1/2 text-base bg-muted px-4 py-2 rounded-xl">
+          <kbd className="absolute top-1/2 -translate-y-1/2 text-base bg-muted rounded-2xl" style={{ right: 'var(--spacing-sm)', paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-sm)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}>
             ⌘K
           </kbd>
         )}
@@ -251,11 +252,11 @@ export const GlobalSearch = ({
 
       {/* Search Results Dropdown */}
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-4 bg-background border border-border rounded-xl shadow-2xl overflow-hidden z-50 max-h-[600px] overflow-y-auto">
+        <div className="absolute top-full left-0 right-0 bg-background border border-border rounded-2xl shadow-2xl overflow-hidden z-50 max-h-[600px] overflow-y-auto" style={{ marginTop: 'var(--spacing-sm)' }}>
           {/* Filters */}
           {showFilters && categories.length > 0 && (
-            <div className="p-6 border-b border-border">
-              <div className="flex items-center justify-between mb-4">
+            <div className="border-b border-border" style={{ padding: 'var(--spacing-lg)' }}>
+              <FlexLayout direction="row" align="center" justify="between" style={{ marginBottom: 'var(--spacing-sm)' }}>
                 <span className="text-base font-semibold">{t('search.filters')}</span>
                 <Button
                   variant="ghost"
@@ -265,7 +266,7 @@ export const GlobalSearch = ({
                 >
                   {t('search.clearFilters')}
                 </Button>
-              </div>
+              </FlexLayout>
               <FlexLayout direction="row" wrap gap="lg">
                 {categories.map((category) => {
                   const Icon = category.icon;
@@ -280,12 +281,12 @@ export const GlobalSearch = ({
                         ...filters,
                         category: isActive ? undefined : category.id
                       })}
-                      className="rounded-xl"
+                      className="rounded-2xl"
                     >
-                      {Icon && <Icon className="h-5 w-5 mr-2" />}
+                      {Icon && <Icon style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)', marginRight: 'var(--spacing-xs)' }} />}
                       {category.label}
                       {category.count !== undefined && (
-                        <Badge variant="secondary" className="ml-2 text-base">
+                        <Badge variant="secondary" className="text-base" style={{ marginLeft: 'var(--spacing-xs)' }}>
                           {category.count}
                         </Badge>
                       )}
@@ -298,15 +299,15 @@ export const GlobalSearch = ({
 
           {/* Loading State */}
           {isLoading && (
-            <div className="p-12 text-center">
-              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-muted-foreground" />
+            <div className="text-center" style={{ padding: 'var(--spacing-xl)' }}>
+              <Loader2 className="animate-spin mx-auto text-muted-foreground" style={{ height: 'var(--icon-size-md)', width: 'var(--icon-size-md)', marginBottom: 'var(--spacing-sm)' }} />
               <p className="text-base text-muted-foreground">{t('common.loading')}</p>
             </div>
           )}
 
           {/* Results */}
           {!isLoading && query && results.length > 0 && (
-            <div className="py-4">
+            <div style={{ paddingTop: 'var(--spacing-sm)', paddingBottom: 'var(--spacing-sm)' }}>
               {results.map((result, index) => {
                 const Icon = result.icon || FileText;
                 const isSelected = index === selectedIndex;
@@ -317,20 +318,23 @@ export const GlobalSearch = ({
                     onClick={() => handleResultClick(result)}
                     onMouseEnter={() => setSelectedIndex(index)}
                     className={cn(
-                      'w-full px-6 py-4 flex items-center space-x-4 hover:bg-accent transition-colors',
+                      'w-full hover:bg-accent transition-colors',
                       isSelected && 'bg-accent'
                     )}
+                    style={{ padding: 'var(--spacing-lg)' }}
                   >
-                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <Icon className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1 text-left">
-                      <p className="font-medium text-foreground">{result.title}</p>
-                      {result.subtitle && (
-                        <p className="text-base text-muted-foreground">{result.subtitle}</p>
-                      )}
-                    </div>
-                    <ArrowRight className="h-5 w-5 text-muted-foreground" />
+                    <FlexLayout direction="row" align="center" gap="lg">
+                      <div className="bg-primary/10 flex items-center justify-center flex-shrink-0 rounded-2xl" style={{ height: 'var(--size-md)', width: 'var(--size-md)' }}>
+                        <Icon className="text-primary" style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)' }} />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="font-medium text-foreground">{result.title}</p>
+                        {result.subtitle && (
+                          <p className="text-base text-muted-foreground">{result.subtitle}</p>
+                        )}
+                      </div>
+                      <ArrowRight className="text-muted-foreground" style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)' }} />
+                    </FlexLayout>
                   </button>
                 );
               })}
@@ -339,9 +343,9 @@ export const GlobalSearch = ({
 
           {/* No Results */}
           {!isLoading && query && results.length === 0 && (
-            <div className="p-12 text-center">
-              <Search className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <p className="font-medium text-foreground mb-2">{t('search.noResults')}</p>
+            <div className="text-center" style={{ padding: 'var(--spacing-xl)' }}>
+              <Search className="text-muted-foreground mx-auto" style={{ height: 'var(--icon-size-lg)', width: 'var(--icon-size-lg)', marginBottom: 'var(--spacing-sm)' }} />
+              <p className="font-medium text-foreground" style={{ marginBottom: 'var(--spacing-xs)' }}>{t('search.noResults')}</p>
               <p className="text-base text-muted-foreground">
                 {t('search.tryDifferentKeywords')}
               </p>
@@ -350,51 +354,54 @@ export const GlobalSearch = ({
 
           {/* Initial State */}
           {!query && (
-            <div className="p-6 space-y-6">
+            <div style={{ padding: 'var(--spacing-lg)' }}>
+              <FlexLayout direction="column" gap="xl">
               {/* Recent Searches */}
               {recentSearches.length > 0 && (
                 <div>
-                  <h3 className="text-base font-semibold text-muted-foreground mb-4 flex items-center">
-                    <Clock className="h-5 w-5 mr-2" />
-                    {t('search.recentSearches')}
-                  </h3>
-                  <div className="space-y-2">
+                  <FlexLayout direction="row" align="center" gap="sm" style={{ marginBottom: 'var(--spacing-sm)' }}>
+                    <Clock style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)' }} />
+                    <h3 className="text-base font-semibold text-muted-foreground">{t('search.recentSearches')}</h3>
+                  </FlexLayout>
+                  <FlexLayout direction="column" gap="sm">
                     {recentSearches.map((search, index) => (
                       <button
                         key={index}
                         onClick={() => setQuery(search)}
-                        className="w-full text-left px-4 py-3 rounded-xl hover:bg-accent text-base"
+                        className="w-full text-left hover:bg-accent text-base rounded-2xl"
+                        style={{ padding: 'var(--spacing-md)' }}
                       >
                         {search}
                       </button>
                     ))}
-                  </div>
+                  </FlexLayout>
                 </div>
               )}
 
               {/* Trending Searches */}
               {trendingSearches.length > 0 && (
                 <div>
-                  <h3 className="text-base font-semibold text-muted-foreground mb-4 flex items-center">
-                    <TrendingUp className="h-5 w-5 mr-2" />
-                    {t('search.trending')}
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
+                  <FlexLayout direction="row" align="center" gap="sm" style={{ marginBottom: 'var(--spacing-sm)' }}>
+                    <TrendingUp style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)' }} />
+                    <h3 className="text-base font-semibold text-muted-foreground">{t('search.trending')}</h3>
+                  </FlexLayout>
+                  <FlexLayout direction="row" wrap gap="lg">
                     {trendingSearches.map((search, index) => (
                       <Button
                         key={index}
                         variant="outline"
                         size="default"
                         onClick={() => setQuery(search)}
-                        className="rounded-xl"
+                        className="rounded-2xl"
                       >
-                        <Hash className="h-5 w-5 mr-2" />
+                        <Hash style={{ height: 'var(--icon-size-sm)', width: 'var(--icon-size-sm)', marginRight: 'var(--spacing-xs)' }} />
                         {search}
                       </Button>
                     ))}
-                  </div>
+                  </FlexLayout>
                 </div>
               )}
+              </FlexLayout>
             </div>
           )}
         </div>
@@ -418,15 +425,15 @@ const SearchModal = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm">
-      <div className="flex items-start justify-center pt-24">
-        <div className="w-full max-w-2xl bg-background rounded-xl shadow-2xl">
+      <div className="flex items-start justify-center" style={{ paddingTop: 'var(--spacing-2xl)' }}>
+        <div className="w-full max-w-2xl bg-background rounded-2xl shadow-2xl">
           <GlobalSearch
             onSearch={onSearch}
             recentSearches={recentSearches}
             trendingSearches={trendingSearches}
             categories={categories}
             variant="inline"
-            className="p-6"
+            style={{ padding: 'var(--spacing-lg)' }}
           />
         </div>
       </div>

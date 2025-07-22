@@ -154,32 +154,32 @@ export const LandingContent = (): JSX.Element => {
         <div className="absolute inset-0 bg-grid-white/10 bg-grid-16 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
         <Container size="lg" className="relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <Badge variant="secondary" className="mb-4 rounded-full px-4 py-1">
-              <Sparkles className="h-4 w-4 mr-2" />
+            <Badge variant="secondary" className="rounded-full" style={{ marginBottom: 'var(--spacing-sm)', paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-sm)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}>
+              <Sparkles style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)', marginRight: 'var(--spacing-xs)' }} />
               New: AI-powered task suggestions
             </Badge>
-            <h1 className="text-5xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
+            <h1 className="text-5xl lg:text-7xl font-bold text-foreground leading-tight" style={{ marginBottom: 'var(--spacing-lg)' }}>
               Manage Tasks with
-              <span className="text-primary block mt-2">Confidence</span>
+              <span className="text-primary block" style={{ marginTop: 'var(--spacing-xs)' }}>Confidence</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            <p className="text-xl text-muted-foreground leading-relaxed" style={{ marginBottom: 'var(--spacing-lg)' }}>
               The professional task management solution that helps teams and individuals 
               stay organized, collaborate effectively, and achieve more every day.
             </p>
             <FlexLayout direction="row" align="center" justify="center" gap="lg" wrap>
               <Link href="/signup">
-                <Button size="lg" className="rounded-xl shadow-xl min-w-[200px]">
+                <Button size="lg" className="rounded-2xl shadow-xl" style={{ minWidth: '200px' }}>
                   Start Free Trial
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight style={{ marginLeft: 'var(--spacing-xs)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
                 </Button>
               </Link>
               <Link href="#features">
-                <Button size="lg" variant="outline" className="rounded-xl min-w-[200px]">
+                <Button size="lg" variant="outline" className="rounded-2xl" style={{ minWidth: '200px' }}>
                   Learn More
                 </Button>
               </Link>
             </FlexLayout>
-            <p className="text-sm text-muted-foreground mt-4">
+            <p className="text-sm text-muted-foreground" style={{ marginTop: 'var(--spacing-sm)' }}>
               No credit card required • 14-day free trial
             </p>
           </div>
@@ -189,14 +189,14 @@ export const LandingContent = (): JSX.Element => {
       {/* Features Section */}
       <section id="features" className="py-20 bg-muted/30">
         <Container size="lg">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+          <Container centered className="text-center" style={{ marginBottom: 'var(--spacing-xl)' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground" style={{ marginBottom: 'var(--spacing-sm)' }}>
               Everything you need to stay productive
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Powerful features designed to help you manage tasks efficiently and collaborate seamlessly.
             </p>
-          </div>
+          </Container>
           <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
             {features.map((feature, index) => {
               const Icon = feature.icon;
@@ -204,11 +204,11 @@ export const LandingContent = (): JSX.Element => {
                 <CardLayout key={index} variant="elevated" className="hover:-translate-y-1 transition-transform">
                   <CardLayoutHeader>
                     <FlexLayout direction="row" align="start" gap="lg">
-                      <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                        <Icon className="h-6 w-6 text-primary" />
-                      </div>
+                      <FlexLayout align="center" justify="center" className="rounded-2xl bg-primary/10 flex-shrink-0" style={{ height: 'var(--icon-container-lg)', width: 'var(--icon-container-lg)' }}>
+                        <Icon className="text-primary" style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
+                      </FlexLayout>
                       <div>
-                        <h3 className="text-lg font-semibold text-foreground mb-2">
+                        <h3 className="text-lg font-semibold text-foreground" style={{ marginBottom: 'var(--spacing-xs)' }}>
                           {feature.title}
                         </h3>
                         <p className="text-muted-foreground">
@@ -232,22 +232,22 @@ export const LandingContent = (): JSX.Element => {
             gap="xl"
             className="text-center"
           >
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">10K+</div>
+            <FlexLayout direction="column" align="center" gap="xs">
+              <div className="text-4xl lg:text-5xl font-bold">10K+</div>
               <div className="text-primary-foreground/80">Active Users</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">2M+</div>
+            </FlexLayout>
+            <FlexLayout direction="column" align="center" gap="xs">
+              <div className="text-4xl lg:text-5xl font-bold">2M+</div>
               <div className="text-primary-foreground/80">Tasks Completed</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">99.9%</div>
+            </FlexLayout>
+            <FlexLayout direction="column" align="center" gap="xs">
+              <div className="text-4xl lg:text-5xl font-bold">99.9%</div>
               <div className="text-primary-foreground/80">Uptime</div>
-            </div>
-            <div>
-              <div className="text-4xl lg:text-5xl font-bold mb-2">4.9</div>
+            </FlexLayout>
+            <FlexLayout direction="column" align="center" gap="xs">
+              <div className="text-4xl lg:text-5xl font-bold">4.9</div>
               <div className="text-primary-foreground/80">User Rating</div>
-            </div>
+            </FlexLayout>
           </GridLayout>
         </Container>
       </section>
@@ -255,21 +255,22 @@ export const LandingContent = (): JSX.Element => {
       {/* Testimonials Section */}
       <section className="py-20">
         <Container size="lg">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+          <Container centered className="text-center" style={{ marginBottom: 'var(--spacing-xl)' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground" style={{ marginBottom: 'var(--spacing-sm)' }}>
               Loved by teams worldwide
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               See what our customers have to say about their experience with TaskManager.
             </p>
-          </div>
+          </Container>
           <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
             {testimonials.map((testimonial, index) => (
               <CardLayout key={index} variant="bordered">
-                <CardLayoutBody className="space-y-4">
+                <CardLayoutBody>
+                  <FlexLayout direction="column" gap="sm">
                   <FlexLayout direction="row" gap="xs">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                      <Star key={i} className="fill-primary text-primary" style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
                     ))}
                   </FlexLayout>
                   <p className="text-muted-foreground italic">
@@ -280,7 +281,8 @@ export const LandingContent = (): JSX.Element => {
                     <div className="text-sm text-muted-foreground">
                       {testimonial.role} at {testimonial.company}
                     </div>
-                  </div>
+                    </div>
+                  </FlexLayout>
                 </CardLayoutBody>
               </CardLayout>
             ))}
@@ -291,14 +293,14 @@ export const LandingContent = (): JSX.Element => {
       {/* Pricing Section */}
       <section id="pricing" className="py-20 bg-muted/30">
         <Container size="lg">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+          <Container centered className="text-center" style={{ marginBottom: 'var(--spacing-xl)' }}>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground" style={{ marginBottom: 'var(--spacing-sm)' }}>
               Simple, transparent pricing
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Choose the plan that's right for you. All plans include a 14-day free trial.
             </p>
-          </div>
+          </Container>
           <Container size="lg">
             <GridLayout 
               columns={{ mobile: 1, tablet: 3 }}
@@ -314,28 +316,26 @@ export const LandingContent = (): JSX.Element => {
               >
                 <CardLayoutBody className="p-8">
                   {plan.highlighted && (
-                    <Badge className="mb-4 rounded-full">Most Popular</Badge>
+                    <Badge className="rounded-full" style={{ marginBottom: 'var(--spacing-sm)' }}>Most Popular</Badge>
                   )}
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{plan.name}</h3>
-                  <div className="mb-4">
+                  <h3 className="text-2xl font-bold text-foreground" style={{ marginBottom: 'var(--spacing-xs)' }}>{plan.name}</h3>
+                  <div style={{ marginBottom: 'var(--spacing-sm)' }}>
                     <span className="text-4xl font-bold text-foreground">{plan.price}</span>
                     {plan.period && (
-                      <span className="text-muted-foreground ml-2">/{plan.period}</span>
+                      <span className="text-muted-foreground" style={{ marginLeft: 'var(--spacing-xs)' }}>/{plan.period}</span>
                     )}
                   </div>
-                  <p className="text-muted-foreground mb-6">{plan.description}</p>
-                  <ul className="space-y-3 mb-8">
+                  <p className="text-muted-foreground" style={{ marginBottom: 'var(--spacing-lg)' }}>{plan.description}</p>
+                  <FlexLayout direction="column" gap="sm" style={{ marginBottom: 'var(--spacing-xl)' }}>
                     {plan.features.map((feature, i) => (
-                      <li key={i}>
-                        <FlexLayout direction="row" align="start" gap="sm">
-                          <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                          <span className="text-sm">{feature}</span>
-                        </FlexLayout>
-                      </li>
+                      <FlexLayout key={i} direction="row" align="start" gap="sm">
+                        <CheckCircle className="text-primary flex-shrink-0" style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginTop: '2px' }} />
+                        <span className="text-sm">{feature}</span>
+                      </FlexLayout>
                     ))}
-                  </ul>
+                  </FlexLayout>
                   <Button
-                    className="w-full rounded-xl"
+                    className="w-full rounded-2xl"
                     variant={plan.highlighted ? 'default' : 'outline'}
                   >
                     Get Started
@@ -351,10 +351,10 @@ export const LandingContent = (): JSX.Element => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
         <Container size="lg" className="text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold" style={{ marginBottom: 'var(--spacing-sm)' }}>
             Ready to boost your productivity?
           </h2>
-          <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
+          <p className="text-xl text-primary-foreground/90 max-w-2xl mx-auto" style={{ marginBottom: 'var(--spacing-xl)' }}>
             Join thousands of teams already using TaskManager to achieve more.
           </p>
           <FlexLayout direction="row" align="center" justify="center" gap="lg" wrap>
@@ -362,17 +362,19 @@ export const LandingContent = (): JSX.Element => {
               <Button 
                 size="lg" 
                 variant="secondary"
-                className="rounded-xl shadow-xl min-w-[200px]"
+                className="rounded-2xl shadow-xl" 
+                style={{ minWidth: '200px' }}
               >
                 Start Free Trial
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight style={{ marginLeft: 'var(--spacing-xs)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
               </Button>
             </Link>
             <Link href={'/contact' as any}>
               <Button 
                 size="lg" 
                 variant="outline"
-                className="rounded-xl min-w-[200px] bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20"
+                className="rounded-2xl bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/20"
+                style={{ minWidth: '200px' }}
               >
                 Contact Sales
               </Button>

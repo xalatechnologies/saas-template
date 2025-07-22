@@ -57,11 +57,11 @@ export const GridLayout = ({
   className,
 }: GridLayoutProps): JSX.Element => {
   const gaps = {
-    xs: 'gap-2',
-    sm: 'gap-4',
-    md: 'gap-6',
-    lg: 'gap-8',
-    xl: 'gap-12',
+    xs: 'gap-[var(--spacing-xs)]',
+    sm: 'gap-[var(--spacing-sm)]',
+    md: 'gap-[var(--spacing-md)]',
+    lg: 'gap-[var(--spacing-lg)]',
+    xl: 'gap-[var(--spacing-xl)]',
   };
 
   const getGridClass = () => {
@@ -139,11 +139,11 @@ export const FlexLayout = ({
   className,
 }: FlexLayoutProps): JSX.Element => {
   const gaps = {
-    xs: 'gap-2',
-    sm: 'gap-4',
-    md: 'gap-6',
-    lg: 'gap-8',
-    xl: 'gap-12',
+    xs: 'gap-[var(--spacing-xs)]',
+    sm: 'gap-[var(--spacing-sm)]',
+    md: 'gap-[var(--spacing-md)]',
+    lg: 'gap-[var(--spacing-lg)]',
+    xl: 'gap-[var(--spacing-xl)]',
   };
 
   const alignments = {
@@ -198,10 +198,10 @@ export const SplitLayout = ({
   }
 
   const gaps = {
-    sm: 'gap-4',
-    md: 'gap-6',
-    lg: 'gap-8',
-    xl: 'gap-12',
+    sm: 'gap-[var(--spacing-sm)]',
+    md: 'gap-[var(--spacing-md)]',
+    lg: 'gap-[var(--spacing-lg)]',
+    xl: 'gap-[var(--spacing-xl)]',
   };
 
   const splits = {

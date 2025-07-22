@@ -106,7 +106,7 @@ export const FilterBar = ({
         </Button>
 
         {isExpanded && (
-          <div className="absolute top-full left-0 bg-background border border-border rounded-2xl shadow-2xl z-50" style={{ marginTop: 'var(--spacing-sm)', width: '384px', padding: 'var(--spacing-lg)' }}>
+          <div className="absolute top-full left-0 bg-background border border-border rounded-2xl shadow-2xl z-50" style={{ marginTop: 'var(--spacing-sm)', width: 'var(--width-md)', padding: 'var(--spacing-lg)' }}>
             <FilterContent
               filters={filters}
               values={values}
@@ -179,7 +179,7 @@ const FilterContent = ({
       {/* Search */}
       {showSearch && onSearchChange && (
         <div className="relative">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <Search className="absolute top-1/2 -translate-y-1/2 text-muted-foreground" style={{ left: 'var(--spacing-sm)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
           <Input
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -193,7 +193,7 @@ const FilterContent = ({
       {/* Saved Filters */}
       {savedFilters && savedFilters.length > 0 && (
         <div>
-          <Label className="text-base font-medium mb-4">Quick Filters</Label>
+          <Label className="text-base font-medium" style={{ marginBottom: 'var(--spacing-sm)' }}>Quick Filters</Label>
           <FlexLayout direction="row" wrap gap="lg">
             {savedFilters.map((saved) => (
               <Button
@@ -232,17 +232,18 @@ const FilterContent = ({
               onClick={onToggleAdvanced}
               className="w-full rounded-xl"
             >
-              <SlidersHorizontal className="h-5 w-5 mr-4" />
+              <SlidersHorizontal style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginRight: 'var(--spacing-sm)' }} />
               {showAdvanced ? 'Hide' : 'Show'} Advanced Filters
               <ChevronDown className={cn(
-                'h-5 w-5 ml-4 transition-transform',
+                'transition-transform',
                 showAdvanced && 'rotate-180'
-              )} />
+              )} style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginLeft: 'var(--spacing-sm)' }} />
             </Button>
           )}
 
           {showAdvanced && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-6 border-t border-border">
+            <div className="border-t border-border" style={{ paddingTop: 'var(--spacing-lg)' }}>
+              <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
               {advancedFilters.map((filter) => (
                 <FilterDropdown
                   key={filter.id}
@@ -251,21 +252,22 @@ const FilterContent = ({
                   onChange={(value) => onChange({ ...values, [filter.id]: value })}
                 />
               ))}
+              </GridLayout>
             </div>
           )}
         </>
       )}
 
       {/* Actions */}
-      <div className="flex items-center justify-between pt-6 border-t border-border">
-        <div className="flex items-center space-x-4">
+      <FlexLayout direction="row" align="center" justify="between" className="border-t border-border" style={{ paddingTop: 'var(--spacing-lg)' }}>
+        <FlexLayout direction="row" align="center" gap="sm">
           <Button
             variant="ghost"
             size="default"
             onClick={onReset}
             className="rounded-xl"
           >
-            <RotateCcw className="h-5 w-5 mr-4" />
+            <RotateCcw style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginRight: 'var(--spacing-sm)' }} />
             Reset
           </Button>
           {onSave && (
@@ -278,16 +280,16 @@ const FilterContent = ({
               }}
               className="rounded-xl"
             >
-              <Save className="h-5 w-5 mr-4" />
+              <Save style={{ height: 'var(--icon-sm)', width: 'var(--icon-sm)', marginRight: 'var(--spacing-sm)' }} />
               Save
             </Button>
           )}
-        </div>
+        </FlexLayout>
         <div className="text-base text-muted-foreground">
           {Object.keys(values).length} filters active
         </div>
-      </div>
-    </div>
+      </FlexLayout>
+    </FlexLayout>
   );
 };
 
@@ -301,7 +303,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'select':
       return (
         <div>
-          <Label className="text-base mb-2">{filter.label}</Label>
+          <Label className="text-base" style={{ marginBottom: 'var(--spacing-xs)' }}>{filter.label}</Label>
           <Select
             value={value || ''}
             onValueChange={onChange}
@@ -319,15 +321,17 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'multiselect':
       return (
         <div>
-          <Label className="text-base mb-2">{filter.label}</Label>
-          <div className="space-y-4 max-h-48 overflow-y-auto p-4 border border-border rounded-xl">
+          <Label className="text-base" style={{ marginBottom: 'var(--spacing-xs)' }}>{filter.label}</Label>
+          <div className="overflow-y-auto border border-border rounded-2xl" style={{ padding: 'var(--spacing-sm)', maxHeight: '192px' }}>
+            <FlexLayout direction="column" gap="sm">
             {filter.options?.map((option) => {
               const isChecked = Array.isArray(value) && value.includes(option.value);
               
               return (
                 <label
                   key={option.value}
-                  className="flex items-center space-x-4 cursor-pointer"
+                  className="cursor-pointer"
+                  style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}"
                 >
                   <Checkbox
                     checked={isChecked}
@@ -344,6 +348,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
                 </label>
               );
             })}
+            </FlexLayout>
           </div>
         </div>
       );
@@ -351,14 +356,14 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     case 'date':
       return (
         <div>
-          <Label className="text-base mb-2">{filter.label}</Label>
+          <Label className="text-base" style={{ marginBottom: 'var(--spacing-xs)' }}>{filter.label}</Label>
           <div className="relative">
-            <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <Calendar className="absolute top-1/2 -translate-y-1/2 text-muted-foreground" style={{ left: 'var(--spacing-sm)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />
             <Input
               type="date"
               value={value || ''}
               onChange={(e) => onChange(e.target.value)}
-              className="pl-12 rounded-xl"
+              className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-3xl)' }}"
             />
           </div>
         </div>
@@ -366,7 +371,7 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
 
     case 'toggle':
       return (
-        <label className="flex items-center space-x-4 cursor-pointer">
+        <label className="cursor-pointer" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-sm)' }}>
           <Checkbox
             checked={value || false}
             onCheckedChange={onChange}
@@ -378,14 +383,15 @@ const FilterDropdown = ({ filter, value, onChange }: FilterDropdownProps): JSX.E
     default:
       return (
         <div>
-          <Label className="text-base mb-2">{filter.label}</Label>
+          <Label className="text-base" style={{ marginBottom: 'var(--spacing-xs)' }}>{filter.label}</Label>
           <div className="relative">
-            {Icon && <Icon className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />}
+            {Icon && <Icon className="absolute top-1/2 -translate-y-1/2 text-muted-foreground" style={{ left: 'var(--spacing-sm)', height: 'var(--icon-sm)', width: 'var(--icon-sm)' }} />}
             <Input
               value={value || ''}
               onChange={(e) => onChange(e.target.value)}
               placeholder={filter.placeholder}
-              className={cn('rounded-xl', Icon && 'pl-12')}
+              className={cn('rounded-2xl')}
+              style={Icon ? { paddingLeft: 'var(--spacing-3xl)' } : {}}"
             />
           </div>
         </div>
@@ -414,7 +420,7 @@ export const ActiveFilters = ({
   if (activeFilters.length === 0) return null;
 
   return (
-    <div className={cn('flex flex-wrap gap-4', className)}>
+    <FlexLayout direction="row" wrap gap="sm" className={className}>
       {activeFilters.map((filter) => {
         const value = values[filter.id];
         const displayValue = Array.isArray(value) ? `${value.length} selected` : value;
@@ -423,7 +429,7 @@ export const ActiveFilters = ({
           <Badge
             key={filter.id}
             variant="secondary"
-            className="rounded-xl pl-4 pr-2 py-2"
+            className="rounded-2xl" style={{ paddingLeft: 'var(--spacing-sm)', paddingRight: 'var(--spacing-xs)', paddingTop: 'var(--spacing-xs)', paddingBottom: 'var(--spacing-xs)' }}"
           >
             <span className="text-base">
               {filter.label}: {displayValue}
@@ -436,13 +442,13 @@ export const ActiveFilters = ({
                 delete newValues[filter.id];
                 onChange(newValues);
               }}
-              className="h-6 w-6 ml-2 rounded-xl"
+              className="rounded-2xl" style={{ height: 'var(--button-sm)', width: 'var(--button-sm)', marginLeft: 'var(--spacing-xs)' }}"
             >
-              <X className="h-4 w-4" />
+              <X style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)' }} />
             </Button>
           </Badge>
         );
       })}
-    </div>
+    </FlexLayout>
   );
 };

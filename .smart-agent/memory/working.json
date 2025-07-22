@@ -1,0 +1,16 @@
+{
+  "capacity": 7,
+  "items": [
+    {
+      "content": "Successful: Fix the booking confirmation bug where users cannot complete payment",
+      "type": "pattern",
+      "importance": 80,
+      "associations": [],
+      "id": "1753200953928_isp214rth",
+      "accessCount": 1,
+      "createdAt": "2025-07-22T16:15:53.928Z",
+      "lastAccessedAt": "2025-07-22T16:15:53.928Z"
+    }
+  ],
+  "lastAccessed": "2025-07-22T16:15:53.928Z"
+}

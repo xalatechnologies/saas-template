@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+/src/packages/smart-agent/dist
+/src/packages/smart-agent/node_modules
 /.pnp
 .pnp.js
 

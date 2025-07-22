@@ -49,6 +49,8 @@ export { ProjectHistoryLoader, projectHistoryLoader } from './integrations/proje
 // Import necessary types and instances for utility functions
 import { smartPromptInjector } from './core/smart-prompt-injector';
 import type { PromptContext } from './core/prompt-injector';
+import { memoryManager } from './memory/memory-manager';
+import { conversationManager } from './context/conversation-manager';
 
 // Enhanced utility functions
 export async function initializeSmartAgent(): Promise<void> {

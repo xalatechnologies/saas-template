@@ -1,364 +1,510 @@
-# Smart Agent System with Context Engineering & Memory
+# 🧠 Smart Agent System
+
+[![npm version](https://img.shields.io/npm/v/@saas-template/smart-agent)](https://github.com/your-username/saas-template/packages)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Node.js](https://img.shields.io/badge/-Node.js-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 
 An intelligent development assistant that learns from your project history, maintains conversation context, and provides personalized guidance across AI-powered development tools (Cursor, Claude, Windsurf, Replit, etc.).
 
-## Overview
+## ✨ Key Features
 
-The Smart Agent System is now enhanced with advanced context engineering and memory capabilities:
+- 🎯 **Context Engineering**: Multi-layered context awareness (project, session, conversation, semantic, temporal)
+- 🧠 **Memory Management**: Human-like memory with working, episodic, semantic, and procedural memory types
+- 📚 **Project History Learning**: Learns from `.cursor-updates` files to understand project evolution
+- 💬 **Conversation Intelligence**: Maintains mood, preferences, and conversation flow
+- 🚀 **Smart Prompt Generation**: Creates context-aware, personalized responses
+- 🔄 **Continuous Learning**: Improves over time through interaction feedback
+- 🛠️ **Multi-Platform**: Works with Cursor, Claude, Windsurf, and other AI tools
+- 📦 **Standalone**: Can be used as an independent package in any project
 
-1. **Context Engineering** - Multi-layered context awareness (project, session, conversation, semantic, temporal)
-2. **Memory Management** - Different memory types (working, episodic, semantic, procedural) with forgetting curve
-3. **Project History** - Learns from `.cursor-updates` file to understand project evolution
-4. **Conversation State** - Maintains conversation flow, mood, and user preferences
-5. **Smart Prompts** - Generates context-aware, personalized responses based on history and memory
-6. **Learning System** - Improves over time by learning from interactions
+## 📦 Installation
 
-## Architecture
-
-```
-smart-agent/
-├── config/              # Configuration and standards
-├── context/            # Context engineering system
-│   ├── context-engine.ts     # Multi-layered context management
-│   ├── conversation-manager.ts # Conversation state tracking
-│   └── types.ts              # Context type definitions
-├── core/               # Prompt injection engines
-│   ├── prompt-injector.ts    # Base prompt injection
-│   ├── enhanced-prompt-injector.ts # Rule-based enhancement
-│   └── smart-prompt-injector.ts    # Context-aware AI
-├── memory/             # Memory management system
-│   ├── memory-manager.ts     # Memory storage and retrieval
-│   └── types.ts              # Memory type definitions
-├── integrations/       # Platform integrations
-│   ├── cursor-integration.ts # Cursor IDE integration
-│   ├── rules-loader.ts       # Load .cursorrules/CLAUDE.md
-│   └── project-history-loader.ts # Load project history
-├── tasks/              # Task management
-├── validators/         # Code validation
-└── cli/               # Command-line interface
-```
-
-## Usage
-
-### 1. Setup Integration
+### From GitHub Packages (Recommended)
 
 ```bash
+# Install from GitHub packages
+npm install @saas-template/smart-agent
+
+# Or with yarn
+yarn add @saas-template/smart-agent
+
+# Or with pnpm
+pnpm add @saas-template/smart-agent
+```
+
+### Authentication for GitHub Packages
+
+Create a `.npmrc` file in your project root:
+
+```ini
+@saas-template:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+```
+
+### Local Development
+
+```bash
+# Clone the repository
+git clone https://github.com/your-username/saas-template.git
+
+# Navigate to smart-agent package
+cd saas-template/src/packages/smart-agent
+
 # Install dependencies
 npm install
 
-# Set up Smart Agent files
-npx ts-node src/packages/smart-agent/cli/smart-agent-cli.ts setup
+# Build the package
+npm run build
 ```
 
-This creates:
-- `.cursor.routes.json` - Route configuration for Cursor
-- `.cursor.meta` - Metadata for Smart Agent
-- Syncs `.cursorrules` with `CLAUDE.md`
+## 🚀 Quick Start
+
+### 1. Initialize the Smart Agent
+
+```typescript
+import { initializeSmartAgent } from '@saas-template/smart-agent';
+
+// Initialize the system (loads project history, memory, etc.)
+await initializeSmartAgent();
+```
 
 ### 2. Generate Enhanced Prompts
 
 ```typescript
-import { generatePrompt } from '@/packages/smart-agent';
+import { generatePrompt } from '@saas-template/smart-agent';
 
-// Generate platform-specific prompt
-const cursorPrompt = await generatePrompt(
-  "Create a BookingCard component",
+// Generate a context-aware prompt for Cursor
+const prompt = await generatePrompt(
+  'Create a user dashboard component',
   'cursor',
-  { component: 'BookingCard' }
-);
-
-// Use in your AI tool
-```
-
-### 3. Create and Execute Tasks
-
-```typescript
-import { taskManager } from '@/packages/smart-agent';
-
-// Create a task
-const task = taskManager.createTask(
-  'create_component',
-  'Create BookingCard Component',
-  'Create a card component for displaying booking information',
-  {
-    component: 'BookingCard',
-    targetDirectory: 'src/components/ui/',
-    requirements: [
-      'Display booking title, date, and location',
-      'Support loading and error states',
-      'Include action buttons'
-    ]
+  { 
+    component: 'UserDashboard',
+    targetDirectory: 'src/components/dashboard/',
+    task: 'create_component'
   }
 );
 
-// Execute through platform
-const result = await taskManager.executeTask(
-  task.id,
-  'cursor',
-  async (prompt) => {
-    // Your platform execution logic
-    return executedCode;
-  }
-);
+// Use the enhanced prompt with your AI tool
+console.log(prompt);
 ```
 
-### 4. Validate Code
+### 3. Validate Code Against Standards
 
 ```typescript
-import { validateCode } from '@/packages/smart-agent';
+import { validateCode } from '@saas-template/smart-agent';
+
+const componentCode = `
+export const UserCard = ({ user }: { user: User }): JSX.Element => {
+  return <Card>{user.name}</Card>;
+};
+`;
 
 const validation = await validateCode(componentCode);
-
 if (!validation.valid) {
-  console.error('Validation errors:', validation.errors);
+  console.log('Issues found:', validation.errors);
 }
 ```
 
-## CLI Commands
-
-```bash
-# Setup integration files
-npx smart-agent setup
-
-# Generate enriched prompt
-npx smart-agent prompt cursor "Create a new component"
-
-# Create a new task
-npx smart-agent task create
-
-# List all tasks
-npx smart-agent task list
-
-# Execute a task
-npx smart-agent task execute <task-id>
-
-# Validate a file
-npx smart-agent validate src/components/MyComponent.tsx
-```
-
-## Platform Integration
-
-### Cursor
-
-The system automatically uses `.cursorrules` when available. The enhanced prompt injector:
-- Loads rules from `.cursorrules`
-- Enriches prompts with project context
-- Validates against forbidden/required patterns
-
-### Claude
-
-When using Claude SDK:
+### 4. Learn from Interactions
 
 ```typescript
-import { generatePrompt } from '@/packages/smart-agent';
+import { learnFromInteraction } from '@saas-template/smart-agent';
+
+// Provide feedback to improve future responses
+await learnFromInteraction(true, 'The component worked perfectly!');
+await learnFromInteraction(false, 'The styling needs improvement');
+```
+
+## 🎯 Advanced Usage
+
+### Context-Aware Development Workflow
+
+```typescript
+import { 
+  generatePrompt, 
+  learnFromInteraction, 
+  getMemoryStats,
+  getConversationSummary 
+} from '@saas-template/smart-agent';
+
+async function developFeature() {
+  // 1. Generate initial prompt with context
+  const prompt = await generatePrompt(
+    'Implement user authentication with OAuth',
+    'claude',
+    { 
+      targetDirectory: 'src/auth/',
+      task: 'add_feature',
+      priority: 'high'
+    }
+  );
+
+  // 2. Use prompt with AI tool (implement feature)
+  const implementation = await callAITool(prompt);
+
+  // 3. Validate the result
+  const validation = await validateCode(implementation);
+
+  // 4. Learn from the outcome
+  await learnFromInteraction(validation.valid, validation.valid ? 
+    'Implementation successful' : 
+    `Issues: ${validation.errors.join(', ')}`
+  );
+
+  // 5. Check memory usage
+  const memoryStats = getMemoryStats();
+  console.log(`Memory: ${memoryStats.workingMemoryUsage}% used`);
+}
+```
+
+### Multi-Platform Integration
+
+#### Cursor IDE
+
+```typescript
+// .cursor/rules integration
+import { generatePrompt } from '@saas-template/smart-agent';
+
+const cursorPrompt = await generatePrompt(
+  'Fix the TypeScript errors in UserService',
+  'cursor',
+  { 
+    task: 'fix_bug',
+    component: 'UserService',
+    targetFile: 'src/services/user.service.ts'
+  }
+);
+```
+
+#### Claude API
+
+```typescript
 import Anthropic from '@anthropic-ai/sdk';
+import { generatePrompt } from '@saas-template/smart-agent';
 
 const anthropic = new Anthropic();
 
 const prompt = await generatePrompt(
-  "Implement user authentication",
-  'claude'
+  'Refactor the payment processing logic',
+  'claude',
+  { task: 'refactor', component: 'PaymentProcessor' }
 );
 
-const result = await anthropic.messages.create({
-  model: "claude-3-opus-20240229",
-  system: prompt,
-  messages: [{ role: "user", content: prompt }],
-  max_tokens: 4000,
+const response = await anthropic.messages.create({
+  model: 'claude-3-sonnet-20240229',
+  messages: [{ role: 'user', content: prompt }],
+  max_tokens: 4000
 });
+```
+
+#### Generic AI Tool
+
+```typescript
+async function useWithAnyAI(userPrompt: string) {
+  const enhancedPrompt = await generatePrompt(userPrompt, 'generic');
+  
+  // Use with any AI tool
+  const result = await yourAITool.complete(enhancedPrompt);
+  
+  // Learn from the result
+  await learnFromInteraction(result.success, result.feedback);
+}
+```
+
+## 🛠️ CLI Usage
+
+The Smart Agent includes a command-line interface:
+
+```bash
+# Initialize project integration
+smart-agent setup
+
+# Generate enhanced prompt
+smart-agent prompt cursor "Create a booking system"
+
+# Create and manage tasks
+smart-agent task create
+smart-agent task list
+smart-agent task execute <task-id>
+
+# Validate code
+smart-agent validate src/components/MyComponent.tsx
+
+# Check system status
+smart-agent status
+```
+
+## 📁 Project Structure Integration
+
+The Smart Agent learns from your project structure and history:
+
+```
+your-project/
+├── .cursor-updates          # Project history (auto-read)
+├── .cursorrules            # Cursor rules (auto-read) 
+├── CLAUDE.md               # Claude instructions (auto-read)
+├── .smart-agent/           # Smart Agent data
+│   ├── memory/            # Persistent memory files
+│   ├── context/           # Context cache
+│   └── config.json        # Local configuration
+└── src/
+    └── your-code/
+```
+
+## ⚙️ Configuration
+
+### Global Configuration
+
+Create `.smart-agent/config.json` in your project:
+
+```json
+{
+  "persona": "Senior TypeScript Developer",
+  "communicationStyle": "professional",
+  "codeStyle": {
+    "commentsLevel": "moderate",
+    "examplePreference": "comprehensive"
+  },
+  "platforms": {
+    "cursor": { "enabled": true, "rulesFile": ".cursorrules" },
+    "claude": { "enabled": true, "rulesFile": "CLAUDE.md" }
+  },
+  "memory": {
+    "maxWorkingMemory": 7,
+    "forgetThreshold": 0.3,
+    "importanceBoost": 1.2
+  }
+}
+```
+
+### Environment Variables
+
+```bash
+# Memory persistence
+SMART_AGENT_MEMORY_DIR=.smart-agent/memory
+
+# Context cache
+SMART_AGENT_CONTEXT_CACHE=.smart-agent/context
+
+# Debug mode
+SMART_AGENT_DEBUG=true
+
+# Platform preferences
+SMART_AGENT_DEFAULT_PLATFORM=cursor
+```
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+npm test
+
+# Test specific functionality
+npm run test:memory
+npm run test:context
+npm run test:integration
+
+# Type checking
+npm run type-check
+
+# Lint code
+npm run lint
+```
+
+## 📊 Memory & Context System
+
+### Memory Types
+
+- **Working Memory**: Active information (7±2 items), LRU eviction
+- **Episodic Memory**: Sessions, interactions, outcomes
+- **Semantic Memory**: Concepts, patterns, relationships  
+- **Procedural Memory**: Workflows, shortcuts, learned processes
+
+### Context Layers
+
+- **Project Context**: Codebase structure, standards, history
+- **Session Context**: Current session goals, progress
+- **Conversation Context**: Active discussion, established facts
+- **Semantic Context**: Related concepts, similar past work
+- **Temporal Context**: Recent changes, current focus
+
+### Memory Statistics
+
+```typescript
+import { getMemoryStats } from '@saas-template/smart-agent';
+
+const stats = getMemoryStats();
+console.log({
+  workingMemoryUsage: `${stats.workingMemoryUsage}%`,
+  totalMemories: stats.totalMemories,
+  oldestMemory: stats.oldestMemoryAge,
+  learningRate: stats.learningEfficiency
+});
+```
+
+## 🔄 Integration Examples
+
+### Webhook Integration
+
+```typescript
+// Express.js webhook for continuous learning
+app.post('/smart-agent/feedback', async (req, res) => {
+  const { success, feedback, context } = req.body;
+  await learnFromInteraction(success, feedback, context);
+  res.json({ status: 'learned' });
+});
+```
+
+### GitHub Actions Integration
+
+```yaml
+# .github/workflows/smart-agent.yml
+name: Smart Agent Learning
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Learn from changes
+        run: |
+          npm install @saas-template/smart-agent
+          npx smart-agent learn-from-diff
 ```
 
 ### VS Code Extension
 
-Create a VS Code extension that intercepts AI suggestions:
-
 ```typescript
-vscode.workspace.onDidChangeTextDocument(async (event) => {
-  const validation = await validateCode(event.document.getText());
+// VS Code extension integration
+import * as vscode from 'vscode';
+import { generatePrompt, validateCode } from '@saas-template/smart-agent';
+
+export function activate(context: vscode.ExtensionContext) {
+  const command = vscode.commands.registerCommand(
+    'smart-agent.enhancePrompt',
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+      const selection = editor?.selection;
+      const text = editor?.document.getText(selection);
+      
+      if (text) {
+        const enhancedPrompt = await generatePrompt(text, 'vscode');
+        // Show enhanced prompt to user
+      }
+    }
+  );
   
-  if (!validation.valid) {
-    // Show warnings in VS Code
-  }
-});
+  context.subscriptions.push(command);
+}
 ```
 
-## Configuration
+## 📈 Performance & Optimization
 
-### Smart Agent Config
+### Token Optimization
 
-Edit `src/packages/smart-agent/config/smart-agent.config.ts`:
+The Smart Agent optimizes context window usage:
+
+- **Smart Context Pruning**: Removes irrelevant context
+- **Memory Prioritization**: Uses importance scoring
+- **Conversation Compression**: Summarizes long conversations
+- **Lazy Loading**: Loads context on-demand
+
+### Memory Efficiency
+
+- **Forgetting Curve**: Implements Ebbinghaus forgetting curve
+- **Memory Consolidation**: Merges similar memories  
+- **Garbage Collection**: Removes low-importance memories
+- **Persistent Storage**: Saves memory between sessions
+
+## 🤝 Contributing
+
+### Development Setup
+
+```bash
+# Clone and setup
+git clone https://github.com/your-username/saas-template.git
+cd saas-template/src/packages/smart-agent
+
+# Install dependencies
+npm install
+
+# Start development
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+### Extending the System
+
+#### Add New Memory Type
 
 ```typescript
-export const smartAgentConfig: SmartAgentConfig = {
-  persona: "Your Project Assistant",
-  codingStandards: [
-    // Your standards
-  ],
-  forbiddenPatterns: [
-    // Patterns to avoid
-  ],
-  requiredPatterns: [
-    // Patterns to enforce
-  ]
-};
-```
+// memory/types.ts
+export interface CustomMemory extends MemoryItem {
+  customField: string;
+  specialLogic: () => void;
+}
 
-### Project Rules
-
-The system automatically loads from:
-1. `.cursorrules` (primary)
-2. `CLAUDE.md` (fallback)
-
-## Key Features
-
-### 1. Context Engineering
-- **Multi-layered Context**: Project, session, conversation, semantic, and temporal contexts
-- **Smart Context Window**: Optimizes token usage by prioritizing relevant context
-- **Dynamic Context Building**: Automatically gathers context based on current task
-
-### 2. Memory System
-- **Working Memory**: Limited capacity (7±2 items) with LRU eviction
-- **Episodic Memory**: Remembers sessions, interactions, and outcomes
-- **Semantic Memory**: Stores concepts, patterns, and relationships
-- **Procedural Memory**: Learns workflows and shortcuts
-- **Forgetting Curve**: Implements Ebbinghaus forgetting curve for realistic memory
-
-### 3. Conversation Intelligence
-- **Mood Detection**: Adapts tone based on conversation (collaborative, focused, debugging, etc.)
-- **User Preferences**: Learns and remembers communication style preferences
-- **Momentum Tracking**: Maintains conversation flow and engagement
-- **Context Establishment**: Tracks what's been discussed to avoid repetition
-
-### 4. Project History Awareness
-- **Learns from .cursor-updates**: Understands project phases and evolution
-- **Pattern Recognition**: Identifies successful patterns from history
-- **Lesson Application**: Applies lessons learned to current tasks
-- **Similar Task Detection**: Finds and references similar past implementations
-
-### 5. Smart Prompt Generation
-- **Personalized Greetings**: Context-aware introductions
-- **Relevant History**: References similar past work
-- **Memory Integration**: Includes relevant memories in prompts
-- **Task-Specific Guidance**: Provides tips based on task type
-- **Encouraging Tone**: Adapts encouragement to task complexity
-
-## Best Practices
-
-1. **Keep rules updated**: Regularly sync `.cursorrules` with `CLAUDE.md`
-2. **Use tasks**: Track complex changes through the task system
-3. **Validate often**: Run validation before committing
-4. **Platform-specific**: Use platform-specific wrappers when available
-
-## Example: Context-Aware Interaction
-
-### Traditional Agent Response:
-```
-Create a component using TypeScript with strict types, use GridLayout system...
-[Generic rules dump]
-```
-
-### Smart Agent Response:
-```
-Hey! I'm excited to work on this with you. I notice this is similar to what we 
-did in Phase 5: Task Management Core Features. That implementation worked really well!
-
-Based on our previous work, I remember:
-- We created TaskCard using the Card component from our UI system
-- The GridLayout system helped with responsive design
-- We followed the validation patterns from TaskForm
-
-In our conversation so far, we've established:
-- You prefer to start with TypeScript interfaces
-- You like comprehensive examples
-- You're working on the booking feature
-
-💡 Relevant lessons from our project:
-- Component Purity: UI components without business logic
-- Error Boundaries: Graceful error handling at component level
-
-✨ Patterns that have worked well:
-- Component organization by feature
-- Strict TypeScript with explicit return types
-- Design token system for consistent styling
-
-🎯 Tips for this task:
-- Start with TypeScript interfaces for props
-- Use our existing UI components as building blocks
-- Remember to add proper accessibility attributes
-
-This should be straightforward. Let me know if you need any clarification!
-```
-
-## Advanced Usage
-
-### Context-Aware Development
-```typescript
-import { generatePrompt, learnFromInteraction, getMemoryStats } from '@/packages/smart-agent';
-
-// Generate context-aware prompt
-const prompt = await generatePrompt(
-  "Create a booking card component",
-  'cursor',
-  { 
-    component: 'BookingCard',
-    targetDirectory: 'src/components/ui/'
+// memory/memory-manager.ts
+export class MemoryManager {
+  addCustomMemory(memory: CustomMemory) {
+    // Implementation
   }
-);
-
-// After implementation, provide feedback
-await learnFromInteraction(true, "The component worked perfectly!");
-
-// Check memory statistics
-const stats = getMemoryStats();
-console.log(`Memory usage: ${stats.workingMemoryUsage}%`);
-console.log(`Learned patterns: ${stats.totalPatterns}`);
+}
 ```
 
-### Conversation Management
+#### Add New Context Layer
+
 ```typescript
-import { conversationManager } from '@/packages/smart-agent';
+// context/types.ts
+export interface CustomContext {
+  customData: string;
+  contextSpecificInfo: any;
+}
 
-// Start a conversation with preferences
-conversationManager.startConversation({
-  communicationStyle: 'casual',
-  explanationDepth: 'detailed',
-  codeStyle: {
-    commentsLevel: 'detailed',
-    examplePreference: 'comprehensive'
+// context/context-engine.ts  
+export class ContextEngine {
+  buildCustomContext(): CustomContext {
+    // Implementation
   }
-});
-
-// During conversation
-conversationManager.establishContext('Using booking feature');
-conversationManager.clarifyConcept('GridLayout system');
-
-// Get summary
-const summary = conversationManager.getConversationSummary();
+}
 ```
 
-## Troubleshooting
+### Publishing
 
-### Rules not loading
-- Check `.cursorrules` and `CLAUDE.md` exist
-- Run `npx smart-agent setup` to sync files
+```bash
+# Build and publish to GitHub packages
+npm run build
+npm publish
+```
 
-### Validation too strict
-- Review forbidden patterns in config
-- Adjust rules for your project needs
+## 📄 License
 
-### Platform not working
-- Ensure platform-specific files are created
-- Check integration documentation
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## Contributing
+## 🙏 Acknowledgments
 
-To extend the Smart Agent:
+- Inspired by human cognitive architecture
+- Built for modern AI-assisted development
+- Designed for continuous learning and adaptation
 
-1. Add new platforms in `integrations/`
-2. Extend validation in `validators/`
-3. Add new task types in `tasks/`
-4. Update CLI commands in `cli/`
+## 📞 Support
 
-## License
+- 📧 Email: support@saas-template.com
+- 🐛 Issues: [GitHub Issues](https://github.com/your-username/saas-template/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/your-username/saas-template/discussions)
+- 📖 Wiki: [GitHub Wiki](https://github.com/your-username/saas-template/wiki)
 
-This Smart Agent System is part of the Task Management Application project.
+---
+
+**Smart Agent System** - Making AI assistance truly intelligent through context, memory, and continuous learning.

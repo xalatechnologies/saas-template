@@ -9,7 +9,14 @@
       "Bash(mkdir:*)",
       "Bash(npm run validate:all:*)",
       "Bash(node:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(rm:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npm run build:*)",
+      "Bash(chmod:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)"
     ],
     "deny": []
   }

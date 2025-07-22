@@ -114,17 +114,18 @@ export const GDPRBanner = (): React.ReactElement => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-8 bg-background/95 backdrop-blur-sm border-t border-border">
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-t border-border" style={{ padding: 'var(--spacing-lg)' }}>
         <Card className="max-w-4xl mx-auto">
-          <CardContent className="p-8">
+          <CardContent style={{ padding: 'var(--spacing-lg)' }}>
             <FlexLayout direction="row" align="start" gap="lg">
               <div className="flex-shrink-0">
-                <Cookie className="h-6 w-6 text-primary" />
+                <Cookie className="text-primary" style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
               </div>
 
-              <div className="flex-1 space-y-8">
+              <div className="flex-1">
+                <FlexLayout direction="column" gap="lg">
                 <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                  <h3 className="text-lg font-semibold text-foreground" style={{ marginBottom: 'var(--spacing-xs)' }}>
                     Vi respekterer ditt personvern
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -137,16 +138,17 @@ export const GDPRBanner = (): React.ReactElement => {
 
                 <FlexLayout direction="row" wrap gap="md">
                   <Button onClick={acceptAll} className="bg-primary text-primary-foreground">
-                    <Check className="h-4 w-4 mr-2" />
+                    <Check style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)', marginRight: 'var(--spacing-xs)' }} />
                     Godta alle
                   </Button>
                   <Button onClick={rejectAll} variant="outline">
                     Kun nødvendige
                   </Button>
                   <Button onClick={showPreferencesModal} variant="ghost">
-                    <Settings className="h-4 w-4 mr-2" />
+                    <Settings style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)', marginRight: 'var(--spacing-xs)' }} />
                     Tilpass innstillinger
                   </Button>
+                </FlexLayout>
                 </FlexLayout>
               </div>
             </FlexLayout>
@@ -208,52 +210,54 @@ const GDPRPreferences = (): React.ReactElement => {
   ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+    <FlexLayout align="center" justify="center" className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" style={{ padding: 'var(--spacing-sm)' }}>
       <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <Shield className="h-6 w-6 text-primary" />
+        <CardContent style={{ padding: 'var(--spacing-lg)' }}>
+          <FlexLayout direction="row" align="center" justify="between" style={{ marginBottom: 'var(--spacing-lg)' }}>
+            <FlexLayout direction="row" align="center" gap="sm">
+              <Shield className="text-primary" style={{ height: 'var(--icon-md)', width: 'var(--icon-md)' }} />
               <h2 className="text-xl font-semibold text-foreground">Personverninnstillinger</h2>
-            </div>
+            </FlexLayout>
             <Button variant="ghost" size="icon" onClick={hidePreferencesModal} aria-label="Lukk">
-              <X className="h-4 w-4" />
+              <X style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)' }} />
             </Button>
-          </div>
+          </FlexLayout>
 
-          <div className="space-y-6">
+          <FlexLayout direction="column" gap="lg">
             <div className="text-sm text-muted-foreground">
-              <p className="mb-4">
+              <p style={{ marginBottom: 'var(--spacing-sm)' }}>
                 Vi respekterer ditt personvern og gir deg full kontroll over hvilke
                 informasjonskapsler som brukes på vårt nettsted. Du kan når som helst endre disse
                 innstillingene.
               </p>
-              <div className="flex items-start gap-2 p-3 bg-primary/10 rounded-lg border border-primary">
-                <AlertTriangle className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+              <FlexLayout direction="row" align="start" gap="xs" className="bg-primary/10 rounded-2xl border border-primary" style={{ padding: 'var(--spacing-sm)' }}>
+                <AlertTriangle className="text-primary flex-shrink-0" style={{ height: 'var(--icon-xs)', width: 'var(--icon-xs)', marginTop: '2px' }} />
                 <p className="text-primary-foreground text-xs">
                   <strong>GDPR-kompatibel:</strong> Denne løsningen følger EU&apos;s
                   personvernforordning og gir deg full kontroll over dine data.
                 </p>
-              </div>
+              </FlexLayout>
             </div>
 
-            <div className="space-y-4">
+            <FlexLayout direction="column" gap="sm">
               {cookieCategories.map((category, index) => (
                 <div key={category.key}>
-                  <div className="flex items-start justify-between gap-4 p-4 border border-border rounded-lg">
-                    <div className="flex-1 space-y-2">
-                      <div className="flex items-center gap-2">
+                  <FlexLayout direction="row" align="start" justify="between" gap="sm" className="border border-border rounded-2xl" style={{ padding: 'var(--spacing-sm)' }}>
+                    <div className="flex-1">
+                      <FlexLayout direction="column" gap="xs">
+                        <FlexLayout direction="row" align="center" gap="xs">
                         <h3 className="font-medium text-foreground">{category.title}</h3>
                         {category.required && (
-                          <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                          <span className="text-xs bg-primary/10 text-primary rounded" style={{ paddingLeft: 'var(--spacing-xs)', paddingRight: 'var(--spacing-xs)', paddingTop: '2px', paddingBottom: '2px' }}>
                             Påkrevd
                           </span>
                         )}
                       </div>
                       <p className="text-sm text-muted-foreground">{category.description}</p>
-                      <p className="text-xs text-muted-foreground">
-                        <strong>Eksempler:</strong> {category.examples}
-                      </p>
+                        <p className="text-xs text-muted-foreground">
+                          <strong>Eksempler:</strong> {category.examples}
+                        </p>
+                      </FlexLayout>
                     </div>
                     <Switch
                       checked={preferences[category.key]}
@@ -263,25 +267,25 @@ const GDPRPreferences = (): React.ReactElement => {
                       disabled={category.required}
                       aria-label={`Toggle ${category.title}`}
                     />
-                  </div>
+                  </FlexLayout>
                   {index < cookieCategories.length - 1 && <Separator />}
                 </div>
               ))}
-            </div>
+            </FlexLayout>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-border">
+            <FlexLayout direction="row" justify="end" gap="sm" style={{ paddingTop: 'var(--spacing-lg)', borderTop: '1px solid hsl(var(--border))' }}>
               <Button variant="outline" onClick={hidePreferencesModal}>
                 Avbryt
               </Button>
               <Button onClick={handleSave} className="bg-primary text-primary-foreground">
-                <Check className="h-4 w-4 mr-2" />
+                <Check style={{ width: 'var(--icon-sm)', height: 'var(--icon-sm)', marginRight: 'var(--spacing-xs)' }} />
                 Lagre innstillinger
               </Button>
-            </div>
-          </div>
+            </FlexLayout>
+          </FlexLayout>
         </CardContent>
       </Card>
-    </div>
+    </FlexLayout>
   );
 };
 
@@ -302,9 +306,9 @@ export const GDPRDataRequest = (): React.ReactElement => {
   if (submitted) {
     return (
       <Card className="max-w-md mx-auto">
-        <CardContent className="p-6 text-center">
-          <Check className="h-12 w-12 text-success mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Forespørsel sendt</h3>
+        <CardContent className="text-center" style={{ padding: 'var(--spacing-xl)' }}>
+          <Check className="text-success" style={{ width: 'var(--icon-xl)', height: 'var(--icon-xl)', margin: '0 auto var(--spacing-lg)' }} />
+          <h3 className="text-lg font-semibold" style={{ marginBottom: 'var(--spacing-xs)' }}>Forespørsel sendt</h3>
           <p className="text-sm text-muted-foreground">
             Vi har mottatt din forespørsel og vil behandle den innen 30 dager som påkrevd av GDPR.
           </p>
@@ -315,16 +319,16 @@ export const GDPRDataRequest = (): React.ReactElement => {
 
   return (
     <Card className="max-w-md mx-auto">
-      <CardContent className="p-6">
-        <div className="flex items-center gap-3 mb-6">
-          <Shield className="h-6 w-6 text-primary" />
+      <CardContent style={{ padding: 'var(--spacing-xl)' }}>
+        <FlexLayout direction="row" align="center" gap="sm" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+          <Shield className="text-primary" style={{ width: 'var(--icon-lg)', height: 'var(--icon-lg)' }} />
           <h2 className="text-xl font-semibold">GDPR-forespørsel</h2>
-        </div>
+        </FlexLayout>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <FlexLayout direction="column" gap="lg" as="form" onSubmit={handleSubmit}>
           <div>
-            <label className="text-sm font-medium mb-2 block">Type forespørsel</label>
-            <div className="space-y-2">
+            <label className="text-sm font-medium block" style={{ marginBottom: 'var(--spacing-xs)' }}>Type forespørsel</label>
+            <FlexLayout direction="column" gap="xs">
               {[
                 {
                   value: 'access',
@@ -344,7 +348,7 @@ export const GDPRDataRequest = (): React.ReactElement => {
               ].map((option) => (
                 <label
                   key={option.value}
-                  className="flex items-start gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent"
+                  className="border border-border rounded-2xl cursor-pointer hover:bg-accent" style={{ display: 'flex', alignItems: 'flex-start', gap: 'var(--spacing-sm)', padding: 'var(--spacing-sm)' }}
                 >
                   <input
                     type="radio"
@@ -352,7 +356,7 @@ export const GDPRDataRequest = (): React.ReactElement => {
                     value={option.value}
                     checked={requestType === option.value}
                     onChange={(e) => setRequestType(e.target.value as 'access' | 'delete' | 'portability')}
-                    className="mt-1"
+                    style={{ marginTop: 'var(--spacing-xs)' }}
                     required
                   />
                   <div>
@@ -361,11 +365,11 @@ export const GDPRDataRequest = (): React.ReactElement => {
                   </div>
                 </label>
               ))}
-            </div>
+            </FlexLayout>
           </div>
 
           <div>
-            <label htmlFor="email" className="text-sm font-medium mb-2 block">
+            <label htmlFor="email" className="text-sm font-medium block" style={{ marginBottom: 'var(--spacing-xs)' }}>
               E-postadresse
             </label>
             <input
@@ -373,7 +377,7 @@ export const GDPRDataRequest = (): React.ReactElement => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-border rounded-md"
+              className="w-full border border-border rounded-2xl" style={{ padding: 'var(--spacing-sm) var(--spacing-sm)' }}
               placeholder="din@epost.no"
               required
             />
@@ -382,7 +386,7 @@ export const GDPRDataRequest = (): React.ReactElement => {
           <Button type="submit" className="w-full">
             Send forespørsel
           </Button>
-        </form>
+        </FlexLayout>
       </CardContent>
     </Card>
   );
