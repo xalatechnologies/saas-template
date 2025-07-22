@@ -1,19 +1,16 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import { DashboardContent } from '@/components';
+'use client';
 
-/**
- * Metadata for the dashboard page
- */
-export const metadata: Metadata = {
-  title: 'Dashboard',
-  description: 'Oversikt over oppgaver og prosjekter',
-};
+import React from 'react';
+import { DashboardContent, AuthGuard } from '@/components';
 
 /**
  * Dashboard page server component - authenticated area
  * @returns React element with dashboard content
  */
 export default function DashboardPage(): React.ReactElement {
-  return <DashboardContent />;
+  return (
+    <AuthGuard>
+      <DashboardContent />
+    </AuthGuard>
+  );
 }

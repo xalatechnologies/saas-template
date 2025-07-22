@@ -29,7 +29,7 @@ export const LoginFormContent = (): JSX.Element => {
     schema: loginSchema,
     onSubmit: async (data: LoginCredentials) => {
       await login(data);
-      router.push('/dashboard');
+      // Navigation handled by auth store and middleware
     },
   });
 

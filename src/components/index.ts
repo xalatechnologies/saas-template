@@ -19,6 +19,9 @@ export { LandingContent } from './landing/LandingContent';
 export { LoginForm } from './auth/LoginForm';
 export { LoginFormContent } from './auth/LoginFormContent';
 export { SignupFormContent } from './auth/SignupFormContent';
+export { AuthGuard } from './auth/AuthGuard';
+export { GuestGuard } from './auth/GuestGuard';
+export { AuthProvider } from './auth/AuthProvider';
 
 // Form components
 export { TaskForm } from './forms/TaskForm';

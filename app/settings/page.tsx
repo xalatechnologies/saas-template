@@ -1,14 +1,7 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import { SettingsContent } from '@/components';
+'use client';
 
-/**
- * Metadata for the settings page
- */
-export const metadata: Metadata = {
-  title: 'Innstillinger',
-  description: 'Tilpass applikasjonen etter dine behov og preferanser',
-};
+import React from 'react';
+import { SettingsContent, AuthGuard } from '@/components';
 
 /**
  * Settings page server component
@@ -16,5 +9,9 @@ export const metadata: Metadata = {
  * @returns React element for settings page
  */
 export default function SettingsPage(): React.ReactElement {
-  return <SettingsContent />;
+  return (
+    <AuthGuard>
+      <SettingsContent />
+    </AuthGuard>
+  );
 }

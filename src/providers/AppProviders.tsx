@@ -4,6 +4,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { AccessibilityProvider } from '../components/accessibility/AccessibilityProvider';
+import { AuthProvider } from '../components/auth';
 import { GDPRBanner } from '../components/gdpr/GDPRBanner';
 import { DevMode } from '../components/dev';
 import { ThemeProvider } from './ThemeProvider';
@@ -37,28 +38,30 @@ interface AppProvidersProps {
 export const AppProviders = ({ children }: AppProvidersProps): React.ReactElement => {
   return (
     <QueryClientProvider client={queryClient}>
-      <AccessibilityProvider>
-        <ThemeProvider>
-          <I18nProvider>
-            <LayoutProvider>
-              {children}
-            </LayoutProvider>
-            <Toaster
-              position="top-right"
-              toastOptions={{
-                duration: 4000,
-                style: {
-                  background: 'hsl(var(--background))',
-                  color: 'hsl(var(--foreground))',
-                  border: '1px solid hsl(var(--border))',
-                },
-              }}
-            />
-            <GDPRBanner />
-            <DevMode />
-          </I18nProvider>
-        </ThemeProvider>
-      </AccessibilityProvider>
+      <AuthProvider>
+        <AccessibilityProvider>
+          <ThemeProvider>
+            <I18nProvider>
+              <LayoutProvider>
+                {children}
+              </LayoutProvider>
+              <Toaster
+                position="top-right"
+                toastOptions={{
+                  duration: 4000,
+                  style: {
+                    background: 'hsl(var(--background))',
+                    color: 'hsl(var(--foreground))',
+                    border: '1px solid hsl(var(--border))',
+                  },
+                }}
+              />
+              <GDPRBanner />
+              <DevMode />
+            </I18nProvider>
+          </ThemeProvider>
+        </AccessibilityProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };

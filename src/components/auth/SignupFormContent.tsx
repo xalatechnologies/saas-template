@@ -21,7 +21,7 @@ interface SignupData {
 export const SignupFormContent = (): JSX.Element => {
   const { t } = useUI();
   const router = useRouter();
-  const { login, isLoading, error } = useAuth();
+  const { signup, isLoading, error, redirectIfAuthenticated } = useAuth();
 
   const [formData, setFormData] = useState<SignupData>({
     name: '',
@@ -38,11 +38,12 @@ export const SignupFormContent = (): JSX.Element => {
       if (!agreedToTerms) {
         throw new Error('Please agree to the terms and conditions');
       }
-      await login({
+      await signup({
+        name: data.name,
         email: data.email,
         password: data.password,
       });
-      router.push('/');
+      // Navigation handled by auth store and middleware
     },
   });
 

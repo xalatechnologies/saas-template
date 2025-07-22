@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthLayout, LoginFormContent } from '@/components';
+import { AuthLayout, LoginFormContent, GuestGuard } from '@/components';
 
 /**
  * Login page component
@@ -7,12 +7,14 @@ import { AuthLayout, LoginFormContent } from '@/components';
  */
 export default function LoginPage(): React.ReactElement {
   return (
-    <AuthLayout
-      title="Welcome back"
-      subtitle="Enter your credentials to access your account"
-      type="login"
-    >
-      <LoginFormContent />
-    </AuthLayout>
+    <GuestGuard>
+      <AuthLayout
+        title="Welcome back"
+        subtitle="Enter your credentials to access your account"
+        type="login"
+      >
+        <LoginFormContent />
+      </AuthLayout>
+    </GuestGuard>
   );
 }

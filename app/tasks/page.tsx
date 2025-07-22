@@ -1,19 +1,16 @@
-import React from 'react';
-import type { Metadata } from 'next';
-import { TasksContent } from '@/components';
+'use client';
 
-/**
- * Metadata for the tasks page
- */
-export const metadata: Metadata = {
-  title: 'Oppgaver',
-  description: 'Administrer og spor alle oppgaver',
-};
+import React from 'react';
+import { TasksContent, AuthGuard } from '@/components';
 
 /**
  * Tasks page server component
  * @returns React element for tasks page
  */
 export default function TasksPage(): React.ReactElement {
-  return <TasksContent />;
+  return (
+    <AuthGuard>
+      <TasksContent />
+    </AuthGuard>
+  );
 }

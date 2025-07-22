@@ -4,3 +4,4 @@ export { cn } from './cn';
 export * from './validation';
 export * from './date';
 export * from './errors';
+export * from './auth';

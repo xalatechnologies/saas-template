@@ -1,10 +1,19 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import type { AuthState, AuthUser, LoginCredentials } from '@/types';
+import { setAuthToken, removeAuthToken, getStoredUser, mockApi } from '@/utils';
+
+interface SignupCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
 
 interface AuthStore extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
+  signup: (credentials: SignupCredentials) => Promise<void>;
   logout: () => void;
+  initializeAuth: () => void;
   setUser: (user: AuthUser | null) => void;
   setLoading: (loading: boolean) => void;
   setError: (error: string | null) => void;
@@ -12,10 +21,20 @@ interface AuthStore extends AuthState {
 }
 
 export const useAuthStore = create<AuthStore>()(
-  immer((set) => ({
+  immer((set, get) => ({
     user: null,
     isLoading: false,
     error: null,
+
+    initializeAuth: (): void => {
+      // Initialize auth state from stored data on app load
+      const storedUser = getStoredUser();
+      if (storedUser) {
+        set((state) => {
+          state.user = storedUser;
+        });
+      }
+    },
 
     login: async (credentials: LoginCredentials): Promise<void> => {
       set((state) => {
@@ -24,19 +43,13 @@ export const useAuthStore = create<AuthStore>()(
       });
 
       try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Mock successful login
-        const mockUser: AuthUser = {
-          id: '1',
-          email: credentials.email,
-          name: credentials.email.split('@')[0],
-          avatar: `https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&dpr=1`,
-        };
+        const { user, token } = await mockApi.login(credentials.email, credentials.password);
+        
+        // Set auth token in cookies and localStorage
+        setAuthToken(token, user);
 
         set((state) => {
-          state.user = mockUser;
+          state.user = user;
           state.isLoading = false;
         });
       } catch (error) {
@@ -47,7 +60,34 @@ export const useAuthStore = create<AuthStore>()(
       }
     },
 
+    signup: async (credentials: SignupCredentials): Promise<void> => {
+      set((state) => {
+        state.isLoading = true;
+        state.error = null;
+      });
+
+      try {
+        const { user, token } = await mockApi.signup(credentials.name, credentials.email, credentials.password);
+        
+        // Set auth token in cookies and localStorage
+        setAuthToken(token, user);
+
+        set((state) => {
+          state.user = user;
+          state.isLoading = false;
+        });
+      } catch (error) {
+        set((state) => {
+          state.error = error instanceof Error ? error.message : 'Signup failed';
+          state.isLoading = false;
+        });
+      }
+    },
+
     logout: (): void => {
+      // Remove auth token from cookies and localStorage
+      removeAuthToken();
+      
       set((state) => {
         state.user = null;
         state.error = null;
