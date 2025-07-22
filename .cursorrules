@@ -479,6 +479,91 @@ Before submitting any component:
 - Consistent spacing scale (multiples of 4)
 - Semantic color usage from design system
 
+## CRITICAL: Layout System Compliance
+
+### MANDATORY GridLayout System Usage
+ALL layouts MUST use the GridLayout system components exclusively. NO hardcoded div elements with flex/grid classes are permitted.
+
+#### ❌ FORBIDDEN Layout Patterns
+```typescript
+// NEVER use raw div elements for layout
+<div className="flex items-center justify-between">
+<div className="grid grid-cols-3 gap-4">
+<div className="flex-col space-y-4">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+```
+
+#### ✅ REQUIRED Layout Patterns  
+```typescript
+// ALWAYS use GridLayout system components
+<FlexLayout direction="row" align="center" justify="between">
+<GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
+<FlexLayout direction="column" gap="lg">
+<SplitLayout split="60/40" direction="horizontal">
+```
+
+### Layout System Components
+
+#### FlexLayout Component
+```typescript
+// Standard flex layouts
+<FlexLayout direction="row" align="center" justify="between" gap="lg">
+<FlexLayout direction="column" align="start" gap="md">
+<FlexLayout direction="row" wrap justify="center" gap="sm">
+```
+
+#### GridLayout Component  
+```typescript
+// Responsive grid layouts
+<GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
+<GridLayout columns={{ mobile: 2, desktop: 4 }} gap="md">
+<GridLayout columns={3} gap="sm"> // Simple uniform grid
+```
+
+#### SplitLayout Component
+```typescript
+// Two-panel layouts
+<SplitLayout split="50/50" direction="horizontal">
+<SplitLayout split="70/30" direction="vertical">
+```
+
+#### Container Component
+```typescript
+// Content containers with consistent padding/margins
+<Container size="sm" className="py-8">
+<Container size="lg" centered>
+```
+
+### Layout System Rules
+
+1. **NO Manual Layout Classes**: Never use `flex`, `grid`, `flex-col`, `justify-between`, `items-center`, etc. directly in className
+2. **Component-Only Layouts**: All layout must go through GridLayout system components
+3. **Responsive by Default**: Use responsive column configurations for GridLayout
+4. **Consistent Gap System**: Use gap="sm|md|lg|xl" instead of hardcoded spacing
+5. **Import Requirement**: Always import from `@/components/layout`
+
+### Layout Component Import
+```typescript
+import { GridLayout, FlexLayout, SplitLayout, Container } from '@/components/layout';
+```
+
+### Layout Migration Guidelines
+
+When updating existing components with hardcoded layout:
+1. **Identify layout patterns**: Find all divs with flex/grid classes
+2. **Map to components**: Replace with appropriate GridLayout system component
+3. **Update responsive**: Use responsive column props instead of Tailwind responsive classes
+4. **Consistent gaps**: Replace space-x/space-y with gap props
+5. **Test all breakpoints**: Ensure responsive behavior works correctly
+
+### Layout Validation Checklist
+- [ ] No manual flex/grid classes in components  
+- [ ] All layouts use GridLayout system components
+- [ ] Responsive design implemented through component props
+- [ ] Consistent gap system used throughout
+- [ ] Proper component imports from layout system
+- [ ] JSX structure properly closed (FlexLayout requires </FlexLayout>)
+
 ### Rule for Future Changes
 Client-Server Separation Rule: For all pages under /app directory, keep the page component as a server component (no 'use client' directive) responsible only for metadata exports and layout. Move all client-side logic (hooks, event handlers, UI state) to a separate client component with the 'use client' directive, named with a "Content" suffix. Always export client components through the components barrel file.
 

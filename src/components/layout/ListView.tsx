@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { ChevronRight, MoreHorizontal, Grip } from 'lucide-react';
-import { Button, Checkbox, Avatar } from '../ui';
+import React, { useState, useMemo } from 'react';
+import { ChevronRight, MoreHorizontal, Grip, List } from 'lucide-react';
+import { Button, Checkbox } from '../ui';
 import { cn } from '@/utils';
 
 export interface ListViewProps<T> {
@@ -389,6 +389,3 @@ function ListItemActions<T>({ actions, item }: ListItemActionsProps<T>): JSX.Ele
   );
 }
 
-// Add missing import
-import { useMemo } from 'react';
-import { List } from 'lucide-react';

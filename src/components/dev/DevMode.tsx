@@ -6,21 +6,17 @@ import {
   Palette, 
   User, 
   X, 
-  ChevronRight,
   Moon,
   Sun,
   Globe,
   KeyRound,
   Eye,
-  EyeOff,
-  Sparkles,
   Accessibility,
-  ToggleLeft,
-  ToggleRight,
   ChevronDown,
   ChevronUp
 } from 'lucide-react';
 import { Button, Switch, Badge, Separator } from '../ui';
+import { GridLayout, Container } from '../layout';
 import { cn } from '@/utils';
 import { useUI, useAuth } from '@/hooks';
 import { useAccessibility } from '../accessibility/AccessibilityProvider';
@@ -212,13 +208,13 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-4">
+        <Container size="full" className="space-y-8">
           {/* Theme Section */}
           <CollapsibleSection title="Theme & Appearance" icon={Palette}>
             {/* Light/Dark Mode */}
             <div className="space-y-2">
               <div className="text-xs font-medium text-muted-foreground">Mode</div>
-              <div className="grid grid-cols-2 gap-2">
+              <GridLayout columns={{ mobile: 2 }} gap="sm">
                 <Button
                   variant={!isDarkMode ? 'default' : 'outline'}
                   size="sm"
@@ -237,7 +233,7 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
                   <Moon className="h-4 w-4 mr-1" />
                   Dark
                 </Button>
-              </div>
+              </GridLayout>
             </div>
 
             <Separator />
@@ -281,7 +277,7 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
 
           {/* Language Section */}
           <CollapsibleSection title="Language" icon={Globe}>
-            <div className="grid grid-cols-2 gap-2">
+            <GridLayout columns={{ mobile: 2 }} gap="sm">
               {languages.map((lang) => (
                 <Button
                   key={lang.value}
@@ -294,7 +290,7 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
                   {lang.label}
                 </Button>
               ))}
-            </div>
+            </GridLayout>
           </CollapsibleSection>
 
           {/* Accessibility Section */}
@@ -368,7 +364,7 @@ export const DevMode = ({ className }: DevModeProps): JSX.Element | null => {
           <div className="text-xs text-muted-foreground text-center pt-2">
             Press <kbd className="px-2 py-1 bg-muted rounded">Ctrl+Shift+D</kbd> to toggle
           </div>
-        </div>
+        </Container>
       </div>
     </>
   );

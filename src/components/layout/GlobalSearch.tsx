@@ -6,15 +6,13 @@ import {
   X, 
   Loader2,
   FileText,
-  User as UserIcon,
   Hash,
   Clock,
   TrendingUp,
-  Command,
   ArrowRight,
-  Filter
 } from 'lucide-react';
 import { Button, Input, Badge } from '../ui';
+import { FlexLayout } from './';
 import { cn } from '@/utils';
 import { useUI } from '@/hooks';
 
@@ -268,7 +266,7 @@ export const GlobalSearch = ({
                   {t('search.clearFilters')}
                 </Button>
               </div>
-              <div className="flex flex-wrap gap-4">
+              <FlexLayout direction="row" wrap gap="lg">
                 {categories.map((category) => {
                   const Icon = category.icon;
                   const isActive = filters.category === category.id;
@@ -294,7 +292,7 @@ export const GlobalSearch = ({
                     </Button>
                   );
                 })}
-              </div>
+              </FlexLayout>
             </div>
           )}
 

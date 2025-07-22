@@ -56,9 +56,10 @@ export const AuthLayout = ({
   return (
     <SplitLayout
       className="min-h-screen"
-      leftPanel={(
-        <Container size="full" className="hidden lg:flex bg-gradient-to-br from-primary via-primary/90 to-primary/80 relative overflow-hidden">
-          <FlexLayout direction="column" justify="between" className="h-full w-full">
+      split="60/40"
+    >
+      <Container size="full" className="hidden lg:flex bg-gradient-to-br from-primary via-primary/90 to-primary/80 relative overflow-hidden">
+        <FlexLayout direction="column" justify="between" className="h-full w-full">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute -top-24 -left-24 w-96 h-96 bg-white rounded-full blur-3xl" />
@@ -104,57 +105,55 @@ export const AuthLayout = ({
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="relative z-10">
-              <p className="text-white/60 text-sm">
-                © 2024 TaskManager. All rights reserved.
-              </p>
+          {/* Footer */}
+          <div className="relative z-10">
+            <p className="text-white/60 text-sm">
+              © 2024 TaskManager. All rights reserved.
+            </p>
+          </div>
+        </FlexLayout>
+      </Container>
+
+      <FlexLayout direction="column" className="w-full">
+        {/* Top Navigation */}
+        <Container size="full" className="border-b border-border">
+          <FlexLayout direction="row" align="center" justify="between">
+            <Link href="/">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="rounded-xl"
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to home
+              </Button>
+            </Link>
+            
+            <div className="text-sm text-muted-foreground">
+              {type === 'login' ? (
+                <>
+                  Don't have an account?{' '}
+                  <Link 
+                    href="/signup" 
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              ) : type === 'signup' ? (
+                <>
+                  Already have an account?{' '}
+                  <Link 
+                    href="/login"
+                    className="font-semibold text-primary hover:underline"
+                  >
+                    Log in
+                  </Link>
+                </>
+              ) : null}
             </div>
           </FlexLayout>
         </Container>
-      )}
-
-      rightPanel={(
-        <FlexLayout direction="column" className="w-full">
-          {/* Top Navigation */}
-          <Container size="full" className="border-b border-border">
-            <FlexLayout direction="row" align="center" justify="between">
-              <Link href="/">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  className="rounded-xl"
-                >
-                  <ArrowLeft className="h-4 w-4 mr-2" />
-                  Back to home
-                </Button>
-              </Link>
-              
-              <div className="text-sm text-muted-foreground">
-                {type === 'login' ? (
-                  <>
-                    Don't have an account?{' '}
-                    <Link 
-                      href="/signup" 
-                      className="font-semibold text-primary hover:underline"
-                    >
-                      Sign up
-                    </Link>
-                  </>
-                ) : type === 'signup' ? (
-                  <>
-                    Already have an account?{' '}
-                    <Link 
-                      href="/login"
-                      className="font-semibold text-primary hover:underline"
-                    >
-                      Log in
-                    </Link>
-                  </>
-                ) : null}
-              </div>
-            </FlexLayout>
-          </Container>
 
           {/* Form Container */}
           <FlexLayout direction="column" align="center" justify="center" className="flex-1">
@@ -232,23 +231,22 @@ export const AuthLayout = ({
                 </>
               )}
 
-              {/* Terms */}
-              {type === 'signup' && (
-                <p className="mt-8 text-center text-sm text-muted-foreground">
-                  By signing up, you agree to our{' '}
-                  <Link href="/terms" className="font-medium text-primary hover:underline">
-                    Terms of Service
-                  </Link>{' '}
-                  and{' '}
-                  <Link href="/privacy" className="font-medium text-primary hover:underline">
-                    Privacy Policy
-                  </Link>
-                </p>
-              )}
-            </Container>
-          </FlexLayout>
+            {/* Terms */}
+            {type === 'signup' && (
+              <p className="mt-8 text-center text-sm text-muted-foreground">
+                By signing up, you agree to our{' '}
+                <Link href="/terms" className="font-medium text-primary hover:underline">
+                  Terms of Service
+                </Link>{' '}
+                and{' '}
+                <Link href="/privacy" className="font-medium text-primary hover:underline">
+                  Privacy Policy
+                </Link>
+              </p>
+            )}
+          </Container>
         </FlexLayout>
-      )}
-    />
+      </FlexLayout>
+    </SplitLayout>
   );
 };

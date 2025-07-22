@@ -229,8 +229,8 @@ export const AccessibilitySettings = (): React.ReactElement => {
               <PageSection
                 key={key}
                 variant="transparent"
-                className={`p-3 rounded-lg border ${
-                  value ? 'border-green-300 bg-green-50' : 'border-gray-200 bg-gray-50'
+                className={`p-8 rounded-xl border ${
+                  value ? 'border-success bg-success/10' : 'border-border bg-muted'
                 }`}
               >
                 <PageSection variant="transparent" className="flex justify-between items-start">

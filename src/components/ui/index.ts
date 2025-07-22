@@ -9,6 +9,9 @@ export * from './separator';
 export { Heading, AppText, type HeadingProps, type AppTextProps } from './typography';
 export * from './LanguageSelector';
 
+// Animation Components (Airbnb-style)
+export * from './animation';
+
 // Advanced UI Components
 export * from './accordion';
 export * from './alert-dialog';

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Shield, Cookie, Settings, X, Check, AlertTriangle } from 'lucide-react';
 import { Button, Card, CardContent, Switch, Separator } from '../ui';
+import { FlexLayout } from '../layout';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -113,15 +114,15 @@ export const GDPRBanner = (): React.ReactElement => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-background/95 backdrop-blur-sm border-t border-border">
+      <div className="fixed bottom-0 left-0 right-0 z-50 p-8 bg-background/95 backdrop-blur-sm border-t border-border">
         <Card className="max-w-4xl mx-auto">
-          <CardContent className="p-6">
-            <div className="flex items-start gap-4">
+          <CardContent className="p-8">
+            <FlexLayout direction="row" align="start" gap="lg">
               <div className="flex-shrink-0">
                 <Cookie className="h-6 w-6 text-primary" />
               </div>
 
-              <div className="flex-1 space-y-4">
+              <div className="flex-1 space-y-8">
                 <div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
                     Vi respekterer ditt personvern
@@ -134,7 +135,7 @@ export const GDPRBanner = (): React.ReactElement => {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <FlexLayout direction="row" wrap gap="md">
                   <Button onClick={acceptAll} className="bg-primary text-primary-foreground">
                     <Check className="h-4 w-4 mr-2" />
                     Godta alle
@@ -146,9 +147,9 @@ export const GDPRBanner = (): React.ReactElement => {
                     <Settings className="h-4 w-4 mr-2" />
                     Tilpass innstillinger
                   </Button>
-                </div>
+                </FlexLayout>
               </div>
-            </div>
+            </FlexLayout>
           </CardContent>
         </Card>
       </div>

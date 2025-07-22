@@ -7,6 +7,7 @@ import { LayoutDashboard, CheckSquare, Settings, X } from 'lucide-react';
 import { useUI } from '@/hooks';
 import { cn } from '@/utils';
 import { Button } from '../ui';
+import { FlexLayout } from './';
 
 /**
  * Navigation item interface
@@ -70,15 +71,19 @@ export const Sidebar = (): React.ReactElement => {
           sidebarOpen ? 'translate-x-0' : '-translate-x-full',
         )}
       >
-        <div className="flex h-full flex-col bg-card">
+        <div className="h-full bg-card">
+          <FlexLayout direction="column" className="h-full">
           {/* Sidebar Brand - Aligned with main header */}
-          <div className="flex h-20 items-center justify-between px-8">
-            <div className="flex items-center space-x-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg">
-                <span className="text-lg font-bold">TM</span>
+          <div className="h-20 px-8">
+            <FlexLayout direction="row" align="center" justify="between" className="h-full">
+            <FlexLayout direction="row" align="center" gap="lg">
+              <div className="h-12 w-12 rounded-xl bg-primary text-primary-foreground shadow-lg">
+                <FlexLayout direction="row" align="center" justify="center" className="h-full">
+                  <span className="text-lg font-bold">TM</span>
+                </FlexLayout>
               </div>
               <span className="text-xl font-semibold text-foreground">TaskManager</span>
-            </div>
+            </FlexLayout>
 
             {/* Close button for mobile */}
             <Button
@@ -90,6 +95,7 @@ export const Sidebar = (): React.ReactElement => {
             >
               <X className="h-5 w-5" />
             </Button>
+            </FlexLayout>
           </div>
 
           {/* Navigation */}
@@ -121,6 +127,7 @@ export const Sidebar = (): React.ReactElement => {
           <div className="border-t border-border p-8">
             <div className="text-base text-muted-foreground font-medium">Task Management v1.0</div>
           </div>
+        </FlexLayout>
         </div>
       </aside>
     </>

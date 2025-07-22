@@ -21,10 +21,10 @@ export const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline shadow-none hover:shadow-none transform-none hover:transform-none',
       },
       size: {
-        default: 'h-12 px-6 py-3 text-base',
-        sm: 'h-10 rounded-lg px-4 py-2 text-sm',
-        lg: 'h-14 rounded-xl px-8 py-4 text-lg font-bold',
-        icon: 'h-12 w-12',
+        default: 'h-16 px-8 py-4 text-base font-semibold',
+        sm: 'h-12 rounded-xl px-6 py-3 text-base font-medium',
+        lg: 'h-20 rounded-xl px-10 py-5 text-lg font-bold',
+        icon: 'h-16 w-16',
       },
     },
     defaultVariants: {

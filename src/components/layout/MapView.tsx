@@ -7,11 +7,11 @@ import {
   ZoomIn, 
   ZoomOut, 
   Layers,
-  Navigation,
   Search,
   Filter as FilterIcon
 } from 'lucide-react';
-import { Button, Input, Card, Badge } from '../ui';
+import { Button, Input, Card } from '../ui';
+import { FlexLayout } from './';
 import { cn } from '@/utils';
 
 export interface MapMarker<T> {
@@ -115,13 +115,16 @@ export function MapView<T>({
   if (loading) {
     return (
       <div 
-        className={cn('flex items-center justify-center bg-muted rounded-xl', className)}
+        className={cn('bg-muted rounded-xl', className)}
+      >
+        <FlexLayout direction="row" align="center" justify="center"
         style={{ height }}
       >
         <div className="text-center">
           <MapIcon className="h-12 w-12 text-muted-foreground mx-auto mb-4 animate-pulse" />
           <p className="text-sm text-muted-foreground">Loading map...</p>
         </div>
+        </FlexLayout>
       </div>
     );
   }
@@ -143,7 +146,8 @@ export function MapView<T>({
         }}
       >
         {/* Placeholder map visualization */}
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0">
+          <FlexLayout direction="row" align="center" justify="center" className="h-full">
           <div className="text-center">
             <MapIcon className="h-24 w-24 text-muted-foreground/30" />
             <p className="text-muted-foreground mt-4">
@@ -153,6 +157,7 @@ export function MapView<T>({
               {markers.length} markers loaded
             </p>
           </div>
+          </FlexLayout>
         </div>
 
         {/* Render markers as overlays (placeholder) */}
@@ -207,7 +212,8 @@ export function MapView<T>({
 
       {/* Map Controls */}
       {showControls && (
-        <div className="absolute bottom-4 right-4 flex flex-col space-y-2 z-10">
+        <div className="absolute bottom-4 right-4 z-10">
+          <FlexLayout direction="column" gap="sm">
           <Button
             variant="secondary"
             size="icon"
@@ -249,13 +255,14 @@ export function MapView<T>({
           >
             <Layers className="h-4 w-4" />
           </Button>
+          </FlexLayout>
         </div>
       )}
 
       {/* Marker Popup */}
       {selectedMarker && renderPopup && (
         <div className="absolute bottom-20 left-4 right-4 md:left-auto md:right-4 md:w-80 z-20">
-          <Card className="p-4 shadow-xl">
+          <Card className="p-8 shadow-xl">
             <button
               onClick={() => setSelectedMarker(null)}
               className="absolute top-2 right-2 text-muted-foreground hover:text-foreground"

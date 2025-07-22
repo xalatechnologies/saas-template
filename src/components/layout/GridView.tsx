@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { MoreVertical, Grid2x2, Grid3x3, Square } from 'lucide-react';
 import { Button, Checkbox } from '../ui';
+import { GridLayout, FlexLayout } from './';
 import { cn } from '@/utils';
 
 export interface GridViewProps<T> {
@@ -119,7 +120,8 @@ export function GridView<T>({
       {/* Density Control */}
       {showDensityControl && (
         <div className="mb-4 flex justify-end">
-          <div className="flex items-center space-x-1 bg-muted rounded-lg p-1">
+          <div className="bg-muted rounded-lg p-1">
+            <FlexLayout direction="row" align="center" gap="xs">
             <Button
               variant={density === 'compact' ? 'default' : 'ghost'}
               size="sm"
@@ -144,12 +146,20 @@ export function GridView<T>({
             >
               <Square className="h-4 w-4" />
             </Button>
+            </FlexLayout>
           </div>
         </div>
       )}
 
       {/* Grid */}
-      <div className={cn('grid', getGridClass(), gaps[gap])}>
+      <GridLayout
+        columns={{
+          mobile: columns.mobile || 1,
+          tablet: columns.tablet || 2,
+          desktop: columns.desktop || 3
+        }}
+        gap={gap}
+      >
         {data.map((item, index) => {
           const isSelected = selectedIndexes.has(index);
 
@@ -169,7 +179,7 @@ export function GridView<T>({
             </GridItem>
           );
         })}
-      </div>
+      </GridLayout>
     </div>
   );
 }
