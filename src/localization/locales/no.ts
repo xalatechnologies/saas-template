@@ -188,9 +188,10 @@ export const no = {
     close: 'Lukk',
     notifications: 'Varsler',
     moreOptions: 'Flere alternativer',
-    goToHome: 'Gå til forsiden',
+    goToHome: 'Gå til hjemmeside',
     openMenu: 'Åpne meny',
-    toggleMenu: 'Veksle meny',
+    toggleMenu: 'Bytt meny',
+    userMenu: 'Brukermeny',
     navigation: {
       home: 'Gå til forsiden',
       tasks: 'Vis oppgaver',
@@ -263,5 +264,99 @@ export const no = {
       errorId: 'Feil-ID',
       tryAgain: 'Prøv igjen',
     },
+  },
+  
+  // Landing page
+  landing: {
+    hero: {
+      badge: 'Nytt: AI-drevet oppgaveforslag',
+      heading: {
+        first: 'Administrer oppgaver med',
+        emphasis: 'Selvtillit'
+      },
+      description: 'Utviklet for moderne team med kraftige funksjoner for oppgavehåndtering, samarbeid og produktivitetsoptimalisering.',
+      getStartedButton: 'Kom i gang',
+      loginButton: 'Logg inn',
+      noCreditCard: 'Registrer deg nå og opplev forskjellen. Ingen kredittkort kreves for prøveperiode.'
+    },
+    features: {
+      heading: 'Alt du trenger for å være produktiv',
+      description: 'Kraftige funksjoner designet for å hjelpe deg med å administrere oppgaver effektivt og samarbeide sømløst.',
+    },
+    stats: {
+      users: {
+        count: '10K+',
+        label: 'Aktive brukere'
+      },
+      tasks: {
+        count: '2M+',
+        label: 'Fullførte oppgaver'
+      },
+      uptime: {
+        count: '99.9%',
+        label: 'Oppetid'
+      },
+      rating: {
+        count: '4.9',
+        label: 'Brukervurdering'
+      }
+    },
+    testimonials: {
+      heading: 'Hva brukerne våre sier',
+      description: 'Bli med tusenvis av fornøyde kunder som har transformert sin oppgavehåndteringsopplevelse.'
+    },
+    pricing: {
+      heading: 'Enkel, transparent prising',
+      description: 'Ingen skjulte avgifter eller kompliserte nivåer. Velg den planen som passer best for teamets behov.',
+      badge: {
+        mostPopular: 'Mest populær'
+      },
+      starter: {
+        name: 'Starter',
+        price: '0 kr',
+        period: 'for alltid',
+        description: 'Perfekt for enkeltpersoner og små team',
+        features: {
+          tasks: 'Opptil 10 oppgaver',
+          basic: 'Grunnleggende oppgavehåndtering',
+          mobile: 'Mobilapp-tilgang',
+          email: 'E-poststøtte'
+        }
+      },
+      professional: {
+        name: 'Profesjonell',
+        price: '120 kr',
+        period: 'per bruker/måned',
+        description: 'For voksende team og bedrifter',
+        features: {
+          unlimited: 'Ubegrensede oppgaver',
+          analytics: 'Avansert analyse',
+          collaboration: 'Teamsamarbeid',
+          priority: 'Prioritert støtte',
+          workflows: 'Tilpassede arbeidsflyter',
+          api: 'API-tilgang'
+        }
+      },
+      enterprise: {
+        name: 'Enterprise',
+        price: 'Tilpasset',
+        period: 'kontakt salg',
+        description: 'For store organisasjoner',
+        features: {
+          everything: 'Alt i Pro',
+          security: 'Avansert sikkerhet',
+          integrations: 'Tilpassede integrasjoner',
+          support: 'Dedikert støtte',
+          sla: 'SLA-garanti',
+          onpremise: 'Lokal installasjon'
+        }
+      }
+    },
+    cta: {
+      heading: 'Klar til å øke produktiviteten din?',
+      subtitle: 'Bli med tusenvis av team som allerede bruker TaskManager for å oppnå mer.',
+      freeTrialButton: 'Start gratis prøveperiode',
+      contactSalesButton: 'Kontakt salg'
+    }
   },
 };

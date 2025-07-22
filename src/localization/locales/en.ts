@@ -219,6 +219,7 @@ export const en = {
     goToHome: 'Go to homepage',
     openMenu: 'Open menu',
     toggleMenu: 'Toggle menu',
+    userMenu: 'User menu',
     navigation: {
       home: 'Go to homepage',
       tasks: 'View tasks',
@@ -289,5 +290,99 @@ export const en = {
       errorId: 'Error ID',
       tryAgain: 'Try Again',
     },
+  },
+  
+  // Landing page
+  landing: {
+    hero: {
+      badge: 'New: AI-powered task suggestions',
+      heading: {
+        first: 'Manage tasks with',
+        emphasis: 'Confidence'
+      },
+      description: 'Built for modern teams with powerful features for task management, collaboration, and productivity optimization.',
+      getStartedButton: 'Get Started',
+      loginButton: 'Log In',
+      noCreditCard: 'Sign up now and experience the difference. No credit card required for trial.'
+    },
+    features: {
+      heading: 'Everything you need to stay productive',
+      description: 'Powerful features designed to help you manage tasks efficiently and collaborate seamlessly.',
+    },
+    stats: {
+      users: {
+        count: '10K+',
+        label: 'Active Users'
+      },
+      tasks: {
+        count: '2M+',
+        label: 'Tasks Completed'
+      },
+      uptime: {
+        count: '99.9%',
+        label: 'Uptime'
+      },
+      rating: {
+        count: '4.9',
+        label: 'User Rating'
+      }
+    },
+    testimonials: {
+      heading: 'What our users say',
+      description: 'Join thousands of satisfied customers who have transformed their task management experience.'
+    },
+    pricing: {
+      heading: 'Simple, transparent pricing',
+      description: 'No hidden fees or complicated tiers. Choose the plan that works best for your team\'s needs.',
+      badge: {
+        mostPopular: 'Most Popular'
+      },
+      starter: {
+        name: 'Starter',
+        price: '$0',
+        period: 'forever',
+        description: 'Perfect for individuals and small teams',
+        features: {
+          tasks: 'Up to 10 tasks',
+          basic: 'Basic task management',
+          mobile: 'Mobile app access',
+          email: 'Email support'
+        }
+      },
+      professional: {
+        name: 'Professional',
+        price: '$12',
+        period: 'per user/month',
+        description: 'For growing teams and businesses',
+        features: {
+          unlimited: 'Unlimited tasks',
+          analytics: 'Advanced analytics',
+          collaboration: 'Team collaboration',
+          priority: 'Priority support',
+          workflows: 'Custom workflows',
+          api: 'API access'
+        }
+      },
+      enterprise: {
+        name: 'Enterprise',
+        price: 'Custom',
+        period: 'contact sales',
+        description: 'For large organizations',
+        features: {
+          everything: 'Everything in Pro',
+          security: 'Advanced security',
+          integrations: 'Custom integrations',
+          support: 'Dedicated support',
+          sla: 'SLA guarantee',
+          onpremise: 'On-premise option'
+        }
+      }
+    },
+    cta: {
+      heading: 'Ready to boost your productivity?',
+      subtitle: 'Join thousands of teams already using TaskManager to achieve more.',
+      freeTrialButton: 'Start Free Trial',
+      contactSalesButton: 'Contact Sales'
+    }
   },
 };

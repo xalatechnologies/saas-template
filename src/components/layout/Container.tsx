@@ -28,7 +28,7 @@ export const Container = ({
   return (
     <FlexLayout 
       direction="column" 
-      className={`${sizeClasses[size]} px-[var(--spacing-lg)] py-[var(--spacing-lg)] ${className || ''}`}
+      className={`${sizeClasses[size]} mx-auto px-[var(--spacing-lg)] py-[var(--spacing-lg)] ${className || ''}`}
     >
       {children}
     </FlexLayout>

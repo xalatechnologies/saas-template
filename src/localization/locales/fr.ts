@@ -146,6 +146,7 @@ export const fr = {
     goToHome: 'Aller à la page d\'accueil',
     openMenu: 'Ouvrir le menu',
     toggleMenu: 'Basculer le menu',
+    userMenu: 'Menu utilisateur',
 
     // Date/Time
     today: "Aujourd'hui",
@@ -190,5 +191,120 @@ export const fr = {
       confidential: 'Confidentiel',
       secret: 'Secret',
     },
+  },
+
+  // Error pages
+  errors: {
+    notFound: {
+      title: '404 - Page non trouvée',
+      subtitle: 'Nous ne trouvons pas la page que vous recherchez',
+      heading: 'Page non trouvée',
+      message:
+        'Désolé, mais nous ne trouvons pas la page que vous recherchez. Elle a peut-être été déplacée, renommée ou est temporairement indisponible.',
+    },
+    unexpected: {
+      title: 'Une erreur est survenue',
+      subtitle: 'Une erreur est survenue lors du traitement de votre demande',
+      heading: "Erreur d'application",
+      message:
+        'Désolé, mais une erreur inattendue est survenue. Notre équipe technique a été notifiée du problème.',
+      details: "Détails de l'erreur",
+      errorId: "ID d'erreur",
+      tryAgain: 'Réessayer',
+    },
+  },
+
+  // Landing page
+  landing: {
+    hero: {
+      badge: 'Nouveau: Suggestions de tâches alimentées par IA',
+      heading: {
+        first: 'Gérez vos tâches avec',
+        emphasis: 'Confiance'
+      },
+      description: 'Conçu pour les équipes modernes avec des fonctionnalités puissantes pour la gestion des tâches, la collaboration et l\'optimisation de la productivité.',
+      getStartedButton: 'Commencer',
+      loginButton: 'Connexion',
+      noCreditCard: 'Inscrivez-vous maintenant et faites l\'expérience de la différence. Aucune carte de crédit requise pour l\'essai.'
+    },
+    features: {
+      heading: 'Tout ce dont vous avez besoin pour rester productif',
+      description: 'Des fonctionnalités puissantes conçues pour vous aider à gérer efficacement les tâches et à collaborer sans problème.',
+    },
+    stats: {
+      users: {
+        count: '10K+',
+        label: 'Utilisateurs actifs'
+      },
+      tasks: {
+        count: '2M+',
+        label: 'Tâches terminées'
+      },
+      uptime: {
+        count: '99.9%',
+        label: 'Disponibilité'
+      },
+      rating: {
+        count: '4.9',
+        label: 'Note utilisateur'
+      }
+    },
+    testimonials: {
+      heading: 'Ce que disent nos utilisateurs',
+      description: 'Rejoignez des milliers de clients satisfaits qui ont transformé leur expérience de gestion des tâches.'
+    },
+    pricing: {
+      heading: 'Tarification simple et transparente',
+      description: 'Pas de frais cachés ni de niveaux compliqués. Choisissez le plan qui convient le mieux aux besoins de votre équipe.',
+      badge: {
+        mostPopular: 'Plus populaire'
+      },
+      starter: {
+        name: 'Débutant',
+        price: '0 €',
+        period: 'pour toujours',
+        description: 'Parfait pour les individus et les petites équipes',
+        features: {
+          tasks: 'Jusqu\'à 10 tâches',
+          basic: 'Gestion de tâches de base',
+          mobile: 'Accès à l\'application mobile',
+          email: 'Support par e-mail'
+        }
+      },
+      professional: {
+        name: 'Professionnel',
+        price: '12 €',
+        period: 'par utilisateur/mois',
+        description: 'Pour les équipes et entreprises en croissance',
+        features: {
+          unlimited: 'Tâches illimitées',
+          analytics: 'Analyses avancées',
+          collaboration: 'Collaboration d\'équipe',
+          priority: 'Support prioritaire',
+          workflows: 'Flux de travail personnalisés',
+          api: 'Accès API'
+        }
+      },
+      enterprise: {
+        name: 'Entreprise',
+        price: 'Personnalisé',
+        period: 'contacter les ventes',
+        description: 'Pour les grandes organisations',
+        features: {
+          everything: 'Tout dans Pro',
+          security: 'Sécurité avancée',
+          integrations: 'Intégrations personnalisées',
+          support: 'Support dédié',
+          sla: 'Garantie SLA',
+          onpremise: 'Option sur site'
+        }
+      }
+    },
+    cta: {
+      heading: 'Prêt à booster votre productivité?',
+      subtitle: 'Rejoignez des milliers d\'équipes qui utilisent déjà TaskManager pour accomplir davantage.',
+      freeTrialButton: 'Commencer l\'essai gratuit',
+      contactSalesButton: 'Contacter les ventes'
+    }
   },
 };

@@ -154,6 +154,7 @@ const { t } = useUI();
 - **Skip links** for navigation
 
 ```typescript
+// Example of accessible interactive element
 <Button
   aria-label={t('common.close')}
   onClick={handleClose}
@@ -161,6 +162,63 @@ const { t } = useUI();
 >
   <X className="h-5 w-5" />
 </Button>
+```
+
+### 8. CRITICAL: Component Consistency
+
+#### Button Consistency Standards
+
+- **MANDATORY Button Structure**: ALL buttons must follow these consistent patterns:
+
+  | Type | Pattern | Example |
+  |------|---------|--------|
+  | Text Button | `<Button size="lg" variant="default" aria-label={t('key')}>{t('key')}</Button>` | Primary actions |
+  | Icon Button | `<Button size="icon" variant="ghost" aria-label={t('key')}><Icon className="h-5 w-5" /></Button>` | Toolbar actions |
+  | Link Button | `<Link href="..."><Button size="lg" variant="outline" aria-label={t('key')}>{t('key')}</Button></Link>` | Navigation |
+  | CTA Button | `<Button size="lg" className="min-w-[200px] shadow-xl" aria-label={t('key')}>{t('key')}</Button>` | Hero/marketing |
+
+- **Button Properties**:
+  - All buttons MUST use one of the standard size options (`"sm"`, `"md"`, `"lg"`, `"icon"`, never custom sizes)
+  - All buttons MUST use one of the standard variants (`"default"`, `"ghost"`, `"outline"`, `"secondary"`, `"destructive"`)
+  - All buttons MUST include aria-label using translation keys
+  - Button sizing and variants MUST be consistent by section type (header, hero, form, etc.)
+  
+- **Icon Standards**:
+  - Icon-only buttons MUST use `size="icon"`
+  - Icons MUST use standard sizing: `className="h-5 w-5"` (or other design token based size)
+  - Icons MUST have consistent positioning within buttons
+
+```typescript
+// Standard icon button
+<Button 
+  size="icon" 
+  variant="ghost" 
+  aria-label={t('common.search')}
+  onClick={handleSearch}
+>
+  <Search className="h-5 w-5" />
+</Button>
+
+// Standard text button
+<Button 
+  size="lg" 
+  variant="default" 
+  aria-label={t('auth.signIn')}
+  onClick={handleSignIn}
+>
+  {t('auth.signIn')}
+</Button>
+
+// Standard link button
+<Link href="/dashboard">
+  <Button 
+    size="lg" 
+    variant="outline" 
+    aria-label={t('nav.dashboard')}
+  >
+    {t('nav.dashboard')}
+  </Button>
+</Link>
 ```
 
 ### 8. File Organization

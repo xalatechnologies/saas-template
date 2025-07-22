@@ -157,10 +157,10 @@ export const Header = ({
             {/* Search button for mobile (only for dashboard) */}
             {user && showSearch && (
               <Button
-                variant="ghost"
                 size="icon"
-                className="md:hidden"
+                variant="ghost"
                 aria-label={t('search.openSearch')}
+                className="md:hidden"
                 onClick={() => {
                   // TODO: Open mobile search modal
                 }}
@@ -171,10 +171,10 @@ export const Header = ({
 
             {/* Notifications */}
             <Button
-              variant="ghost"
               size="icon"
-              className="relative"
+              variant="ghost"
               aria-label={t('common.notifications')}
+              className="relative"
             >
               <Bell className="h-5 w-5" />
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-primary" />
@@ -184,7 +184,12 @@ export const Header = ({
             {user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <Button 
+                    size="icon" 
+                    variant="ghost" 
+                    aria-label={t('common.userMenu')}
+                    className="relative h-10 w-10 rounded-full"
+                  >
                     <Avatar
                       src={user.avatar}
                       alt={user.name}
