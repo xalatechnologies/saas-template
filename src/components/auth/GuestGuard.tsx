@@ -26,7 +26,7 @@ export const GuestGuard = ({ children }: GuestGuardProps): JSX.Element => {
     // Redirect authenticated users
     if (user) {
       const redirectUrl = searchParams.get('redirect') || '/dashboard';
-      router.push(redirectUrl);
+      router.push(redirectUrl as any);
     }
   }, [user, router, searchParams]);
 

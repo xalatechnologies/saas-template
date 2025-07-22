@@ -107,7 +107,7 @@ export const Sidebar = (): React.ReactElement => {
               return (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as any}
                   className={cn(
                     'flex items-center space-x-4 rounded-xl px-6 py-4 text-base font-medium transition-all duration-200',
                     isActive

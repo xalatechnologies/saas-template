@@ -236,43 +236,5 @@ export const SplitLayout = ({
   );
 };
 
-/**
- * Container layout component for consistent max-width and padding
- */
-interface ContainerProps {
-  readonly children: React.ReactNode;
-  readonly size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  readonly padding?: boolean;
-  readonly centered?: boolean;
-  readonly className?: string;
-}
-
-export const Container = ({
-  children,
-  size = 'lg',
-  padding = true,
-  centered = true,
-  className,
-}: ContainerProps): JSX.Element => {
-  const sizes = {
-    sm: 'max-w-3xl',
-    md: 'max-w-5xl',
-    lg: 'max-w-7xl',
-    xl: 'max-w-[90rem]',
-    full: 'max-w-full',
-  };
-
-  return (
-    <div
-      className={cn(
-        'w-full',
-        sizes[size],
-        centered && 'mx-auto',
-        padding && 'px-4 sm:px-6 lg:px-8',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
-};
+// Container component has been moved to its own file
+// See Container.tsx for the implementation

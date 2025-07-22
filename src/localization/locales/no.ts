@@ -144,6 +144,30 @@ export const no = {
     arabic: 'Arabisk',
   },
 
+  // Company & Branding
+  company: {
+    name: 'TaskManager',
+    tagline: 'Profesjonell oppgavestyring for team og enkeltpersoner.',
+  },
+
+  // Footer
+  footer: {
+    quickLinks: 'Hurtiglenker',
+    legal: 'Juridisk',
+    features: 'Funksjoner',
+    pricing: 'Priser',
+    about: 'Om oss',
+    privacyPolicy: 'Personvernerklæring',
+    termsOfService: 'Vilkår for bruk',
+    gdpr: 'GDPR',
+    copyright: '© 2024 TaskManager. Alle rettigheter forbeholdt.',
+  },
+
+  // UI Components
+  ui: {
+    assistant: 'AI-assistent',
+  },
+
   // Common
   common: {
     error: 'Feil',

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Eye, MousePointer, Brain, Volume2, Monitor, Zap, RefreshCw } from 'lucide-react';
-import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge, PageSection, ContentGrid } from '@/components';
+import { Card, CardHeader, CardTitle, CardContent, Switch, Button, Separator, Badge, PageSection, GridLayout } from '@/components';
 import { useAccessibility } from './AccessibilityProvider';
 
 export const AccessibilitySettings = (): React.ReactElement => {
@@ -224,7 +224,7 @@ export const AccessibilitySettings = (): React.ReactElement => {
           <CardTitle>Aktive innstillinger</CardTitle>
         </CardHeader>
         <CardContent>
-          <ContentGrid columns={4} gap="md">
+          <GridLayout columns={{ mobile: 2, tablet: 3, desktop: 4 }} gap="md">
             {Object.entries(settings).map(([key, value]) => (
               <PageSection
                 key={key}
@@ -245,7 +245,7 @@ export const AccessibilitySettings = (): React.ReactElement => {
                 </PageSection>
               </PageSection>
             ))}
-          </ContentGrid>
+          </GridLayout>
         </CardContent>
       </Card>
     </PageSection>

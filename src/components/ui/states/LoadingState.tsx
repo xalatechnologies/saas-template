@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Loader2 } from 'lucide-react';
-import { AppText } from '../ui';
+import { AppText } from '../typography';
 
 /**
  * Loading state component interface for consistent loading states

@@ -5,7 +5,7 @@ import { Plus, Filter, Search } from 'lucide-react';
 import {
   BasePage,
   PageSection,
-  ContentGrid,
+  GridLayout,
   EmptyState,
   LoadingState,
   TaskCard,
@@ -107,7 +107,7 @@ export const TasksContent = (): React.ReactElement => {
 
       {/* Filters */}
       <PageSection variant="card" title={t('tasks.filters.title')}>
-        <ContentGrid columns={1} gap="md">
+        <GridLayout columns={{ mobile: 1 }} gap="md">
           {/* Search input */}
           <Input
             placeholder={t('tasks.filters.searchPlaceholder')}
@@ -117,7 +117,7 @@ export const TasksContent = (): React.ReactElement => {
           />
 
           <PageSection variant="transparent" title={t('tasks.filters.status')}>
-            <ContentGrid columns={4} gap="sm">
+            <GridLayout columns={{ mobile: 2, tablet: 4 }} gap="sm">
               <Badge
                 variant={statusFilter === 'all' ? 'default' : 'outline'}
                 onClick={() => setStatusFilter('all')}
@@ -146,11 +146,11 @@ export const TasksContent = (): React.ReactElement => {
               >
                 {t('tasks.status.completed')}
               </Badge>
-            </ContentGrid>
+            </GridLayout>
           </PageSection>
 
           <PageSection variant="transparent" title={t('tasks.filters.priority')}>
-            <ContentGrid columns={4} gap="sm">
+            <GridLayout columns={{ mobile: 2, tablet: 4 }} gap="sm">
               <Badge
                 variant={priorityFilter === 'all' ? 'default' : 'outline'}
                 onClick={() => setPriorityFilter('all')}
@@ -179,9 +179,9 @@ export const TasksContent = (): React.ReactElement => {
               >
                 {t('tasks.priority.high')}
               </Badge>
-            </ContentGrid>
+            </GridLayout>
           </PageSection>
-        </ContentGrid>
+        </GridLayout>
       </PageSection>
 
       {/* Task List */}
@@ -201,7 +201,7 @@ export const TasksContent = (): React.ReactElement => {
             }
           />
         ) : (
-          <ContentGrid>
+          <GridLayout columns={{ mobile: 1, tablet: 2, desktop: 3 }} gap="lg">
             {filteredTasks.map((task) => (
               <TaskCard
                 key={task.id}
@@ -210,7 +210,7 @@ export const TasksContent = (): React.ReactElement => {
                 onDelete={handleDeleteTask}
               />
             ))}
-          </ContentGrid>
+          </GridLayout>
         )}
       </PageSection>
     </BasePage>

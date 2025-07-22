@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { BasePage, PageSection, Button, EmptyState } from '@/components';
+import { BasePage, PageSection, Button } from '@/components';
+import { EmptyState } from './EmptyState';
 import { AlertTriangle } from 'lucide-react';
 import { useUI } from '@/hooks';
 

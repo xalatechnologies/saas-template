@@ -10,7 +10,7 @@ import {
   Button,
   Badge,
   PageSection,
-  ContentGrid,
+  GridLayout,
 } from '@/components';
 import { useThemeStore } from '@/design-tokens';
 import { sectorThemes } from '@/design-tokens';
@@ -129,7 +129,7 @@ export const ThemeSettings = (): React.ReactElement => {
           <CardTitle>Theme Mode</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <ContentGrid columns={2} gap="md">
+          <GridLayout columns={{ mobile: 1, tablet: 2 }} gap="md">
             <Button
               variant={!isDarkMode ? 'default' : 'outline'}
               onClick={() => !isDarkMode || toggleDarkMode()}
@@ -144,7 +144,7 @@ export const ThemeSettings = (): React.ReactElement => {
               <Moon aria-hidden="true" />
               <span>Dark Mode</span>
             </Button>
-          </ContentGrid>
+          </GridLayout>
         </CardContent>
       </Card>
 
@@ -158,7 +158,7 @@ export const ThemeSettings = (): React.ReactElement => {
           </p>
         </CardHeader>
         <CardContent className="space-y-6">
-          <ContentGrid columns={1} gap="md">
+          <GridLayout columns={{ mobile: 1 }} gap="md">
             {sectors.map((sector) => {
               const isActive = currentTheme.sector === sector;
               const primaryColor = getSectorPrimaryColor(sector);
@@ -189,7 +189,7 @@ export const ThemeSettings = (): React.ReactElement => {
                 </Card>
               );
             })}
-          </ContentGrid>
+          </GridLayout>
         </CardContent>
       </Card>
     </PageSection>

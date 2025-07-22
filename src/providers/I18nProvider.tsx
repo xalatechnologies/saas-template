@@ -30,16 +30,23 @@ export const I18nProvider = ({ children }: I18nProviderProps): React.ReactElemen
   const { language, setLanguage } = useUIStore();
 
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('language') as Language | null;
-    if (savedLanguage && ['no', 'en', 'fr', 'ar'].includes(savedLanguage)) {
-      setLanguage(savedLanguage);
-      i18n.changeLanguage(savedLanguage);
-    } else {
-      // Default to Norwegian
-      setLanguage('no');
-      i18n.changeLanguage('no');
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('language') as Language | null;
+      if (savedLanguage && ['no', 'en', 'fr', 'ar'].includes(savedLanguage)) {
+        if (savedLanguage !== language) {
+          setLanguage(savedLanguage);
+        }
+        i18n.changeLanguage(savedLanguage);
+      } else {
+        // Default to Norwegian only if no language is set
+        if (!language || language === 'no') {
+          setLanguage('no');
+          i18n.changeLanguage('no');
+          localStorage.setItem('language', 'no');
+        }
+      }
     }
-  }, [setLanguage]);
+  }, []);
 
   useEffect(() => {
     i18n.changeLanguage(language);

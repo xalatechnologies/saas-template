@@ -48,6 +48,5 @@ export { DevMode } from './dev';
 // Re-export types for convenience
 export type { BasePageProps } from './layout/BasePage';
 export type { PageSectionProps } from './layout/PageSection';
-export type { ContentGridProps } from './layout/ContentGrid';
-export type { EmptyStateProps } from './layout/EmptyState';
-export type { LoadingStateProps } from './layout/LoadingState';
+export type { EmptyStateProps } from './ui/states/EmptyState';
+export type { LoadingStateProps } from './ui/states/LoadingState';

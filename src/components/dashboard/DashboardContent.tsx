@@ -5,7 +5,7 @@ import { Plus } from 'lucide-react';
 import {
   BasePage,
   PageSection,
-  ContentGrid,
+  GridLayout,
   EmptyState,
   LoadingState,
   TaskStats,
@@ -53,7 +53,7 @@ export const DashboardContent = (): React.ReactElement => {
       </PageSection>
 
       {/* Main Content Grid */}
-      <ContentGrid columns={3} gap="lg">
+      <GridLayout columns={{ mobile: 1, desktop: 3 }} gap="lg">
         {/* Recent Tasks - spans 2 columns */}
         <div className="lg:col-span-2">
           <PageSection
@@ -66,11 +66,11 @@ export const DashboardContent = (): React.ReactElement => {
             }
           >
             {recentTasks.length > 0 ? (
-              <ContentGrid columns={2} gap="md">
+              <GridLayout columns={{ mobile: 1, tablet: 2 }} gap="md">
                 {recentTasks.map((task) => (
                   <TaskCard key={task.id} task={task} onStatusChange={handleStatusChange} />
                 ))}
-              </ContentGrid>
+              </GridLayout>
             ) : (
               <EmptyState
                 icon={<Plus className="h-6 w-6 text-muted-foreground" />}
@@ -122,7 +122,7 @@ export const DashboardContent = (): React.ReactElement => {
             </div>
           </PageSection>
         </div>
-      </ContentGrid>
+      </GridLayout>
     </BasePage>
   );
 };

@@ -1,3 +1,6 @@
+// UI State Components
+export * from './states';
+
 // Base UI Components
 export * from './avatar';
 export * from './badge';
@@ -28,6 +31,8 @@ export * from './slider';
 export * from './switch';
 export * from './table';
 export * from './tabs';
+export { TabsLayout, TabPanel, useTabs } from './TabsLayout';
+export { FilterBar, ActiveFilters } from './FilterBar';
 export * from './textarea';
 export * from './toast';
 export * from './tooltip';

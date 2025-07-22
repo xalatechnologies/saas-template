@@ -50,7 +50,7 @@ export const LanguageSelector = ({
           variant={variant}
           size="icon"
           className={cn('rounded-xl', className)}
-          aria-label="Select language"
+          aria-label={`Select language - Current: ${currentLanguage.label}`}
         >
           <Globe className="h-4 w-4" />
         </Button>
@@ -59,14 +59,21 @@ export const LanguageSelector = ({
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code)}
+            onClick={() => {
+              if (lang.code !== language) {
+                setLanguage(lang.code);
+              }
+            }}
             className={cn(
-              'cursor-pointer',
-              language === lang.code && 'bg-accent'
+              'cursor-pointer flex items-center gap-2',
+              language === lang.code && 'bg-accent font-medium'
             )}
           >
-            <span className="mr-2 text-lg">{lang.flag}</span>
-            <span>{lang.label}</span>
+            <span className="text-lg">{lang.flag}</span>
+            <span className="flex-1">{lang.label}</span>
+            {language === lang.code && (
+              <span className="text-xs text-muted-foreground">Current</span>
+            )}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -61,10 +61,21 @@ export const useUIStore = create<UIStore>()(
         state.language = language;
       });
 
-      // Update document direction for RTL languages
-      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = language;
-      localStorage.setItem('language', language);
+      if (typeof window !== 'undefined') {
+        // Add transition class for smooth RTL switching
+        document.documentElement.classList.add('language-transition');
+        
+        // Update document direction for RTL languages
+        const isRTL = language === 'ar';
+        document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+        document.documentElement.lang = language;
+        localStorage.setItem('language', language);
+        
+        // Remove transition class after animation completes
+        setTimeout(() => {
+          document.documentElement.classList.remove('language-transition');
+        }, 300);
+      }
     },
 
     setSidebarOpen: (open: boolean): void => {

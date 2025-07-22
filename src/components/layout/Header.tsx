@@ -14,19 +14,28 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { GlobalSearch } from './GlobalSearch';
-import { Container, FlexLayout, GridLayout } from '../layout';
+import { Container, FlexLayout } from '../layout';
 
 interface HeaderProps {
   readonly children?: React.ReactNode;
   readonly showLogo?: boolean;
   readonly navigation?: readonly { href: string; label: string }[];
+  readonly variant?: 'boxed' | 'full';
+  readonly showSearch?: boolean;
 }
 
 /**
  * Application header component with navigation and user controls
+ * Supports boxed layout for landing pages and full-width for dashboard
  * @returns React.ReactElement
  */
-export const Header = ({ children, showLogo = false, navigation }: HeaderProps): React.ReactElement => {
+export const Header = ({ 
+  children, 
+  showLogo = false, 
+  navigation,
+  variant = 'full',
+  showSearch = false
+}: HeaderProps): React.ReactElement => {
   const { user, logout } = useAuth();
   const { toggleSidebar, t } = useUI();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -38,9 +47,11 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
     logout();
   };
 
+  const containerSize = variant === 'boxed' ? 'xl' : 'full';
+
   return (
     <header className="sticky top-0 z-40 h-20 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <Container size="full" className="h-full">
+      <Container size={containerSize} className="h-full">
         <FlexLayout 
           direction="row" 
           align="center" 
@@ -95,7 +106,7 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
                   {navigation.map((item) => (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={item.href as any}
                       className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {item.label}
@@ -106,8 +117,8 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
             )}
           </FlexLayout>
 
-          {/* Center - Global Search */}
-          {user && (
+          {/* Center - Global Search (only for dashboard) */}
+          {user && showSearch && (
             <Container size="sm" className="flex-1 hidden md:block">
               <GlobalSearch
                 onSearch={async (query, filters) => {
@@ -143,8 +154,8 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
             {/* Additional actions (e.g., Assistant button) */}
             {children}
 
-            {/* Search button for mobile */}
-            {user && (
+            {/* Search button for mobile (only for dashboard) */}
+            {user && showSearch && (
               <Button
                 variant="ghost"
                 size="icon"
@@ -192,12 +203,12 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>
-                    <Link href="/profile" className="flex w-full">
+                    <Link href={'/profile' as any} className="flex w-full">
                       {t('navigation.profile')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <Link href="/settings" className="flex w-full">
+                    <Link href={'/settings' as any} className="flex w-full">
                       {t('navigation.settings')}
                     </Link>
                   </DropdownMenuItem>
@@ -212,12 +223,12 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
 
       {/* Mobile Menu - only for WebLayout */}
       {showLogo && mobileMenuOpen && navigation && (
-        <Container size="full" className="lg:hidden py-6 border-t border-border">
+        <Container size={containerSize} className="lg:hidden py-6 border-t border-border">
           <FlexLayout direction="column" gap="md">
             {navigation.map((item) => (
               <Link
                 key={item.href}
-                href={item.href}
+                href={item.href as any}
                 className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -226,9 +237,7 @@ export const Header = ({ children, showLogo = false, navigation }: HeaderProps):
             ))}
             <div className="pt-4 border-t border-border">
               <FlexLayout direction="column" gap="sm">
-                <FlexLayout direction="row" justify="center">
-                  {/* LanguageSelector will be in children */}
-                </FlexLayout>
+                {/* LanguageSelector will be in children */}
                 {/* Additional mobile actions will be rendered from children */}
                 <FlexLayout direction="column" gap="xs">
                   {children}

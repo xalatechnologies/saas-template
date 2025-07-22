@@ -235,11 +235,11 @@ export const AuthLayout = ({
             {type === 'signup' && (
               <p className="mt-8 text-center text-sm text-muted-foreground">
                 By signing up, you agree to our{' '}
-                <Link href="/terms" className="font-medium text-primary hover:underline">
+                <Link href={'/terms' as any} className="font-medium text-primary hover:underline">
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="font-medium text-primary hover:underline">
+                <Link href={'/privacy' as any} className="font-medium text-primary hover:underline">
                   Privacy Policy
                 </Link>
               </p>

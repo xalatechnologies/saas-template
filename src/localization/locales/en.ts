@@ -94,6 +94,36 @@ export const en = {
     rememberMe: 'Remember me',
     noAccount: 'Don&apos;t have an account?',
     hasAccount: 'Already have an account?',
+    backToHome: 'Back to home',
+    continueWith: 'Or continue with',
+    termsAgreement: 'By signing up, you agree to our',
+    termsOfService: 'Terms of Service',
+    and: 'and',
+    privacyPolicy: 'Privacy Policy',
+    
+    // Auth Layout
+    manageTasksTitle: 'Manage Tasks with Confidence',
+    manageTasksSubtitle: 'Join thousands of teams using TaskManager to streamline their workflow and boost productivity.',
+    
+    // Features
+    features: {
+      aiPowered: {
+        title: 'AI-Powered Insights',
+        description: 'Get intelligent task recommendations and productivity analytics',
+      },
+      security: {
+        title: 'Enterprise Security',
+        description: 'Bank-level encryption and GDPR compliance built-in',
+      },
+      performance: {
+        title: 'Lightning Fast',
+        description: 'Optimized performance for teams of any size',
+      },
+      collaboration: {
+        title: 'Team Collaboration',
+        description: 'Real-time updates and seamless team coordination',
+      },
+    },
 
     // Messages
     loginSuccess: 'Login successful',
@@ -137,6 +167,32 @@ export const en = {
     english: 'English',
     french: 'French',
     arabic: 'Arabic',
+  },
+
+  // Company & Branding
+  company: {
+    name: 'TaskManager',
+    tagline: 'Professional task management solution for teams and individuals.',
+  },
+
+  // Footer
+  footer: {
+    quickLinks: 'Quick Links',
+    legal: 'Legal',
+    features: 'Features',
+    pricing: 'Pricing',
+    about: 'About',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    gdpr: 'GDPR',
+    copyright: '© 2024 TaskManager. All rights reserved.',
+  },
+
+  // UI Components
+  ui: {
+    assistant: 'AI Assistant',
+    aiAssistant: 'AI Assistant',
+    openAssistant: 'Open assistant',
   },
 
   // Common

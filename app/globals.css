@@ -3,6 +3,20 @@
 @tailwind utilities;
 
 @layer base {
+  /* Language transition for smooth RTL switching */
+  .language-transition * {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* RTL specific adjustments */
+  [dir="rtl"] {
+    text-align: right;
+  }
+  
+  [dir="rtl"] .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+
   :root {
     /* Default light theme colors - will be overridden by theme manager */
     --background: 0 0% 100%;

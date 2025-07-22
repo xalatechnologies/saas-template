@@ -368,7 +368,7 @@ export const LandingContent = (): JSX.Element => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="/contact">
+            <Link href={'/contact' as any}>
               <Button 
                 size="lg" 
                 variant="outline"
